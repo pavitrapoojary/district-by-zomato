@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>district by zomato · doodle prototype</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236830F9'/><circle cx='11' cy='16' r='4.5' fill='white'/><circle cx='12' cy='16' r='2.2' fill='%231B1530'/><circle cx='21' cy='16' r='4.5' fill='white'/><circle cx='22' cy='16' r='2.2' fill='%231B1530'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F5FC;
+  --ink: #1B1530;
+  --mut: #6E6889;
+  --sc: #FFFFFF;
+  --pri: #6830F9;
+  --pri-dark: #501CD9;
+  --pri-light: #F0EBFF;
+  --pri-glow: rgba(104, 48, 249, 0.25);
+  --accent-pink: #FF3366;
+  --accent-yellow: #FFB300;
+  --ok: #10B981;
+  --ok-bg: #E6FBF2;
+  --warn: #F59E0B;
+  --warn-bg: #FEF3C7;
+  --line: #E8E2F5;
+  --phone-bg: #FFFFFF;
+  --phone-bar: #161226;
+  --chip-bg: #EDE7FB;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F0C1B;
+    --ink: #F4F1FD;
+    --mut: #9B94B8;
+    --sc: #19142B;
+    --line: #292244;
+    --phone-bg: #141026;
+    --chip-bg: #261D42;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F0C1B;
+  --ink: #F4F1FD;
+  --mut: #9B94B8;
+  --sc: #19142B;
+  --line: #292244;
+  --phone-bg: #141026;
+  --chip-bg: #261D42;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+/* Header & Official District Logo */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  max-width: 1560px;
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--line);
+  background: var(--sc);
+  flex-shrink: 0;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.district-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+.district-logo-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #140E26;
+  padding: 5px 10px 5px 6px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(20, 14, 38, 0.25);
+}
+.district-logo-img {
+  height: 28px;
+  width: 38px;
+  object-fit: cover;
+  object-position: 25% 40%;
+  border-radius: 7px;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.district-text-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.district-main-text {
+  font-size: 19px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -0.6px;
+}
+.district-sub-text {
+  font-size: 9px;
+  font-weight: 800;
+  color: #C3B4FD;
+  letter-spacing: 0.3px;
+  margin-top: 1px;
+}
+
+/* Header Right Actions: GitHub + Switch */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gh-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 99px;
+  background: var(--sc);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 800;
+  transition: all .2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.gh-link-btn:hover {
+  background: #1B1530;
+  color: #FFF;
+  border-color: #1B1530;
+  transform: translateY(-1px);
+}
+.gh-link-btn svg {
+  flex-shrink: 0;
+}
+
+/* The Animated Doodle Eyes Logo */
+.doodle-txt {
+  display: inline-flex;
+  align-items: center;
+  color: var(--pri);
+  font-weight: 900;
+}
+.eyes-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5px;
+  margin: 0 1px;
+  vertical-align: middle;
+}
+.doodle-eye {
+  width: 16px;
+  height: 20px;
+  background: #FFF;
+  border: 2.5px solid var(--pri);
+  border-radius: 50% 50% 48% 48%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 3px rgba(0,0,0,0.15);
+}
+.pupil {
+  width: 6.5px;
+  height: 6.5px;
+  background: #1B1530;
+  border-radius: 50%;
+  position: absolute;
+  animation: eyeGlance 4.5s infinite ease-in-out;
+}
+.doodle-eye::after {
+  content: "";
+  position: absolute;
+  top: 1.5px;
+  left: 2px;
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+@keyframes eyeGlance {
+  0%, 25% { transform: translate(0, 0); }
+  30%, 45% { transform: translate(3px, -1px); }
+  50%, 65% { transform: translate(-3px, -1px); }
+  70%, 85% { transform: translate(0, 2px); }
+  90%, 100% { transform: translate(0, 0); }
+}
+
+/* Switch */
+.sw {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  background: var(--sc);
+  padding: 7px 12px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+}
+.sw i {
+  width: 34px;
+  height: 20px;
+  border-radius: 99px;
+  background: #D4CCE8;
+  position: relative;
+  transition: .2s;
+}
+.sw i:after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: .2s;
+}
+.sw.on i { background: var(--pri); }
+.sw.on i:after { left: 16px; }
+
+/* 2-Column App Workspace: Stage in Main Limelight, Tour in Right Sidebar */
+.app-workspace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1560px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 24px;
+  gap: 28px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.stage-wrapper {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar-panel {
+  width: 360px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 100%;
+}
+.tc {
+  background: var(--sc);
+  border-radius: 20px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 40px -24px var(--pri-glow);
+  position: relative;
+  max-height: min(565px, calc(100vh - 128px));
+  overflow-y: auto;
+}
+.tc h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  letter-spacing: -0.4px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+.tc h2 .step-pill {
+  font-size: 10.5px;
+  background: var(--pri-light);
+  color: var(--pri);
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.tc p {
+  margin: 0;
+  color: var(--mut);
+  line-height: 1.5;
+  font-size: 13px;
+}
+.ctl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.nav button {
+  font: 700 13px 'Plus Jakarta Sans', system-ui, sans-serif;
+  border: 0;
+  border-radius: 12px;
+  padding: 8px 15px;
+  cursor: pointer;
+  background: var(--pri-light);
+  color: var(--pri);
+  transition: all .15s ease;
+}
+.nav button.p {
+  background: var(--pri);
+  color: #fff;
+}
+.nav button.p:hover {
+  background: var(--pri-dark);
+  transform: translateY(-1px);
+}
+.nav button:disabled { opacity: 0.35; cursor: not-allowed; }
+.dots {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.dots button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  background: transparent;
+  color: var(--mut);
+  font: 800 11px 'Plus Jakarta Sans', system-ui, sans-serif;
+  cursor: pointer;
+  transition: .15s;
+}
+.dots button.on {
+  background: var(--pri);
+  color: #fff;
+  border-color: var(--pri);
+}
+.off .txt, .off .nav { display: none; }
+.off .ctl { margin-top: 0; }
+.hint {
+  display: none;
+  text-align: center;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--mut);
+  margin-bottom: 8px;
+}
+
+/* Stage & Mobile Frames */
+.stage {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-height: 100%;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: phoneSlideIn .4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes phoneSlideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* The Mobile Hardware Frame */
+.ph {
+  width: 292px;
+  height: min(560px, calc(100vh - 128px));
+  border-radius: 38px;
+  background: #FFF;
+  border: 7px solid var(--phone-bar);
+  box-shadow: 0 20px 50px -20px rgba(22, 18, 38, 0.35), 0 0 0 1px rgba(0,0,0,0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #1B1530;
+  position: relative;
+  isolation: isolate;
+}
+.sb {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 20px 4px;
+  font-size: 10.5px;
+  font-weight: 800;
+  background: inherit;
+  z-index: 10;
+  color: inherit;
+}
+.island {
+  width: 76px;
+  height: 16px;
+  background: var(--phone-bar);
+  border-radius: 20px;
+  margin: 0 auto;
+}
+
+/* Scrollable In-App Content */
+.ap {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  padding: 8px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F9F7FD 100%);
+  position: relative;
+}
+.ap::-webkit-scrollbar { display: none; }
+.ap.ch { background: #EFE9F7; }
+
+/* Phone Bottom Nav (District App) */
+.bnav {
+  height: 48px;
+  border-top: 1px solid #ECE7F6;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 4px;
+  flex: none;
+  z-index: 10;
+}
+.bnav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #8C85A8;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+}
+.bnav-item.active {
+  color: var(--pri);
+}
+.bnav-icon {
+  font-size: 16px;
+}
+.bnav-item .badge {
+  position: absolute;
+  top: -3px;
+  right: -5px;
+  background: var(--accent-pink);
+  color: #fff;
+  font-size: 8px;
+  padding: 1px 4px;
+  border-radius: 6px;
+  font-weight: 800;
+}
+
+/* User Avatar & Label below device */
+.cap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.cap span:last-child { color: var(--mut); }
+.av {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  flex: none;
+}
+
+/* UI Elements inside Mobile */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand-mark {
+  font-weight: 900;
+  font-size: 19px;
+  letter-spacing: -0.7px;
+  color: #1B1530;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.brand-mark small {
+  font-size: 9px;
+  color: var(--mut);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.h {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+.s {
+  font-size: 12px;
+  color: #6E6889;
+  line-height: 1.45;
+}
+
+/* Cards & Widgets */
+.cd {
+  background: #FFFFFF;
+  border: 1px solid #ECE7F6;
+  border-radius: 16px;
+  padding: 11px 13px;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(104, 48, 249, 0.03);
+}
+.q {
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  border: 1.5px solid var(--pri);
+  box-shadow: 0 0 0 3px var(--pri-light);
+  background: #FAF8FF;
+}
+.cur {
+  display: inline-block;
+  width: 2px;
+  height: 16px;
+  background: var(--pri);
+  margin-left: 2px;
+  vertical-align: -3px;
+  animation: cursorBlink 1s steps(1) infinite;
+}
+@keyframes cursorBlink { 50% { opacity: 0; } }
+
+.loc {
+  display: inline-flex;
+  gap: 5px;
+  align-self: flex-start;
+  font-size: 11.5px;
+  font-weight: 800;
+  background: var(--pri-light);
+  color: var(--pri);
+  padding: 5px 11px;
+  border-radius: 99px;
+}
+
+.pr {
+  border: 1.5px dashed #C9BEEC;
+  border-radius: 12px;
+  padding: 9px 11px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s ease;
+  background: #FFF;
+}
+.pr:hover { border-color: var(--pri); }
+.pr.on {
+  border-style: solid;
+  border-color: var(--pri);
+  background: var(--pri-light);
+  color: var(--pri);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 9px;
+  border-radius: 99px;
+  background: var(--pri-light);
+  color: var(--pri);
+}
+.chip.ok { background: var(--ok-bg); color: var(--ok); }
+.chip.wn { background: var(--warn-bg); color: var(--warn); }
+.chip.rd { background: #FFEBEF; color: var(--accent-pink); }
+
+.btn {
+  margin-top: auto;
+  background: var(--pri);
+  color: #fff;
+  border: 0;
+  border-radius: 16px;
+  padding: 13px;
+  font: 800 13.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+  width: 100%;
+  cursor: pointer;
+  flex: none;
+  transition: .15s ease;
+  box-shadow: 0 8px 18px -4px var(--pri-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn:hover { background: var(--pri-dark); }
+.btn.g { background: var(--pri-light); color: var(--pri); margin-top: 0; box-shadow: none; }
+.btn.done { background: var(--ok); color: #fff; box-shadow: none; }
+
+/* Timeline Slots */
+.sl {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 8px;
+  align-items: start;
+  animation: slotIn .35s ease both;
+}
+@keyframes slotIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.tm {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--pri);
+  padding-top: 8px;
+  line-height: 1.25;
+}
+.sl .cd { padding: 9px 11px; }
+.alt {
+  font-size: 11px;
+  color: #6E6889;
+  margin-top: 4px;
+  border-top: 1px dashed var(--line);
+  padding-top: 4px;
+}
+
+/* Polling & Sliders */
+.opt {
+  border: 1.5px solid var(--line);
+  border-radius: 13px;
+  padding: 9px 11px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 7px;
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  background: #FFF;
+  transition: .15s;
+}
+.opt.on {
+  border-color: var(--pri);
+  background: var(--pri-light);
+}
+.bar {
+  height: 6px;
+  border-radius: 9px;
+  background: #ECE7F6;
+  overflow: hidden;
+  margin: 5px 0 9px;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--pri);
+  border-radius: 9px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  padding: 2.5px 0;
+}
+.bub {
+  max-width: 86%;
+  padding: 9px 12px;
+  border-radius: 16px;
+  font-size: 12.5px;
+  line-height: 1.38;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.bub.me {
+  align-self: flex-end;
+  background: #DCF8C6;
+  color: #123315;
+}
+.lk {
+  margin-top: 7px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--pri-light);
+  padding: 10px;
+  font-size: 11.5px;
+  box-shadow: 0 4px 14px rgba(104,48,249,0.08);
+}
+.lk-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.lk-badge {
+  background: var(--pri);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+.slider {
+  height: 6px;
+  border-radius: 9px;
+  background: #ECE7F6;
+  position: relative;
+  margin: 12px 4px 6px;
+}
+.slider i {
+  position: absolute;
+  left: 20%;
+  width: 50%;
+  top: 0;
+  bottom: 0;
+  background: var(--pri);
+  border-radius: 9px;
+}
+.slider-handle {
+  position: absolute;
+  top: -5px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border: 3px solid var(--pri);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.slider-handle.l { left: 18%; }
+.slider-handle.r { left: 68%; }
+
+.ai {
+  display: flex;
+  gap: 7px;
+  font-size: 12px;
+  padding: 2.5px 0;
+  line-height: 1.35;
+}
+.ai:before {
+  content: "✓";
+  color: var(--ok);
+  font-weight: 900;
+}
+
+/* Spinner Loader */
+.ld {
+  margin: auto;
+  text-align: center;
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+.sp {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 5px solid var(--pri-light);
+  border-top-color: var(--pri);
+  animation: rot .8s linear infinite;
+}
+@keyframes rot { to { transform: rotate(1turn); } }
+
+/* Footer */
+.app-footer {
+  padding: 8px 20px;
+  border-top: 1px solid var(--line);
+  background: var(--sc);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mut);
+  flex-shrink: 0;
+}
+.footer-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.creator-link {
+  color: var(--pri);
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  background: var(--pri-light);
+  padding: 3px 10px;
+  border-radius: 99px;
+  transition: all .2s ease;
+}
+.creator-link:hover {
+  background: var(--pri);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.footer-dot {
+  opacity: 0.4;
+}
+
+/* District App Home Screen Components */
+.dist-hero {
+  background: linear-gradient(135deg, #3B0078 0%, #6830F9 100%);
+  border-radius: 20px;
+  padding: 14px 15px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 24px -6px rgba(104, 48, 249, 0.45);
+}
+.dist-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(8px);
+  padding: 3px 8px;
+  border-radius: 99px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.dist-hero h3 {
+  margin: 6px 0 3px;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+}
+.dist-hero p {
+  margin: 0 0 12px;
+  font-size: 11.5px;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+.dist-hero-btn {
+  background: #FFF;
+  color: var(--pri);
+  border: 0;
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.dist-cats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  margin-top: 4px;
+}
+.dist-cat-item {
+  background: #FFF;
+  border: 1px solid #ECE7F6;
+  border-radius: 13px;
+  padding: 8px 4px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.dist-cat-icon {
+  font-size: 20px;
+}
+
+/* ==========================================================
+   STRICT IN-SCREEN HURRAY & CONFETTI (Contained within mobile)
+   ========================================================== */
+.in-phone-celebrate {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 40;
+  border-radius: 34px;
+}
+.in-phone-confetti-piece {
+  position: absolute;
+  top: -16px;
+  width: 7px;
+  height: 12px;
+  border-radius: 2px;
+  animation: inPhoneConfettiFall linear forwards;
+}
+@keyframes inPhoneConfettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(580px) rotate(720deg); opacity: 0; }
+}
+.in-phone-hurray-bubble {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  background: #FFFFFF;
+  color: var(--pri);
+  font-weight: 800;
+  font-size: 13.5px;
+  padding: 10px 16px;
+  border-radius: 20px;
+  box-shadow: 0 16px 36px -8px rgba(104, 48, 249, 0.5), 0 0 0 1px var(--line);
+  white-space: nowrap;
+  animation: inPhonePop 2.6s cubic-bezier(0.2, 1.4, 0.4, 1) forwards;
+  z-index: 45;
+  text-align: center;
+}
+@keyframes inPhonePop {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(-6deg); opacity: 0; }
+  18% { transform: translate(-50%, -50%) scale(1.06) rotate(2deg); opacity: 1; }
+  30% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0; }
+}
+
+@media (max-width: 960px), (max-height: 580px) {
+  body {
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
+  }
+  .app-workspace {
+    flex-direction: column;
+    gap: 20px;
+    padding: 14px 16px;
+    height: auto;
+    overflow: visible;
+  }
+  .sidebar-panel {
+    width: 100%;
+  }
+  .stage {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    justify-content: flex-start;
+    padding-bottom: 8px;
+  }
+  .col {
+    flex-shrink: 0;
+    scroll-snap-align: center;
+  }
+  .hint:not([hidden]) { display: block; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <a href="#" class="district-brand-link" aria-label="district by zomato">
+      <div class="district-logo-badge">
+        <img src="https://rukmini1.flixcart.com/image/1500/1500/xif0q/e-gift-voucher/v/w/e/open-anyone-district-by-zomato-100-original-imahhmcpztega5nu.jpeg?q=70"
+             alt="district by zomato"
+             class="district-logo-img"
+             onerror="this.style.display='none'" />
+        <div class="district-text-group">
+          <span class="district-main-text">district</span>
+          <span class="district-sub-text">by zomato</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="header-actions">
+    <a href="https://github.com/pavitrapoojary/district-by-zomato"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="gh-link-btn"
+       title="View project on GitHub"
+       aria-label="GitHub Repository">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+      </svg>
+      <span class="gh-text">GitHub</span>
+    </a>
+    <div class="sw on" id="sw" role="switch" aria-checked="true" tabindex="0">
+      <span>Guided Tour</span><i></i>
+    </div>
+  </div>
+</header>
+
+<div class="app-workspace">
+  <!-- Phones Stage in Main Light -->
+  <div class="stage-wrapper">
+    <div class="hint" id="hint">Swipe sideways to see other phones →</div>
+    <main class="stage" id="stage"></main>
+  </div>
+
+  <!-- Instructions Panel on Right Side -->
+  <aside class="sidebar-panel">
+    <div class="tc" id="tc"></div>
+  </aside>
+</div>
+
+<footer class="app-footer">
+  <div class="footer-content">
+    <span>Made with curiosity by</span>
+    <a href="https://pavitra-poojary.vercel.app/" target="_blank" rel="noopener noreferrer" class="creator-link">
+      <span>Pavitra Poojary</span>
+    </a>
+    <span class="footer-dot">·</span>
+    <span>district by zomato · interactive experience</span>
+  </div>
+</footer>
+
+<script>
+(()=>{
+// Creative eye-branded Doodle logo helper
+const DOODLE_LOGO = `<span class="doodle-txt">d<span class="eyes-container"><span class="doodle-eye"><i class="pupil"></i></span><span class="doodle-eye"><i class="pupil"></i></span></span>dle</span>`;
+
+const P = {
+  R: ['Ranveer', 'Host · Squad Organiser', '#6830F9'],
+  V: ['Virat', 'Squad · Vegan foodie', '#E8890C'],
+  D: ['Deepika', 'Squad · Movie lover', '#D6336C'],
+  K: ['Kartik', 'Squad · Wildcard planner', '#10B981'],
+  S: ['Shraddha', 'Squad · Dessert scout', '#2D7FF9']
+};
+
+const SC = [
+  {
+    l: '🎂 Birthday in T Nagar (2 PM - 11 PM)',
+    a: 'T Nagar',
+    g: 'Ananya’s B’day Squad 🎂',
+    ti: 'Ananya’s Birthday Doodle',
+    d: 'Sat 31 Oct',
+    by: 'Fri 8 PM',
+    p: 'Birthday outing from 2 pm at T Nagar till 11 pm, 6 of us, one vegan, budget flexible',
+    st: [
+      ['2:00 PM', '🍽', 'Late lunch · Banana Leaf Social', 'Pondy Bazaar · vegan thali sorted ✓'],
+      ['3:45 PM', '🛍', 'Gift hunt · Pondy Bazaar', 'District Verified · quick stroll'],
+      ['5:30 PM', '🎬', 'Movie · Nova Cinemas', 'Usman Road · 6 seats together held'],
+      ['8:30 PM', '🥘', 'Dinner · Kolam Kitchen', 'Table for 6 · plant-based options ✓'],
+      ['10:00 PM', '🍨', 'Dessert · Scoops & Stories', 'Late night open till 11:30 PM']
+    ],
+    v: 3,
+    o: ['Kolam Kitchen', 'Marina Brew House'],
+    os: ['Plant-based feast ✓ (4.8★)', '2 vegan dishes + rooftop (4.6★)'],
+    idea: 'VR Escape room before dessert?',
+    h: [2, 3],
+    hs: ['5:30 → 6:15 PM', '8:30 → 9:15 PM'],
+    cs: 'Movie show delayed by 45 mins',
+    c: [['Movie tickets (6 seats)', 540], ['Dessert pre-order', 420]],
+    n: '🎂 Birthday girl’s share is automatically covered by the group.'
+  },
+  {
+    l: '🏖 Cousins’ Sunday in Besant Nagar',
+    a: 'Besant Nagar',
+    g: 'Cousins Gang 🏖',
+    ti: 'Cousins Sunday Beach Hang',
+    d: 'Sun 1 Nov',
+    by: 'Sat 8 PM',
+    p: 'Cousins’ Sunday at Besant Nagar, 11 am to 6 pm, 6 of us, one vegan foodie',
+    st: [
+      ['11:00 AM', '🏏', 'Beach cricket · Elliot’s Beach', 'Bring a bat · coastal breeze'],
+      ['1:00 PM', '🍛', 'Lunch · Seaview Kitchen', 'Table for 6 reserved · vegan thali ✓'],
+      ['3:30 PM', '🎳', 'Bowling · Strike Zone Besant', '2 lanes booked · 90 min'],
+      ['5:15 PM', '☕', 'Sunset Coffee · Kaapi Corner', 'Outdoor seaside seating']
+    ],
+    v: 1,
+    o: ['Seaview Kitchen', 'Banyan Bites Cafe'],
+    os: ['Traditional vegan spread ✓', 'Coastal continental + juices'],
+    idea: 'Pottery session at Kalakshetra?',
+    h: [2, 3],
+    hs: ['3:30 → 4:15 PM', '5:15 → 6:00 PM'],
+    cs: 'Bowling lanes undergoing maintenance',
+    c: [['Bowling slots (2 lanes)', 420], ['Kaapi & snacks hold', 210]],
+    n: ''
+  },
+  {
+    l: '💼 Team Friday on OMR',
+    a: 'OMR Expressway',
+    g: 'Team Friday Chill 💼',
+    ti: 'Tech Team Outing Doodle',
+    d: 'Fri 30 Oct',
+    by: 'Thu 6 PM',
+    p: 'Team outing on OMR, Friday 4 pm to 10 pm, 6 of us, one vegan, fun activities',
+    st: [
+      ['4:00 PM', '🏎', 'Go-karting · Race Lab OMR', 'Slots for 6 · high-speed track'],
+      ['6:00 PM', '🏟', 'Box Cricket · Turf 9', '2 floodlight matches · 90 min'],
+      ['8:30 PM', '🍽', 'Dinner · Spice Route Social', 'Table for 6 reserved · craft brews & mocktails']
+    ],
+    v: 2,
+    o: ['Spice Route Social', 'Grill & Chill Yard'],
+    os: ['Dedicated vegan menu ✓', 'Live music & smokey bbq'],
+    idea: 'Live pub trivia during dinner?',
+    h: [1, 2],
+    hs: ['6:00 → 6:45 PM', '8:30 → 9:15 PM'],
+    cs: 'Rain delay on open karting track',
+    c: [['Go-karting grid slots', 680], ['Turf booking', 320]],
+    n: ''
+  }
+];
+
+let curStep = 0;
+let sc = 0;
+let guided = true;
+
+const sh = s => s[2].split(' · ')[0];
+
+// Phone template with safe areas and bottom navigation where appropriate
+const phoneShell = (userKey, bodyHtml, options = {}) => {
+  const user = P[userKey];
+  const isDistrictApp = options.showDistrictNav;
+  const isChat = options.isChat;
+
+  const bnavHtml = isDistrictApp ? `
+    <div class="bnav">
+      <div class="bnav-item ${options.activeTab === 'explore' ? 'active' : ''}">
+        <span class="bnav-icon">🧭</span>
+        <span>Explore</span>
+      </div>
+      <div class="bnav-item ${options.activeTab === 'doodle' ? 'active' : ''}" data-a="launch-doodle">
+        <span class="bnav-icon">👀</span>
+        <span>doodle</span>
+        <span class="badge">NEW</span>
+      </div>
+      <div class="bnav-item">
+        <span class="bnav-icon">🎟️</span>
+        <span>Bookings</span>
+      </div>
+      <div class="bnav-item">
+        <span class="bnav-icon">👤</span>
+        <span>Profile</span>
+      </div>
+    </div>` : '';
+
+  return `
+    <div class="col" data-phone-id="${userKey}">
+      <div class="ph">
+        <div class="sb">
+          <span>9:41</span>
+          <div class="island"></div>
+          <span>5G ▮▮▮</span>
+        </div>
+        <div class="ap ${isChat ? 'ch' : ''}">
+          ${bodyHtml}
+        </div>
+        ${bnavHtml}
+      </div>
+      <div class="cap">
+        <span class="av" style="background:${user[2]}">${user[0][0]}</span>
+        <b>${user[0]}</b>
+        <span>${user[1]}</span>
+      </div>
+    </div>
+  `;
+};
+
+// Top app header inside the phone
+const distHeader = (rightTag = '') => `
+  <div class="top">
+    <span class="brand-mark">
+      district<small style="color:var(--pri);font-weight:800">by zomato</small>
+    </span>
+    <span class="chip">${rightTag || DOODLE_LOGO}</span>
+  </div>
+`;
+
+const avBadge = k => `<span class="av" style="background:${P[k][2]}">${P[k][0][0]}</span>`;
+
+const slotCards = (arr, altObj) => arr.map((s, k) => `
+  <div class="sl" style="animation-delay:${k*75}ms">
+    <div class="tm">${s[0].replace(' ', '<br>')}</div>
+    <div class="cd">
+      <b>${s[1]} ${s[2]}</b>
+      <div class="s">${s[3]}</div>
+      ${altObj && altObj[k] ? `<div class="alt">⚡ Alternate choice: <b>${altObj[k]}</b></div>` : ''}
+    </div>
+  </div>
+`).join('');
+
+// Strict in-screen celebration / confetti
+function celebrateInsidePhone(targetPhoneKey, messageText) {
+  const col = document.querySelector(`.col[data-phone-id="${targetPhoneKey}"]`);
+  if (!col) return;
+  const ph = col.querySelector('.ph');
+  if (!ph) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'in-phone-celebrate';
+  const colors = ['#6830F9', '#FF3366', '#FFB300', '#10B981', '#2D7FF9', '#FF6B00'];
+
+  let inner = `<div class="in-phone-hurray-bubble">${messageText}</div>`;
+  for (let k = 0; k < 50; k++) {
+    const leftPct = (Math.random() * 92) + 4;
+    const dur = 1.4 + Math.random() * 1.0;
+    const del = Math.random() * 0.4;
+    const clr = colors[k % colors.length];
+    inner += `<i class="in-phone-confetti-piece" style="left:${leftPct}%;background:${clr};animation-duration:${dur}s;animation-delay:${del}s"></i>`;
+  }
+  wrap.innerHTML = inner;
+  ph.appendChild(wrap);
+  setTimeout(() => wrap.remove(), 2900);
+}
+
+// Prototype Step Definitions
+const STEPS = [
+  {
+    t: 'Start in District App: Discover Doodle',
+    d: 'District by Zomato is the go-to app for going out. Right on the home feed and bottom nav bar, squad planners discover "doodle" — designed to kill group chat indecision.',
+    p: () => {
+      const cur = SC[sc];
+      const homeHtml = `
+        <div class="top">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:18px">📍</span>
+            <div>
+              <b style="font-size:12px;display:flex;align-items:center;gap:3px">${cur.a}, Chennai <span style="font-size:9px">▾</span></b>
+              <div class="s" style="font-size:10px">Poes Garden · Within 5 km</div>
+            </div>
+          </div>
+          <span class="av" style="background:${P.R[2]}">${P.R[0][0]}</span>
+        </div>
+
+        <div class="cd" style="padding:9px 12px;background:#F6F4FC;display:flex;align-items:center;gap:8px;border-radius:14px;border:none">
+          <span style="opacity:0.6">🔍</span>
+          <span class="s" style="font-size:12px">Search dining, live gigs, movies…</span>
+        </div>
+
+        <!-- DOODLE HERO BANNER -->
+        <div class="dist-hero">
+          <div class="dist-hero-badge">✨ NEW ON DISTRICT</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:6px">
+            <span class="doodle-txt" style="color:#FFF;font-size:22px">
+              d<span class="eyes-container"><span class="doodle-eye" style="border-color:#FFF"><i class="pupil"></i></span><span class="doodle-eye" style="border-color:#FFF"><i class="pupil"></i></span></span>dle
+            </span>
+            <span style="font-size:13px;font-weight:800;opacity:0.9">by district</span>
+          </div>
+          <h3>Tired of "anything is fine"?</h3>
+          <p>Doodle sketches the ultimate squad plan in 1 tap: live seats, verified tables & instant UPI splits.</p>
+          <button class="dist-hero-btn" data-a="launch-doodle">
+            <span>Doodle with squad</span>
+            <span style="font-size:15px">→</span>
+          </button>
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px">
+          <b style="font-size:13px">Explore Chennai</b>
+          <span style="font-size:11px;color:var(--pri);font-weight:700">See all ▾</span>
+        </div>
+
+        <div class="dist-cats">
+          <div class="dist-cat-item"><span class="dist-cat-icon">🍽️</span><span>Dining</span></div>
+          <div class="dist-cat-item"><span class="dist-cat-icon">🎬</span><span>Movies</span></div>
+          <div class="dist-cat-item"><span class="dist-cat-icon">🎳</span><span>Turfs & Fun</span></div>
+          <div class="dist-cat-item"><span class="dist-cat-icon">🍸</span><span>Nightlife</span></div>
+        </div>
+
+        <div class="cd" style="margin-top:2px">
+          <div class="s" style="margin-bottom:2px">🔥 Trending in ${cur.a}</div>
+          <b>Nova IMAX · Usman Road</b>
+          <div class="s">85% tickets booked for Saturday</div>
+        </div>
+      `;
+      return [phoneShell('R', homeHtml, { showDistrictNav: true, activeTab: 'explore' })];
+    }
+  },
+
+  {
+    t: 'Sketch the Squad Vibe',
+    d: 'Ranveer starts a Doodle. He doesn’t fill out 10 boring filters — he just talks to Doodle like he would text a friend. One vegan, flexible budget, T Nagar afternoon to night.',
+    p: () => {
+      const cur = SC[sc];
+      const inputHtml = `
+        ${distHeader()}
+        <span class="loc">📍 ${cur.a}, Chennai ▾</span>
+        <div class="h">Sketch your plan</div>
+        <div class="s">Doodle checks live tables, movie halls & travel buffers instantly.</div>
+
+        <div class="cd q" id="q">
+          “${cur.p}”<span class="cur"></span>
+        </div>
+
+        <div class="s" style="font-weight:700;margin-top:2px">Try another Chennai prompt:</div>
+        ${SC.map((y, n) => `
+          <div class="pr ${n === sc ? 'on' : ''}" data-sc="${n}" tabindex="0">
+            ${y.l}
+          </div>
+        `).join('')}
+
+        <button class="btn" data-a="build">
+          <span>Doodle this plan ✨</span>
+        </button>
+      `;
+      return [phoneShell('R', inputHtml, { showDistrictNav: true, activeTab: 'doodle' })];
+    }
+  },
+
+  {
+    t: 'Doodle Drafts the Canvas',
+    d: 'AI stitches together real-time availability in Chennai. Ranveer gets a complete multi-stop timeline with dietary safety and hold timers. Nothing is charged yet.',
+    p: () => {
+      const cur = SC[sc];
+      const al = {};
+      al[cur.v] = cur.o[1];
+      const planHtml = `
+        ${distHeader('Draft Canvas')}
+        <div class="h">Here’s your draft doodle</div>
+        <div class="s">Live holds active for 15 mins. Your friends can vote on alternates!</div>
+
+        ${slotCards(cur.st, al)}
+
+        <div class="cd row">
+          <span>Replies cutoff: <b>${cur.by}</b></span>
+          <span class="chip wn">Auto-lock</span>
+        </div>
+
+        <button class="btn" data-a="next">
+          <span>Send Doodle to WhatsApp squad 🚀</span>
+        </button>
+      `;
+      return [phoneShell('R', planHtml)];
+    }
+  },
+
+  {
+    t: 'One Interactive Link in the Group Chat',
+    d: 'A rich Doodle card drops into the WhatsApp group. Friends don’t need to download anything; tapping it opens a 30-second interactive mini-app in their mobile browser.',
+    p: () => {
+      const cur = SC[sc];
+      const cardHtml = `
+        <div class="lk">
+          <div class="lk-head">
+            <span class="lk-badge">DOODLE</span>
+            <b>${cur.ti}</b>
+          </div>
+          <div class="s">${cur.d} · ${cur.st.length} curated stops · Voting closes ${cur.by}</div>
+          <div style="margin-top:6px;font-size:11px;color:var(--pri);font-weight:800">
+            👉 district.in/doodle/chennai-${sc + 1}
+          </div>
+        </div>
+      `;
+
+      const ranveerChat = `
+        <div class="top">
+          <b>${cur.g}</b>
+          <span class="s">6 members</span>
+        </div>
+        <div class="bub me">
+          Guys, instead of 60 texts, vote on this Doodle in 30 seconds! Everything is held:
+          ${cardHtml}
+        </div>
+        <div class="bub">On it! 🔥</div>
+        <div class="bub">Checking now 🙌</div>
+      `;
+
+      const viratChat = `
+        <div class="top">
+          <b>${cur.g}</b>
+          <span class="s">6 members</span>
+        </div>
+        <div class="bub">
+          Guys, instead of 60 texts, vote on this Doodle in 30 seconds! Everything is held:
+          ${cardHtml}
+        </div>
+        <div class="bub me">Opening now!</div>
+        <button class="btn" data-a="next">
+          <span>Open Doodle Link 👀</span>
+        </button>
+      `;
+
+      return [
+        phoneShell('R', ranveerChat, { isChat: true }),
+        phoneShell('V', viratChat, { isChat: true })
+      ];
+    }
+  },
+
+  {
+    t: 'The Squad Responds in 30 Seconds',
+    d: 'Three friends on three phones at the same time: Virat flags his vegan requirement, Deepika votes anonymously between dinner spots, and Kartik proposes a wildcard activity.',
+    p: () => {
+      const cur = SC[sc];
+
+      // Virat's phone: dietary & budget
+      const viratHtml = `
+        ${distHeader()}
+        <div class="h">Hi Virat 👋</div>
+        <span class="chip ok">+91 98••• ••210 verified</span>
+
+        <div class="cd">
+          <b>Will you be there?</b>
+          <div class="opt on">
+            <span>Count me in for all stops 🙌</span>
+            <span>✓</span>
+          </div>
+        </div>
+
+        <div class="cd">
+          <b>Dietary preferences</b>
+          <div style="margin-top:7px;display:flex;gap:4px;flex-wrap:wrap">
+            <span class="chip ok">Vegan ✓</span>
+            <span class="chip" style="opacity:0.5">Jain</span>
+            <span class="chip" style="opacity:0.5">Gluten-free</span>
+          </div>
+        </div>
+
+        <div class="cd">
+          <b>Comfortable budget per person</b>
+          <div class="slider">
+            <i></i>
+            <span class="slider-handle l"></span>
+            <span class="slider-handle r"></span>
+          </div>
+          <div class="s">₹1,500 – ₹2,500 · completely anonymous</div>
+        </div>
+
+        <button class="btn" data-a="tick" data-target="V" data-t="Preferences Saved ✓">
+          <span>Save my choices</span>
+        </button>
+      `;
+
+      // Deepika's phone: anonymous A/B vote
+      const deepikaHtml = `
+        ${distHeader()}
+        <div class="h">Vote: ${sh(cur.st[cur.v])}</div>
+        <div class="s">Votes are anonymous. Only the winning venue is shown to the group.</div>
+
+        <div class="cd">
+          <div class="opt on" tabindex="0">
+            <span><b>${cur.o[0]}</b><br><small style="color:var(--mut)">${cur.os[0]}</small></span>
+            <span>●</span>
+          </div>
+          <div class="opt" tabindex="0">
+            <span><b>${cur.o[1]}</b><br><small style="color:var(--mut)">${cur.os[1]}</small></span>
+            <span>○</span>
+          </div>
+        </div>
+
+        <div class="cd s" style="background:#FAF8FF">
+          🌱 Both options verified for Virat’s vegan requirement by District AI.
+        </div>
+
+        <button class="btn" data-a="tick" data-target="D" data-t="Vote Cast ✓">
+          <span>Lock my vote</span>
+        </button>
+      `;
+
+      // Kartik's phone: live suggestion
+      const kartikHtml = `
+        ${distHeader()}
+        <div class="h">Suggest a twist?</div>
+        <div class="s">Type an idea. Doodle checks real-time slots before pitching to the squad.</div>
+
+        <div class="cd q" style="font-size:13.5px">
+          ${cur.idea}<span class="cur"></span>
+        </div>
+
+        <div class="cd">
+          <div class="s" style="margin-bottom:4px"><b>Live District Verification:</b></div>
+          <div class="ai">Open at 9:15 PM</div>
+          <div class="ai">Seats 6 people together</div>
+          <div class="ai">Fits within squad budget</div>
+        </div>
+
+        <button class="btn" data-a="tick" data-target="K" data-t="Suggestion Added ✓">
+          <span>Add to group canvas</span>
+        </button>
+      `;
+
+      return [
+        phoneShell('V', viratHtml),
+        phoneShell('D', deepikaHtml),
+        phoneShell('K', kartikHtml)
+      ];
+    }
+  },
+
+  {
+    t: 'The Organiser’s Radar Comes Together',
+    d: 'Ranveer’s screen updates live as the squad answers. Names appear only for headcounts; dietary needs and budget limits are reconciled smoothly without awkward banter.',
+    p: () => {
+      const cur = SC[sc];
+      const hostHtml = `
+        ${distHeader('Consensus Radar')}
+        <div class="h">5 of 5 Replied 🎉</div>
+
+        <div class="row">
+          <span>${['R','V','D','K','S'].map(avBadge).join(' ')}</span>
+          <span class="chip ok">All 6 Squad in</span>
+        </div>
+
+        <div class="cd">
+          <b>Live Poll: ${sh(cur.st[cur.v])}</b>
+          <div class="row" style="margin-top:6px">
+            <span>${cur.o[0]}</span>
+            <b>62% (Winner)</b>
+          </div>
+          <div class="bar"><i style="width:62%"></i></div>
+          <div class="row">
+            <span>${cur.o[1]}</span>
+            <b>38%</b>
+          </div>
+          <div class="bar"><i style="width:38%;background:#B9A4FF"></i></div>
+          <div class="s">Votes kept anonymous</div>
+        </div>
+
+        <div class="cd">
+          <div class="ai">Virat’s vegan meal confirmed with chef</div>
+          <div class="ai">Combined budget matches (avg ₹1,850)</div>
+          <div class="ai">Kartik’s idea added as optional bonus</div>
+        </div>
+
+        <button class="btn" data-a="lock">
+          <span>Lock Doodle & Book Seats 🔒</span>
+        </button>
+      `;
+      return [phoneShell('R', hostHtml)];
+    }
+  },
+
+  {
+    t: 'Instant 1-Tap SplitPay via UPI',
+    d: 'No one has to front ₹4,000 and chase people on GPay for two weeks. Doodle books the movie tickets and dinner table, then splits the bill automatically. Tap "Pay" on Deepika’s phone!',
+    p: () => {
+      const cur = SC[sc];
+      const total = cur.c.reduce((a, b) => a + b[1], 0);
+
+      const hostBookingHtml = `
+        ${distHeader('Instant Booking')}
+        <div class="h">Live Squad SplitPay</div>
+
+        <div class="cd">
+          ${cur.st.slice(0, 3).map(s => `<div class="ai">${s[1]} ${sh(s)} confirmed</div>`).join('')}
+          <div class="ai">Split payment requests dispatched</div>
+        </div>
+
+        <div class="cd">
+          <b>Payment Radar (6 people)</b>
+          <div class="row" style="margin-top:6px">
+            <span>${avBadge('R')} Ranveer</span>
+            <span class="chip ok">Paid ✓</span>
+          </div>
+          <div class="row">
+            <span>${avBadge('V')} Virat</span>
+            <span class="chip ok">Paid ✓</span>
+          </div>
+          <div class="row">
+            <span>${avBadge('D')} Deepika</span>
+            <span class="chip wn" id="dp-chip">Pending</span>
+          </div>
+          <div class="row">
+            <span>${avBadge('K')} Kartik</span>
+            <span class="chip ok">Paid ✓</span>
+          </div>
+        </div>
+
+        <div class="cd s">
+          💡 Zero manual bookkeeping. District settles directly with merchants.
+        </div>
+      `;
+
+      const deepikaPayHtml = `
+        ${distHeader('District SplitPay')}
+        <div class="h">Your Equal Share</div>
+
+        <div class="cd">
+          ${cur.c.map(item => `
+            <div class="row">
+              <span>${item[0]}</span>
+              <b>₹${item[1]}</b>
+            </div>
+          `).join('')}
+          <div class="row" style="border-top:1px dashed var(--line);margin-top:6px;padding-top:6px">
+            <span style="font-weight:800">Total Payable</span>
+            <b style="color:var(--pri);font-size:15px">₹${total}</b>
+          </div>
+        </div>
+
+        <div class="cd s" style="background:#FAF8FF">
+          ${cur.n} Meals at the restaurant are split live using table QR.
+        </div>
+
+        <button class="btn" data-a="pay">
+          <span>Pay ₹${total} via UPI / GPay ⚡</span>
+        </button>
+      `;
+
+      return [
+        phoneShell('R', hostBookingHtml),
+        phoneShell('D', deepikaPayHtml)
+      ];
+    }
+  },
+
+  {
+    t: 'When Plans Change, Doodle Self-Heals',
+    d: 'Disaster strikes: Nova Cinemas pushes the show by 45 mins. Rather than the group abandoning the plan, Doodle recalibrates dinner & dessert holds automatically. Ranveer approves with one tap.',
+    p: () => {
+      const cur = SC[sc];
+      const remappedHtml = cur.h.map((idx, n) => `
+        <div class="row">
+          <span>${cur.st[idx][1]} ${sh(cur.st[idx])}</span>
+          <b>${cur.hs[n]}</b>
+        </div>
+      `).join('');
+
+      const hostHealingHtml = `
+        ${distHeader()}
+        <span class="chip rd" style="align-self:flex-start">⚠️ ${cur.cs}</span>
+        <div class="h">Doodle Auto-Heal 🪄</div>
+        <div class="s">We automatically adjusted reservation holds so your squad doesn’t rush.</div>
+
+        <div class="cd">
+          <b style="color:var(--pri)">Updated Timeline:</b>
+          <div style="margin-top:6px">${remappedHtml}</div>
+          <div class="s" style="margin-top:8px">✓ Same reserved tables kept · zero penalty fee</div>
+        </div>
+
+        <div class="cd s">
+          All 6 friends will get an instant haptic sync upon approval.
+        </div>
+
+        <button class="btn" data-a="approve">
+          <span>Approve Reshuffle & Notify Squad 🪄</span>
+        </button>
+      `;
+
+      const deepikaNotifHtml = `
+        <div class="top">
+          <b>District Notifications</b>
+          <span class="s">Just now</span>
+        </div>
+
+        <div class="cd" style="border-left:4px solid var(--pri)">
+          <b>Plan updated smoothly 🔔</b>
+          <div class="s" style="margin:4px 0 8px">
+            Ranveer approved a stress-free adjustment. Your movie & dinner are intact!
+          </div>
+          ${remappedHtml}
+        </div>
+
+        <button class="btn g" data-a="tick" data-target="D" data-t="I’m still in! 🙌">
+          <span>Confirm I’m in ✓</span>
+        </button>
+      `;
+
+      return [
+        phoneShell('R', hostHealingHtml),
+        phoneShell('D', deepikaNotifHtml)
+      ];
+    }
+  }
+];
+
+const $ = id => document.getElementById(id);
+
+function typePrompt() {
+  const q = $('q');
+  const t = SC[sc].p;
+  if (!q || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let k = 0;
+  const loop = () => {
+    k += 2;
+    q.firstChild.nodeValue = '“' + t.slice(0, k) + (k >= t.length ? '”' : '');
+    if (k < t.length) setTimeout(loop, 16);
+  };
+  loop();
+}
+
+function render(shouldType = false) {
+  const phoneCards = STEPS[curStep].p();
+  $('stage').innerHTML = phoneCards.join('');
+  $('stage').scrollLeft = 0;
+  $('hint').hidden = phoneCards.length < 2;
+
+  const isLast = curStep === STEPS.length - 1;
+  $('tc').className = 'tc' + (guided ? '' : ' off');
+
+  $('tc').innerHTML = `
+    <div class="txt">
+      <h2>
+        <span class="step-pill">STEP ${curStep + 1} OF ${STEPS.length}</span>
+        ${STEPS[curStep].t}
+      </h2>
+      <p>${STEPS[curStep].d}</p>
+    </div>
+    <div class="ctl">
+      <div class="nav">
+        <button class="bk" ${curStep ? '' : 'disabled'}>← Back</button>
+        <button class="p nx">${isLast ? 'Restart Experience 🔄' : 'Next Step →'}</button>
+      </div>
+      <div class="dots">
+        ${STEPS.map((s, n) => `
+          <button class="${n === curStep ? 'on' : ''}" data-n="${n}" aria-label="Step ${n + 1}: ${s.t}">
+            ${n + 1}
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  if (shouldType) typePrompt();
+}
+
+function goToStep(n) {
+  curStep = n < 0 ? 0 : n >= STEPS.length ? 0 : n;
+  render(curStep === 1);
+  if (window.innerWidth <= 1120) {
+    $('tc').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function handleAction(btn) {
+  const action = btn.dataset.a;
+
+  if (action === 'launch-doodle') {
+    goToStep(1);
+  } else if (action === 'next') {
+    goToStep(curStep + 1);
+  } else if (action === 'build') {
+    const messages = [
+      'Checking live tables & showtimes in Chennai…',
+      'Factoring traffic buffer between stops…',
+      'Verifying vegan options with restaurant chefs…',
+      'Polishing your Doodle canvas…'
+    ];
+    const ap = btn.closest('.ap');
+    ap.innerHTML = `
+      <div class="ld">
+        <div class="sp"></div>
+        <b id="lm">${messages[0]}</b>
+        <span class="s">Doodle is doing the heavy lifting</span>
+      </div>
+    `;
+    let msgIdx = 0;
+    const interval = setInterval(() => {
+      msgIdx++;
+      if ($('lm') && messages[msgIdx]) $('lm').textContent = messages[msgIdx];
+    }, 450);
+    setTimeout(() => {
+      clearInterval(interval);
+      goToStep(2);
+    }, 1900);
+  } else if (action === 'tick') {
+    btn.innerHTML = `<span>${btn.dataset.t || 'Done ✓'}</span>`;
+    btn.classList.add('done');
+    const targetKey = btn.dataset.target;
+    if (targetKey) {
+      celebrateInsidePhone(targetKey, 'Saved! ✨');
+    }
+  } else if (action === 'lock') {
+    btn.innerHTML = `<span>Doodle Locked ✓</span>`;
+    btn.classList.add('done');
+    celebrateInsidePhone('R', 'Plan Locked In! 🔒🎉');
+    setTimeout(() => goToStep(curStep + 1), 1600);
+  } else if (action === 'pay') {
+    btn.innerHTML = `<span>Paid ₹960 with UPI ✓</span>`;
+    btn.classList.add('done');
+    const chip = $('dp-chip');
+    if (chip) {
+      chip.textContent = 'Paid ✓';
+      chip.className = 'chip ok';
+    }
+    celebrateInsidePhone('D', 'Paid! Zero Awkwardness ⚡');
+    setTimeout(() => {
+      celebrateInsidePhone('R', 'Deepika Paid! 🙌');
+    }, 800);
+  } else if (action === 'approve') {
+    btn.innerHTML = `<span>Reshuffle Live ✓ Squad Synced</span>`;
+    btn.classList.add('done');
+    celebrateInsidePhone('R', 'Crisis Averted! Squad Saved 🪄');
+  }
+}
+
+// Global click delegation
+document.addEventListener('click', e => {
+  const t = e.target;
+  let c;
+
+  if (c = t.closest('[data-sc]')) {
+    sc = +c.dataset.sc;
+    render(true);
+    return;
+  }
+  if (c = t.closest('.opt')) {
+    const parent = c.parentNode;
+    const opts = [...parent.querySelectorAll('.opt')];
+    if (opts.length > 1) {
+      opts.forEach(x => {
+        x.classList.remove('on');
+        const bullet = x.querySelector('span:last-child');
+        if (bullet) bullet.textContent = '○';
+      });
+      c.classList.add('on');
+      const activeBullet = c.querySelector('span:last-child');
+      if (activeBullet) activeBullet.textContent = '●';
+    }
+    return;
+  }
+  if (c = t.closest('[data-a]')) {
+    handleAction(c);
+    return;
+  }
+  if (c = t.closest('[data-n]')) {
+    goToStep(+c.dataset.n);
+    return;
+  }
+  if (t.closest('.bk')) {
+    goToStep(curStep - 1);
+    return;
+  }
+  if (t.closest('.nx')) {
+    goToStep(curStep + 1);
+  }
+});
+
+// Accessible keyboard selection for options and prompts
+document.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.pr, .opt, .dist-hero-btn')) {
+    e.preventDefault();
+    e.target.click();
+  }
+});
+
+// Guided Tour switch toggle
+const sw = $('sw');
+const toggleTour = () => {
+  guided = !guided;
+  sw.classList.toggle('on', guided);
+  sw.setAttribute('aria-checked', guided);
+  render();
+};
+sw.addEventListener('click', toggleTour);
+sw.addEventListener('keydown', e => {
+  if (e.key === ' ' || e.key === 'Enter') {
+    e.preventDefault();
+    toggleTour();
+  }
+});
+
+// Initialize prototype
+render(false);
+})();
+</script>
+</body>
+</html>
