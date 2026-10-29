@@ -280,6 +280,60 @@ header {
   justify-content: center;
   max-height: 100%;
 }
+.sidebar-top-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 8px;
+  width: 100%;
+}
+.feature-info-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 99px;
+  background: var(--sc);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font: 700 12px 'Plus Jakarta Sans', system-ui, sans-serif;
+  cursor: pointer;
+  transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.feature-info-btn:hover {
+  background: var(--pri-light);
+  color: var(--pri-dark);
+  border-color: var(--pri);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px var(--pri-glow);
+}
+.feature-info-btn:active {
+  transform: translateY(0);
+}
+.fib-sparkle {
+  font-size: 13px;
+  line-height: 1;
+}
+.fib-label {
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+.fib-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2.5px 7px;
+  border-radius: 99px;
+  background: var(--chip-bg);
+  color: var(--pri);
+  transition: all .2s ease;
+}
+.feature-info-btn:hover .fib-badge {
+  background: var(--pri);
+  color: #FFFFFF;
+}
 .tc {
   background: var(--sc);
   border-radius: 20px;
@@ -287,7 +341,7 @@ header {
   border: 1px solid var(--line);
   box-shadow: 0 16px 40px -24px var(--pri-glow);
   position: relative;
-  max-height: min(565px, calc(100vh - 128px));
+  max-height: min(520px, calc(100vh - 168px));
   overflow-y: auto;
 }
 .tc h2 {
@@ -985,6 +1039,470 @@ header {
   }
   .hint:not([hidden]) { display: block; }
 }
+
+/* ==========================================================
+   FULL-SCREEN PRODUCT STORY & STRATEGY MODAL
+   ========================================================== */
+.feature-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(15, 12, 27, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.feature-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.feature-modal-card {
+  background: var(--sc);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  box-shadow: 0 30px 90px -15px rgba(20, 14, 38, 0.5), 0 0 0 1px rgba(104, 48, 249, 0.2);
+  width: min(1080px, 96vw);
+  max-height: min(880px, 92vh);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.96) translateY(14px);
+  transition: transform .28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.feature-modal-overlay.open .feature-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+/* Modal Header */
+.fm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--sc);
+  flex-shrink: 0;
+  gap: 12px;
+}
+.fm-brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.fm-dot {
+  color: var(--mut);
+  font-size: 11px;
+}
+.fm-type-pill {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--pri);
+  background: var(--pri-light);
+  padding: 4px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.3px;
+}
+:root[data-theme="dark"] .fm-type-pill {
+  background: rgba(104, 48, 249, 0.2);
+  color: #C3B4FD;
+}
+.fm-close-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--chip-bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font: 700 12px 'Plus Jakarta Sans', system-ui, sans-serif;
+  padding: 6px 12px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.fm-close-btn:hover {
+  background: var(--pri);
+  color: #FFF;
+  border-color: var(--pri);
+  transform: translateY(-1px);
+}
+.fm-esc-hint {
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.08);
+  letter-spacing: 0.5px;
+}
+:root[data-theme="dark"] .fm-esc-hint {
+  background: rgba(255,255,255,0.12);
+}
+
+/* Modal Scrollable Body */
+.fm-body {
+  padding: 26px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  flex: 1;
+}
+
+/* Dual Concept Hero Cards */
+.fm-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.fm-hero-card {
+  background: linear-gradient(135deg, rgba(104, 48, 249, 0.05) 0%, rgba(255, 51, 102, 0.02) 100%);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.fm-hero-card.accent {
+  background: linear-gradient(135deg, rgba(104, 48, 249, 0.08) 0%, rgba(104, 48, 249, 0.02) 100%);
+  border-color: rgba(104, 48, 249, 0.28);
+}
+.fm-hero-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3.5px;
+  background: linear-gradient(90deg, var(--pri), var(--accent-pink));
+}
+.fm-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--pri);
+}
+.fm-hero-title {
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fm-hero-tagline {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.fm-hero-desc {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--mut);
+  margin: 0;
+}
+.fm-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.fm-micro-chip {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 99px;
+  background: var(--sc);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Sections */
+.fm-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.fm-sec-hdr {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.fm-sec-title {
+  font-size: 17.5px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fm-sec-sub {
+  font-size: 12.5px;
+  color: var(--mut);
+  margin: 0;
+}
+
+/* Problem-Solution Contrast Cards */
+.fm-contrast-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.fm-contrast-card {
+  background: var(--sc);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.fm-contrast-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--pri);
+}
+.fm-cc-icon-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.fm-cc-icon {
+  font-size: 22px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pri-light);
+}
+:root[data-theme="dark"] .fm-cc-icon {
+  background: rgba(104, 48, 249, 0.2);
+}
+.fm-cc-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: #FEE2E2;
+  color: #DC2626;
+}
+:root[data-theme="dark"] .fm-cc-badge {
+  background: rgba(220, 38, 38, 0.2);
+  color: #F87171;
+}
+.fm-cc-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+.fm-cc-problem {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--mut);
+  background: rgba(239, 68, 68, 0.05);
+  border-left: 3px solid #EF4444;
+  padding: 7px 10px;
+  border-radius: 0 8px 8px 0;
+  margin: 0;
+}
+.fm-cc-fix {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: rgba(16, 185, 129, 0.06);
+  border-left: 3px solid var(--ok);
+  padding: 7px 10px;
+  border-radius: 0 8px 8px 0;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* 5 Pillars Blueprint */
+.fm-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.fm-pillar-card {
+  background: var(--sc);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  position: relative;
+  transition: transform .2s ease;
+}
+.fm-pillar-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--pri);
+}
+.fm-pillar-num {
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--pri);
+  background: var(--pri-light);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+:root[data-theme="dark"] .fm-pillar-num {
+  background: rgba(104, 48, 249, 0.25);
+}
+.fm-pillar-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.35;
+}
+.fm-pillar-desc {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--mut);
+  margin: 0;
+}
+
+/* Strategic Metrics Strip */
+.fm-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.fm-metric-box {
+  background: linear-gradient(180deg, var(--sc) 0%, rgba(104, 48, 249, 0.03) 100%);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.fm-metric-val {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--pri);
+  letter-spacing: -0.5px;
+}
+.fm-metric-label {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+}
+.fm-metric-desc {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--mut);
+  margin: 0;
+}
+
+/* Modal Footer */
+.fm-footer {
+  padding: 14px 24px;
+  border-top: 1px solid var(--line);
+  background: var(--sc);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.fm-foot-meta {
+  font-size: 12px;
+  color: var(--mut);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fm-foot-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fm-btn {
+  font: 700 13px 'Plus Jakarta Sans', system-ui, sans-serif;
+  border-radius: 99px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all .15s ease;
+  border: 1px solid transparent;
+}
+.fm-btn.sec {
+  background: var(--chip-bg);
+  border-color: var(--line);
+  color: var(--ink);
+}
+.fm-btn.sec:hover {
+  background: var(--line);
+}
+.fm-btn.pri {
+  background: var(--pri);
+  color: #FFF;
+  border-color: var(--pri);
+  box-shadow: 0 4px 14px var(--pri-glow);
+}
+.fm-btn.pri:hover {
+  background: var(--pri-dark);
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .fm-hero-grid,
+  .fm-contrast-grid,
+  .fm-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .fm-pillars-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .feature-modal-card {
+    max-height: 94vh;
+  }
+}
+@media (max-width: 600px) {
+  .fm-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .fm-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .fm-foot-actions {
+    justify-content: flex-end;
+  }
+}
 </style>
 </head>
 <body>
@@ -1032,6 +1550,13 @@ header {
 
   <!-- Instructions Panel on Right Side -->
   <aside class="sidebar-panel">
+    <div class="sidebar-top-bar">
+      <button id="openFeatureModalBtn" class="feature-info-btn" type="button" aria-haspopup="dialog" aria-expanded="false" title="Product Brief: What is Doodle & District by Zomato?">
+        <span class="fib-sparkle">✨</span>
+        <span class="fib-label">Why Doodle?</span>
+        <span class="fib-badge">Product Brief</span>
+      </button>
+    </div>
     <div class="tc" id="tc"></div>
   </aside>
 </div>
@@ -1046,6 +1571,221 @@ header {
     <span>district by zomato · interactive experience</span>
   </div>
 </footer>
+
+<!-- Full-Screen Product Story & Strategy Modal -->
+<div id="featureModal" class="feature-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle" aria-hidden="true">
+  <div class="feature-modal-card">
+    <!-- Header -->
+    <div class="fm-header">
+      <div class="fm-brand-wrap">
+        <div class="district-logo-badge" style="padding: 4px 8px;">
+          <img src="https://rukmini1.flixcart.com/image/1500/1500/xif0q/e-gift-voucher/v/w/e/open-anyone-district-by-zomato-100-original-imahhmcpztega5nu.jpeg?q=70"
+               alt="district by zomato" class="district-logo-img" style="height:22px; width:30px;"
+               onerror="this.style.display='none'" />
+          <div class="district-text-group">
+            <span class="district-main-text" style="font-size:15px">district</span>
+            <span class="district-sub-text" style="font-size:8px">by zomato</span>
+          </div>
+        </div>
+        <span class="fm-dot">✕</span>
+        <span class="doodle-txt" style="font-size: 16px;">
+          d<span class="eyes-container"><span class="doodle-eye" style="width:13px;height:16px"><i class="pupil" style="width:5px;height:5px"></i></span><span class="doodle-eye" style="width:13px;height:16px"><i class="pupil" style="width:5px;height:5px"></i></span></span>dle
+        </span>
+        <span class="fm-type-pill">Product Story & Strategy</span>
+      </div>
+      <button id="closeFeatureModalBtn" class="fm-close-btn" aria-label="Close feature overview">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        <span>Close</span>
+        <span class="fm-esc-hint">ESC</span>
+      </button>
+    </div>
+
+    <!-- Scrollable Body -->
+    <div class="fm-body">
+      <!-- Dual Concept Hero -->
+      <div class="fm-hero-grid">
+        <!-- What is District by Zomato? -->
+        <div class="fm-hero-card">
+          <span class="fm-eyebrow">📍 The Parent Platform · Going-Out Super-App</span>
+          <h2 class="fm-hero-title" id="modalProductTitle">
+            <span>District by Zomato</span>
+          </h2>
+          <p class="fm-hero-tagline">“Zomato for everything you do outside your home.”</p>
+          <p class="fm-hero-desc">
+            Just as Zomato powers food delivery and Blinkit leads quick commerce, <b>District is Zomato’s third standalone powerhouse</b>. It consolidates fragmented offline lifestyle bookings — dining out, live concerts, movies, sports, and nightlife — into one unified real-world experiences platform.
+          </p>
+          <div class="fm-chips-wrap">
+            <span class="fm-micro-chip">🍽️ Dining Out & Pubs</span>
+            <span class="fm-micro-chip">🎟️ Live Concerts & Comedy</span>
+            <span class="fm-micro-chip">🎬 Cinema Ticketing</span>
+            <span class="fm-micro-chip">🏏 Sports Turfs & Arcades</span>
+            <span class="fm-micro-chip">🍸 Nightlife Curations</span>
+          </div>
+        </div>
+
+        <!-- What is Doodle? -->
+        <div class="fm-hero-card accent">
+          <span class="fm-eyebrow">✨ The Signature Feature · Social Commerce Layer</span>
+          <h2 class="fm-hero-title">
+            <span>d<span class="eyes-container"><span class="doodle-eye" style="width:14px;height:17px"><i class="pupil" style="width:5.5px;height:5.5px"></i></span><span class="doodle-eye" style="width:14px;height:17px"><i class="pupil" style="width:5.5px;height:5.5px"></i></span></span>dle by district</span>
+          </h2>
+          <p class="fm-hero-tagline">“Stop the 80-text group chat debate. Booked in 30 seconds.”</p>
+          <p class="fm-hero-desc">
+            <b>Doodle</b> is an AI social canvas built directly into District. Instead of endless WhatsApp back-and-forth, the organiser prompts natural intent. Doodle holds seats across multi-stop venues, creates a 30-sec WhatsApp mini-app, collects anonymous votes & diets, and auto-splits bills via 1-tap UPI.
+          </p>
+          <div class="fm-chips-wrap">
+            <span class="fm-micro-chip">⚡ 30-Sec Web Mini-App (No App Install)</span>
+            <span class="fm-micro-chip">🛡️ Anonymous Preference Shield</span>
+            <span class="fm-micro-chip">💸 1-Tap SplitPay via UPI</span>
+            <span class="fm-micro-chip">🪄 Self-Healing Dynamic Timeline</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why is it Needed? (The Problem Space) -->
+      <div class="fm-section">
+        <div class="fm-sec-hdr">
+          <span class="fm-eyebrow">🎯 The Problem Space · Why It Is Needed</span>
+          <h3 class="fm-sec-title">The "Group Chat Paradox": Why 62% of Outings Drop Off</h3>
+          <p class="fm-sec-sub">Outings don't die from lack of enthusiasm — they die from coordination fatigue, social anxiety, and payment friction.</p>
+        </div>
+
+        <div class="fm-contrast-grid">
+          <!-- Friction 1 -->
+          <div class="fm-contrast-card">
+            <div class="fm-cc-icon-row">
+              <span class="fm-cc-icon">🗣️</span>
+              <span class="fm-cc-badge">Coordination Chaos</span>
+            </div>
+            <h4 class="fm-cc-title">The 84-Text Group Chat Black Hole</h4>
+            <p class="fm-cc-problem">
+              <b>The Pain:</b> <i>“Where should we go?”, “Anything is fine!”, “Not Italian again pls”</i>. Endless banter with zero decisions. Hours drag on, cinema seats vanish, dinner tables are lost, and the outing is abandoned.
+            </p>
+            <p class="fm-cc-fix">
+              <b>Doodle Fix:</b> 1 Interactive Canvas Link. Replaces 84 texts with a 30-second decision card dropped directly into WhatsApp.
+            </p>
+          </div>
+
+          <!-- Friction 2 -->
+          <div class="fm-contrast-card">
+            <div class="fm-cc-icon-row">
+              <span class="fm-cc-icon">🤫</span>
+              <span class="fm-cc-badge">Social Anxiety</span>
+            </div>
+            <h4 class="fm-cc-title">Dietary & Budget Peer Pressure</h4>
+            <p class="fm-cc-problem">
+              <b>The Pain:</b> Friends hesitate to speak up about tight budgets or niche diets (vegan, Jain, halal) to avoid feeling high-maintenance or awkward in front of the squad.
+            </p>
+            <p class="fm-cc-fix">
+              <b>Doodle Fix:</b> The Anonymous Shield. Attendance is confirmed openly, but budget sliders and venue A/B votes remain strictly anonymous.
+            </p>
+          </div>
+
+          <!-- Friction 3 -->
+          <div class="fm-contrast-card">
+            <div class="fm-cc-icon-row">
+              <span class="fm-cc-icon">💸</span>
+              <span class="fm-cc-badge">Payment Stress</span>
+            </div>
+            <h4 class="fm-cc-title">The Organiser’s Burden & Money Chasing</h4>
+            <p class="fm-cc-problem">
+              <b>The Pain:</b> One well-meaning friend fronts ₹6,000+ on their card and spends the next 3 weeks chasing people on GPay/UPI or computing complicated split sheets.
+            </p>
+            <p class="fm-cc-fix">
+              <b>Doodle Fix:</b> Instant 1-Tap SplitPay via UPI. District dispatches itemised UPI collection links directly. Vendors are settled instantly.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- The 5 Product Pillars -->
+      <div class="fm-section">
+        <div class="fm-sec-hdr">
+          <span class="fm-eyebrow">⚙️ Product Architecture · The 5 Core Pillars</span>
+          <h3 class="fm-sec-title">How Doodle Orchestrates Seamless Squad Experiences</h3>
+          <p class="fm-sec-sub">Designed specifically around Indian urban nightlife, food culture, and UPI payment dynamics.</p>
+        </div>
+
+        <div class="fm-pillars-grid">
+          <div class="fm-pillar-card">
+            <span class="fm-pillar-num">1</span>
+            <h5 class="fm-pillar-title">Natural Intent to Canvas</h5>
+            <p class="fm-pillar-desc">Speak naturally (e.g. <i>“Birthday in T Nagar, 6 friends, one vegan”</i>). AI secures real-time table & ticket holds with zero advance fee.</p>
+          </div>
+
+          <div class="fm-pillar-card">
+            <span class="fm-pillar-num">2</span>
+            <h5 class="fm-pillar-title">Zero-Install WhatsApp Mini-App</h5>
+            <p class="fm-pillar-desc">Friends tap a WhatsApp link and vote in 30 seconds inside mobile Safari/Chrome. Zero app download or account creation required.</p>
+          </div>
+
+          <div class="fm-pillar-card">
+            <span class="fm-pillar-num">3</span>
+            <h5 class="fm-pillar-title">Anonymous Consensus Radar</h5>
+            <p class="fm-pillar-desc">Blind A/B venue voting and private spend sliders ensure honest squad preferences without peer pressure or debates.</p>
+          </div>
+
+          <div class="fm-pillar-card">
+            <span class="fm-pillar-num">4</span>
+            <h5 class="fm-pillar-title">Direct UPI SplitPay</h5>
+            <p class="fm-pillar-desc">Everyone pays their equal share via UPI / GPay deep links. The organiser's screen updates live from Pending to Paid ✓.</p>
+          </div>
+
+          <div class="fm-pillar-card">
+            <span class="fm-pillar-num">5</span>
+            <h5 class="fm-pillar-title">Dynamic Auto-Heal Engine</h5>
+            <p class="fm-pillar-desc">When a movie show shifts by 45 mins, Doodle recalibrates subsequent dinner holds automatically with 1-tap host approval.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strategic Business Impact -->
+      <div class="fm-section">
+        <div class="fm-sec-hdr">
+          <span class="fm-eyebrow">📈 Growth Engine · Business Value For District</span>
+          <h3 class="fm-sec-title">The Strategic Moat for Zomato's Offline Business</h3>
+          <p class="fm-sec-sub">Why social group coordination creates the ultimate organic viral loop.</p>
+        </div>
+
+        <div class="fm-metrics-grid">
+          <div class="fm-metric-box">
+            <span class="fm-metric-val">1.4x – 1.8x</span>
+            <h5 class="fm-metric-label">Organic Viral Loop (K-Factor)</h5>
+            <p class="fm-metric-desc">Every 1 organiser introduces 5+ friends directly to District via the WhatsApp link — achieving zero-CAC customer acquisition.</p>
+          </div>
+
+          <div class="fm-metric-box">
+            <span class="fm-metric-val">+340%</span>
+            <h5 class="fm-metric-label">Multi-Stop GMV Basket Size</h5>
+            <p class="fm-metric-desc">Stitching activity + dinner + late-night dessert transforms solo ₹600 ticket sales into ₹3,500+ multi-stop group transactions.</p>
+          </div>
+
+          <div class="fm-metric-box">
+            <span class="fm-metric-val">&lt; 6%</span>
+            <h5 class="fm-metric-label">Reduced Merchant No-Shows</h5>
+            <p class="fm-metric-desc">Advance UPI SplitPay holds eliminate the 28% weekend table no-show rate for partner restaurants and venues.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="fm-footer">
+      <div class="fm-foot-meta">
+        <span>📍 District by Zomato · Doodle Concept Brief</span>
+        <span>•</span>
+        <span>Interactive Scenario Simulator</span>
+      </div>
+      <div class="fm-foot-actions">
+        <button id="modalCloseFooterBtn" class="fm-btn sec" type="button">Close Brief</button>
+        <button id="modalExploreBtn" class="fm-btn pri" type="button">Explore Live Prototype →</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 (()=>{
@@ -1870,6 +2610,58 @@ sw.addEventListener('keydown', e => {
   if (e.key === ' ' || e.key === 'Enter') {
     e.preventDefault();
     toggleTour();
+  }
+});
+
+// Product Brief / Feature Overview Modal
+const modalOverlay = $('featureModal');
+const openModalBtn = $('openFeatureModalBtn');
+const closeModalBtn = $('closeFeatureModalBtn');
+const modalExploreBtn = $('modalExploreBtn');
+const modalCloseFooterBtn = $('modalCloseFooterBtn');
+
+function openProductModal() {
+  if (!modalOverlay) return;
+  modalOverlay.classList.add('open');
+  modalOverlay.setAttribute('aria-hidden', 'false');
+  if (openModalBtn) openModalBtn.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+  if (closeModalBtn) closeModalBtn.focus();
+}
+
+function closeProductModal() {
+  if (!modalOverlay) return;
+  modalOverlay.classList.remove('open');
+  modalOverlay.setAttribute('aria-hidden', 'true');
+  if (openModalBtn) {
+    openModalBtn.setAttribute('aria-expanded', 'false');
+    openModalBtn.focus();
+  }
+  document.body.style.overflow = '';
+}
+
+if (openModalBtn) openModalBtn.addEventListener('click', openProductModal);
+if (closeModalBtn) closeModalBtn.addEventListener('click', closeProductModal);
+if (modalCloseFooterBtn) modalCloseFooterBtn.addEventListener('click', closeProductModal);
+if (modalExploreBtn) {
+  modalExploreBtn.addEventListener('click', () => {
+    closeProductModal();
+    const stage = $('stage');
+    if (stage) stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+}
+
+// Close when clicking modal backdrop
+if (modalOverlay) {
+  modalOverlay.addEventListener('click', e => {
+    if (e.target === modalOverlay) closeProductModal();
+  });
+}
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('open')) {
+    closeProductModal();
   }
 });
 
