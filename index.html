@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>district by zomato · doodle prototype</title>
+<title>District by Zomato · Executive Strategy Deck &amp; Interactive Prototype</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236830F9'/><circle cx='11' cy='16' r='4.5' fill='white'/><circle cx='12' cy='16' r='2.2' fill='%231B1530'/><circle cx='21' cy='16' r='4.5' fill='white'/><circle cx='22' cy='16' r='2.2' fill='%231B1530'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root {
   --bg: #F7F5FC;
@@ -62,6 +63,12 @@ body {
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
+  user-select: text;
+  -webkit-user-select: text;
+}
+::selection {
+  background: rgba(104, 48, 249, 0.22);
+  color: #3810A6;
 }
 
 /* Header & Official District Logo */
@@ -156,6 +163,148 @@ header {
 }
 .gh-link-btn svg {
   flex-shrink: 0;
+}
+
+/* Central View Mode Switcher */
+.view-mode-switcher {
+  display: inline-flex;
+  align-items: center;
+  background: var(--chip-bg);
+  padding: 3.5px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.04);
+}
+.view-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 0;
+  background: transparent;
+  color: var(--mut);
+  font: 800 12px 'Plus Jakarta Sans', system-ui, sans-serif;
+  cursor: pointer;
+  transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+.view-switch-btn:hover {
+  color: var(--ink);
+}
+.view-switch-btn.active {
+  background: var(--sc);
+  color: var(--pri);
+  box-shadow: 0 2px 8px rgba(104, 48, 249, 0.15), 0 0 0 1px var(--line);
+}
+.vs-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+.vs-pill {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 99px;
+  background: var(--line);
+  color: var(--mut);
+}
+.view-switch-btn.active .vs-pill {
+  background: var(--pri-light);
+  color: var(--pri);
+}
+.vs-pill.pulse {
+  background: #E6FBF2;
+  color: var(--ok);
+}
+
+/* Header Sub-Actions */
+.header-sub-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.proto-launch-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--pri);
+  color: #FFFFFF;
+  font: 800 12.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+  padding: 7px 15px;
+  border-radius: 99px;
+  border: 1px solid var(--pri);
+  cursor: pointer;
+  box-shadow: 0 4px 14px var(--pri-glow);
+  transition: all .2s ease;
+}
+.proto-launch-cta:hover {
+  background: var(--pri-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px var(--pri-glow);
+}
+.deck-return-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--pri-light);
+  color: var(--pri);
+  font: 800 12px 'Plus Jakarta Sans', system-ui, sans-serif;
+  padding: 6.5px 13px;
+  border-radius: 99px;
+  border: 1px solid rgba(104, 48, 249, 0.25);
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.deck-return-btn:hover {
+  background: var(--pri);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* Sidebar Return to Deck Button */
+.proto-deck-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 99px;
+  background: var(--pri-light);
+  border: 1px solid rgba(104, 48, 249, 0.25);
+  color: var(--pri);
+  font: 800 11.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.proto-deck-nav-btn:hover {
+  background: var(--pri);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--pri-glow);
+}
+
+/* View Containers */
+.deck-view-container {
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - 58px);
+  display: block;
+  overflow: hidden;
+  background: var(--bg);
+}
+.deck-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+.prototype-view-container {
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - 58px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 /* The Animated Doodle Eyes Logo */
@@ -1507,9 +1656,9 @@ header {
 </head>
 <body>
 
-<header>
+<header class="app-global-header">
   <div class="brand">
-    <a href="#" class="district-brand-link" aria-label="district by zomato">
+    <a href="#" onclick="switchView('deck'); return false;" class="district-brand-link" aria-label="district by zomato">
       <div class="district-logo-badge">
         <img src="https://rukmini1.flixcart.com/image/1500/1500/xif0q/e-gift-voucher/v/w/e/open-anyone-district-by-zomato-100-original-imahhmcpztega5nu.jpeg?q=70"
              alt="district by zomato"
@@ -1521,9 +1670,43 @@ header {
         </div>
       </div>
     </a>
+    <div class="doodle-brand-tag" id="headerDoodleTag" style="display:none;" onclick="switchView('deck'); return false;" title="doodle by district">
+      <span class="doodle-txt">d<span class="eyes-container"><span class="doodle-eye"><i class="pupil"></i></span><span class="doodle-eye"><i class="pupil"></i></span></span>dle</span>
+    </div>
   </div>
 
+  <!-- Central Mode Switcher -->
+  <div class="view-mode-switcher" role="tablist" aria-label="Experience view selector">
+    <button id="viewSwitchDeck" class="view-switch-btn active" type="button" role="tab" aria-selected="true" onclick="switchView('deck')">
+      <span class="vs-icon">📊</span>
+      <span class="vs-text">Executive Deck</span>
+      <span class="vs-pill">12 Slides</span>
+    </button>
+    <button id="viewSwitchProto" class="view-switch-btn" type="button" role="tab" aria-selected="false" onclick="switchView('prototype')">
+      <span class="vs-icon">📱</span>
+      <span class="vs-text">Live Prototype</span>
+      <span class="vs-pill pulse">Sandbox</span>
+    </button>
+  </div>
+
+  <!-- Right Actions: Contextual -->
   <div class="header-actions">
+    <div id="deckHeaderActions" class="header-sub-actions">
+      <button class="proto-launch-cta" type="button" onclick="switchView('prototype')" title="Switch to Live Prototype Simulator">
+        <i class="fa-solid fa-play" style="font-size:10px"></i>
+        <span>Live Prototype →</span>
+      </button>
+    </div>
+
+    <div id="protoHeaderActions" class="header-sub-actions" style="display:none">
+      <button class="deck-return-btn" type="button" onclick="switchView('deck')" title="Return to Executive Product Deck">
+        <span>← Product Deck</span>
+      </button>
+      <div class="sw on" id="sw" role="switch" aria-checked="true" tabindex="0" title="Toggle Guided Explanations">
+        <span>Guided Tour</span><i></i>
+      </div>
+    </div>
+
     <a href="https://github.com/pavitrapoojary/district-by-zomato"
        target="_blank"
        rel="noopener noreferrer"
@@ -1535,42 +1718,51 @@ header {
       </svg>
       <span class="gh-text">GitHub</span>
     </a>
-    <div class="sw on" id="sw" role="switch" aria-checked="true" tabindex="0">
-      <span>Guided Tour</span><i></i>
-    </div>
   </div>
 </header>
 
-<div class="app-workspace">
-  <!-- Phones Stage in Main Light -->
-  <div class="stage-wrapper">
-    <div class="hint" id="hint">Swipe sideways to see other phones →</div>
-    <main class="stage" id="stage"></main>
-  </div>
-
-  <!-- Instructions Panel on Right Side -->
-  <aside class="sidebar-panel">
-    <div class="sidebar-top-bar">
-      <button id="openFeatureModalBtn" class="feature-info-btn" type="button" aria-haspopup="dialog" aria-expanded="false" title="Product Brief: What is Doodle & District by Zomato?">
-        <span class="fib-sparkle">✨</span>
-        <span class="fib-label">Why Doodle?</span>
-        <span class="fib-badge">Product Brief</span>
-      </button>
-    </div>
-    <div class="tc" id="tc"></div>
-  </aside>
+<!-- Executive Deck View Container (Starts Active by Default) -->
+<div id="deckView" class="deck-view-container">
+  <iframe id="deckFrame" src="doodle_by_district_presentation.html" title="doodle by district · Executive Product Deck" class="deck-frame"></iframe>
 </div>
 
-<footer class="app-footer">
-  <div class="footer-content">
-    <span>Made with curiosity by</span>
-    <a href="https://pavitra-poojary.vercel.app/" target="_blank" rel="noopener noreferrer" class="creator-link">
-      <span>Pavitra Poojary</span>
-    </a>
-    <span class="footer-dot">·</span>
-    <span>district by zomato · interactive experience</span>
+<!-- Live Prototype View Container (Hidden Initially) -->
+<div id="prototypeView" class="prototype-view-container" style="display:none">
+  <div class="app-workspace">
+    <!-- Phones Stage in Main Light -->
+    <div class="stage-wrapper">
+      <div class="hint" id="hint">Swipe sideways to see other phones →</div>
+      <main class="stage" id="stage"></main>
+    </div>
+
+    <!-- Instructions Panel on Right Side -->
+    <aside class="sidebar-panel">
+      <div class="sidebar-top-bar">
+        <button id="protoToDeckBtn" class="proto-deck-nav-btn" type="button" onclick="switchView('deck')" title="Return to Executive Product Deck">
+          <span class="pdn-icon">📊</span>
+          <span class="pdn-label">Executive Deck</span>
+        </button>
+        <button id="openFeatureModalBtn" class="feature-info-btn" type="button" aria-haspopup="dialog" aria-expanded="false" title="Product Brief: What is Doodle & District by Zomato?">
+          <span class="fib-sparkle">✨</span>
+          <span class="fib-label">Why Doodle?</span>
+          <span class="fib-badge">Brief</span>
+        </button>
+      </div>
+      <div class="tc" id="tc"></div>
+    </aside>
   </div>
-</footer>
+
+  <footer class="app-footer">
+    <div class="footer-content">
+      <span>Made with curiosity by</span>
+      <a href="https://pavitra-poojary.vercel.app/" target="_blank" rel="noopener noreferrer" class="creator-link">
+        <span>Pavitra Poojary</span>
+      </a>
+      <span class="footer-dot">·</span>
+      <span>district by zomato · interactive experience</span>
+    </div>
+  </footer>
+</div>
 
 <!-- Full-Screen Product Story & Strategy Modal -->
 <div id="featureModal" class="feature-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle" aria-hidden="true">
@@ -1780,6 +1972,7 @@ header {
         <span>Interactive Scenario Simulator</span>
       </div>
       <div class="fm-foot-actions">
+        <button id="modalDeckBtn" class="fm-btn sec" type="button" onclick="closeProductModal(); switchView('deck');"><span>📊 View Executive Deck</span></button>
         <button id="modalCloseFooterBtn" class="fm-btn sec" type="button">Close Brief</button>
         <button id="modalExploreBtn" class="fm-btn pri" type="button">Explore Live Prototype →</button>
       </div>
@@ -2640,12 +2833,16 @@ function closeProductModal() {
   document.body.style.overflow = '';
 }
 
+window.openProductModal = openProductModal;
+window.closeProductModal = closeProductModal;
+
 if (openModalBtn) openModalBtn.addEventListener('click', openProductModal);
 if (closeModalBtn) closeModalBtn.addEventListener('click', closeProductModal);
 if (modalCloseFooterBtn) modalCloseFooterBtn.addEventListener('click', closeProductModal);
 if (modalExploreBtn) {
   modalExploreBtn.addEventListener('click', () => {
     closeProductModal();
+    window.switchView('prototype');
     const stage = $('stage');
     if (stage) stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
@@ -2665,8 +2862,107 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Initialize prototype
-render(false);
+// View Switching Logic (Executive Deck vs Live Prototype)
+const deckViewEl = $('deckView');
+const protoViewEl = $('prototypeView');
+const btnDeckTab = $('viewSwitchDeck');
+const btnProtoTab = $('viewSwitchProto');
+const deckHdrActions = $('deckHeaderActions');
+const protoHdrActions = $('protoHeaderActions');
+
+let activeView = 'deck';
+let doodleRevealed = false;
+const headerDoodleTag = $('headerDoodleTag');
+
+window.revealDoodle = function() {
+  doodleRevealed = true;
+  if (headerDoodleTag) headerDoodleTag.style.display = 'inline-flex';
+};
+
+window.switchView = function(viewName, syncHash = true) {
+  if (viewName === 'prototype' || viewName === 'proto') {
+    activeView = 'prototype';
+    window.revealDoodle();
+    if (deckViewEl) deckViewEl.style.display = 'none';
+    if (protoViewEl) protoViewEl.style.display = 'flex';
+
+    if (btnDeckTab) {
+      btnDeckTab.classList.remove('active');
+      btnDeckTab.setAttribute('aria-selected', 'false');
+    }
+    if (btnProtoTab) {
+      btnProtoTab.classList.add('active');
+      btnProtoTab.setAttribute('aria-selected', 'true');
+    }
+
+    if (deckHdrActions) deckHdrActions.style.display = 'none';
+    if (protoHdrActions) protoHdrActions.style.display = 'flex';
+
+    if (syncHash && window.location.hash !== '#prototype') {
+      history.replaceState(null, '', '#prototype');
+    }
+    document.title = 'doodle by district · Live Interactive Prototype';
+    render(false);
+  } else {
+    activeView = 'deck';
+    if (deckViewEl) deckViewEl.style.display = 'block';
+    if (protoViewEl) protoViewEl.style.display = 'none';
+
+    if (btnDeckTab) {
+      btnDeckTab.classList.add('active');
+      btnDeckTab.setAttribute('aria-selected', 'true');
+    }
+    if (btnProtoTab) {
+      btnProtoTab.classList.remove('active');
+      btnProtoTab.setAttribute('aria-selected', 'false');
+    }
+
+    if (deckHdrActions) deckHdrActions.style.display = 'flex';
+    if (protoHdrActions) protoHdrActions.style.display = 'none';
+
+    if (syncHash && window.location.hash !== '#deck' && window.location.hash !== '') {
+      history.replaceState(null, '', '#deck');
+    }
+    if (doodleRevealed) {
+      if (headerDoodleTag) headerDoodleTag.style.display = 'inline-flex';
+      document.title = 'doodle by district · Executive Product Deck';
+    } else {
+      if (headerDoodleTag) headerDoodleTag.style.display = 'none';
+      document.title = 'District by Zomato · Executive Product Deck';
+    }
+  }
+};
+
+// Listen for messages from embedded iframe (e.g., from presentation slide links or reveal)
+window.addEventListener('message', e => {
+  if (!e.data) return;
+  if (e.data === 'openPrototype' || (typeof e.data === 'object' && e.data.action === 'openPrototype')) {
+    window.switchView('prototype');
+  } else if (e.data === 'openDeck' || (typeof e.data === 'object' && e.data.action === 'openDeck')) {
+    window.switchView('deck');
+  } else if (e.data === 'doodleRevealed' || (typeof e.data === 'object' && e.data.action === 'doodleRevealed')) {
+    window.revealDoodle();
+  }
+});
+
+// Hash navigation support (#deck or #prototype)
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.toLowerCase();
+  if (hash === '#prototype' || hash === '#proto' || hash === '#sandbox') {
+    window.switchView('prototype', false);
+  } else {
+    window.switchView('deck', false);
+  }
+});
+
+// Initial boot view: start with executive deck by default unless URL specifies prototype
+const initialHash = window.location.hash.toLowerCase();
+if (initialHash === '#prototype' || initialHash === '#proto' || initialHash === '#sandbox') {
+  window.switchView('prototype', false);
+} else {
+  window.switchView('deck', false);
+}
+
 })();
 </script>
 </body>

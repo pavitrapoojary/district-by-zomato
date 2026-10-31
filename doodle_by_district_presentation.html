@@ -1,0 +1,2788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>doodle by district · Executive Product Deck</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236830F9'/><circle cx='11' cy='16' r='4.5' fill='white'/><circle cx='12' cy='16' r='2.2' fill='%231B1530'/><circle cx='21' cy='16' r='4.5' fill='white'/><circle cx='22' cy='16' r='2.2' fill='%231B1530'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ==========================================================
+       DESIGN SYSTEM & COLOR TOKENS (LIGHT & DARK PURPLE THEME)
+       Strictly ZERO dark slides — Light lavender, rich violet text
+       ========================================================== */
+    :root {
+      --bg: #F8F5FE;
+      --card-bg: #FFFFFF;
+      --card-subtle: #FAF8FF;
+      --ink: #160F2E;
+      --ink-sub: #5F567A;
+      --ink-muted: #8E85A8;
+      --line: #E7DEFA;
+      --line-subtle: #F0EBFC;
+      --pri: #6830F9;
+      --pri-hover: #5218E0;
+      --pri-light: #EFEAFE;
+      --pri-glow: rgba(104, 48, 249, 0.18);
+      --accent-coral: #FF3366;
+      --accent-mint: #10B981;
+      --accent-amber: #F59E0B;
+      --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-editorial: Cambria, 'Hoefler Text', Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      height: 100vh;
+      max-height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-ui);
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    ::selection {
+      background: rgba(104, 48, 249, 0.22);
+      color: #3810A6;
+    }
+
+    /* Deck Master Outer Container */
+    .deck-viewport {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      background: radial-gradient(circle at 10% 10%, #FFFFFF 0%, #F5F0FE 45%, #EFE8FC 100%);
+      position: relative;
+    }
+
+    /* Top Master Header */
+    .master-header {
+      height: 54px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+      flex-shrink: 0;
+    }
+
+    .brand-corp-tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-corp-tag .corp {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -0.4px;
+    }
+    .brand-corp-tag .sep {
+      color: #C3B4E8;
+      font-weight: 300;
+    }
+    .brand-corp-tag .sub {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--pri);
+      background: var(--pri-light);
+      padding: 3px 8px;
+      border-radius: 99px;
+    }
+
+    .header-links-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .proto-badge-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pri-light);
+      color: var(--pri);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      padding: 5px 12px;
+      border-radius: 99px;
+      border: 1px solid rgba(104, 48, 249, 0.2);
+      transition: all 0.2s ease;
+    }
+    .proto-badge-link:hover {
+      background: var(--pri);
+      color: #FFF;
+      transform: translateY(-1px);
+    }
+    .gh-round-btn {
+      color: var(--ink);
+      font-size: 17px;
+      display: grid;
+      place-items: center;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .gh-round-btn:hover {
+      color: var(--pri);
+    }
+
+    /* Slide Stage Canvas */
+    .deck-stage {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 24px;
+    }
+
+    .slide-scene {
+      position: absolute;
+      inset: 16px 24px;
+      background: #FFFFFF;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 44px -16px rgba(104, 48, 249, 0.12), 0 0 0 1px rgba(255,255,255,0.7);
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateX(40px) scale(0.98);
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+      overflow: hidden;
+    }
+
+    .slide-scene.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+      z-index: 10;
+    }
+    .slide-scene.prev-slide {
+      opacity: 0;
+      transform: translateX(-40px) scale(0.98);
+    }
+
+    /* Common Slide Typography */
+    .slide-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+    .slide-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--pri);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .slide-eyebrow .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pri);
+    }
+    .slide-heading {
+      font-family: var(--font-editorial);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+    .slide-subheading {
+      font-size: 13px;
+      color: var(--ink-sub);
+      line-height: 1.45;
+      margin-top: -8px;
+      margin-bottom: 14px;
+    }
+
+    /* Footnotes and Citations */
+    .footnote-bar {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10.5px;
+      color: var(--ink-muted);
+      flex-shrink: 0;
+    }
+    .footnote-bar a {
+      color: var(--pri);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .footnote-bar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Cards, Grids & UI Tokens */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 6px 20px -8px rgba(104, 48, 249, 0.06);
+      transition: all 0.2s ease;
+    }
+    .card:hover {
+      box-shadow: 0 10px 28px -10px rgba(104, 48, 249, 0.14);
+      transform: translateY(-2px);
+    }
+    .card.purple-tint {
+      background: linear-gradient(135deg, #FAF7FF 0%, #FFFFFF 100%);
+      border-color: #E2D7FC;
+    }
+
+    .block-visual-box {
+      background: #FAF8FF;
+      border: 1px solid var(--line-subtle);
+      border-radius: 12px;
+      padding: 7px 10px;
+      margin: 8px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 11px;
+    }
+
+    /* Granular Dashboard Callout Badges & Pulse Animations */
+    .metric-callout-marker {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 99px;
+      font-size: 9.5px;
+      font-weight: 800;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: floatBadge 3s ease-in-out infinite alternate;
+    }
+    .metric-callout-marker.dip {
+      background: #FFEBEF;
+      color: var(--accent-coral);
+      border: 1px solid #FFCCD5;
+    }
+    .metric-callout-marker.peak {
+      background: #E6FBF2;
+      color: var(--accent-mint);
+      border: 1px solid #A7F3D0;
+    }
+    @keyframes floatBadge {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
+    }
+    .pulse-ring-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      position: relative;
+    }
+    .pulse-ring-dot.red { background: var(--accent-coral); }
+    .pulse-ring-dot.green { background: var(--accent-mint); }
+    .pulse-ring-dot::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      animation: pingGlow 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    @keyframes pingGlow {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+
+    .mini-status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    .mini-status-chip.ok { background: #E6FBF2; color: var(--accent-mint); }
+    .mini-status-chip.warn { background: #FEF3C7; color: #B45309; }
+    .mini-status-chip.pri { background: var(--pri-light); color: var(--pri); }
+    .mini-status-chip.bad { background: #FFEBEF; color: var(--accent-coral); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1; align-items: stretch; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; flex: 1; align-items: stretch; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; flex: 1; align-items: stretch; }
+
+    /* Slide 3 Clipart / Avatar Showcase Container */
+    .avatar-showcase-box {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      height: clamp(190px, 28vh, 240px);
+      margin: 4px 0 8px;
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 14px rgba(104, 48, 249, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .avatar-showcase-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card:hover .avatar-showcase-box img {
+      transform: scale(1.04);
+    }
+    .avatar-pill-badge {
+      position: absolute;
+      bottom: 6px;
+      left: 8px;
+      background: rgba(20, 14, 38, 0.85);
+      backdrop-filter: blur(6px);
+      color: #FFF;
+      font-size: 8.5px;
+      font-weight: 800;
+      padding: 2.5px 8px;
+      border-radius: 99px;
+      letter-spacing: 0.2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      pointer-events: none;
+    }
+
+    /* Slide 4 Operational Rhythm 3:4 Portrait Image Showcase */
+    .pm-cadence-img-box {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      width: 100%;
+      height: clamp(200px, 30vh, 260px);
+      margin: 5px 0 8px;
+      border: 1px solid var(--line);
+      box-shadow: 0 6px 18px rgba(104, 48, 249, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FAF7FF;
+      flex-shrink: 0;
+    }
+    .pm-cadence-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card:hover .pm-cadence-img-box img {
+      transform: scale(1.05);
+    }
+
+    /* Slide 11 Product Guardrails Image Showcase */
+    .guardrail-img-box {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      width: 100%;
+      height: clamp(235px, 35vh, 305px);
+      margin: 5px 0 7px;
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 14px rgba(104, 48, 249, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FAF7FF;
+      flex-shrink: 0;
+    }
+    .guardrail-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card:hover .guardrail-img-box img {
+      transform: scale(1.03);
+    }
+
+    /* ==========================================================
+       DOODLE EYE ANIMATION & BRANDING
+       360-degree orbit rotation + responsive parallax & blinking
+       ========================================================== */
+    .doodle-hero-logo {
+      display: inline-flex;
+      align-items: center;
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--pri);
+      letter-spacing: -1.5px;
+    }
+    .doodle-eye-box {
+      width: 44px;
+      height: 56px;
+      background: #FFFFFF;
+      border: 4.5px solid var(--pri);
+      border-radius: 50% 50% 48% 48%;
+      margin: 0 3px;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: inset 0 3px 6px rgba(104, 48, 249, 0.2), 0 4px 14px rgba(104, 48, 249, 0.2);
+    }
+    .doodle-eye-box.small {
+      width: 20px;
+      height: 26px;
+      border-width: 2.5px;
+      margin: 0 1.5px;
+    }
+    .doodle-eye-box::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 0;
+      background: #F3EDFF;
+      z-index: 5;
+      animation: eyelidBlink 4.2s infinite ease-in-out;
+      border-bottom: 2px solid var(--pri);
+    }
+    @keyframes eyelidBlink {
+      0%, 93%, 100% { height: 0; }
+      96% { height: 100%; }
+    }
+    .eye-pupil-rotator {
+      width: 17px;
+      height: 17px;
+      background: #1B1530;
+      border-radius: 50%;
+      position: absolute;
+      animation: pupilOrbitSmooth 5s infinite linear;
+      box-shadow: 0 0 4px rgba(0,0,0,0.4);
+    }
+    .doodle-eye-box.small .eye-pupil-rotator {
+      width: 7.5px;
+      height: 7.5px;
+    }
+    .eye-pupil-rotator::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 4.5px;
+      height: 4.5px;
+      background: #FFF;
+      border-radius: 50%;
+    }
+    .doodle-eye-box.small .eye-pupil-rotator::after {
+      width: 2px;
+      height: 2px;
+      top: 1px;
+      left: 1px;
+    }
+    @keyframes pupilOrbitSmooth {
+      0% { transform: rotate(0deg) translate(8px) rotate(0deg); }
+      100% { transform: rotate(360deg) translate(8px) rotate(-360deg); }
+    }
+    .doodle-eye-box.small .eye-pupil-rotator {
+      animation: pupilOrbitSmall 5s infinite linear;
+    }
+    @keyframes pupilOrbitSmall {
+      0% { transform: rotate(0deg) translate(3.5px) rotate(0deg); }
+      100% { transform: rotate(360deg) translate(3.5px) rotate(-360deg); }
+    }
+
+    /* ==========================================================
+       WHATSAPP CHAT GRAVEYARD VISUAL (SLIDE 8)
+       ========================================================== */
+    .wa-chat-mockup {
+      background: #EFE7DD;
+      border-radius: 18px;
+      border: 2px solid #D1C7BA;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+    .wa-header {
+      background: #075E54;
+      color: #FFFFFF;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .wa-body {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      max-height: 380px;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .wa-msg {
+      max-width: 82%;
+      padding: 7px 10px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      line-height: 1.35;
+      position: relative;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .wa-msg.in {
+      align-self: flex-start;
+      background: #FFFFFF;
+      color: #111;
+      border-top-left-radius: 2px;
+    }
+    .wa-sender {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--pri);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .wa-time {
+      font-size: 9px;
+      color: #888;
+      float: right;
+      margin-left: 6px;
+      margin-top: 3px;
+    }
+    .wa-pain-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #FF3366;
+      color: #FFFFFF;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 99px;
+      margin-top: 4px;
+      animation: pulseAlert 2s infinite ease-in-out;
+    }
+    @keyframes pulseAlert {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.4); }
+      50% { transform: scale(1.03); box-shadow: 0 0 0 5px rgba(255, 51, 102, 0); }
+    }
+
+    /* Metric Pills & Badges */
+    .metric-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pri-light);
+      color: var(--pri);
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .metric-pill.mint { background: #E6FBF2; color: var(--accent-mint); }
+    .metric-pill.coral { background: #FFEBEF; color: var(--accent-coral); }
+    .metric-pill.amber { background: #FEF3C7; color: var(--accent-amber); }
+
+    .highlight-ring {
+      border: 2px dashed var(--pri);
+      background: #FAF7FF;
+      border-radius: 14px;
+      padding: 10px 14px;
+      animation: ringGlow 3s infinite alternate;
+    }
+    @keyframes ringGlow {
+      from { box-shadow: 0 0 0 0 var(--pri-glow); }
+      to { box-shadow: 0 0 0 6px var(--pri-glow); }
+    }
+
+    /* CTA Buttons */
+    .cta-btn {
+      background: var(--pri);
+      color: #FFFFFF;
+      border: 0;
+      border-radius: 14px;
+      padding: 10px 20px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px -6px rgba(104, 48, 249, 0.45);
+      transition: all 0.2s ease;
+    }
+    .cta-btn:hover {
+      background: var(--pri-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -6px rgba(104, 48, 249, 0.6);
+    }
+    .cta-btn.secondary {
+      background: #FFFFFF;
+      color: var(--pri);
+      border: 1.5px solid var(--pri);
+      box-shadow: none;
+    }
+    .cta-btn.secondary:hover {
+      background: var(--pri-light);
+    }
+
+    /* Interactive Expected vs Reality Card */
+    .interactive-question-card {
+      background: linear-gradient(135deg, #FAF7FF 0%, #FFFFFF 100%);
+      border: 1.5px dashed var(--pri);
+      border-radius: 16px;
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .interactive-question-card:hover {
+      background: #F3EDFF;
+    }
+
+    /* Strict In-Slide Hurray & Confetti */
+    .slide-hurray-wrapper {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 100;
+    }
+    .slide-hurray-confetti {
+      position: absolute;
+      top: -16px;
+      width: 8px;
+      height: 14px;
+      border-radius: 2px;
+      animation: slideConfettiFall linear forwards;
+    }
+    @keyframes slideConfettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(680px) rotate(720deg); opacity: 0; }
+    }
+    .slide-hurray-badge {
+      position: absolute;
+      left: 50%;
+      top: 45%;
+      transform: translate(-50%, -50%) scale(0);
+      background: #FFFFFF;
+      color: var(--pri);
+      font-size: 16px;
+      font-weight: 900;
+      padding: 14px 26px;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px -10px rgba(104, 48, 249, 0.5), 0 0 0 2px var(--pri);
+      animation: slideBadgePop 2.5s cubic-bezier(0.2, 1.4, 0.4, 1) forwards;
+      white-space: nowrap;
+    }
+    @keyframes slideBadgePop {
+      0% { transform: translate(-50%, -50%) scale(0) rotate(-6deg); opacity: 0; }
+      20% { transform: translate(-50%, -50%) scale(1.06) rotate(2deg); opacity: 1; }
+      35% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      85% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0; }
+    }
+
+    /* Bottom Controller & Progress Bar */
+    .master-footer {
+      height: 52px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.95);
+      z-index: 50;
+      flex-shrink: 0;
+    }
+    .progress-bar-wrap {
+      flex: 1;
+      max-width: 380px;
+      height: 6px;
+      background: #EDE6FA;
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 0 20px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--pri);
+      width: 8.33%;
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+    .deck-nav-btn {
+      background: var(--pri-light);
+      border: 0;
+      color: var(--pri);
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .deck-nav-btn.primary {
+      background: var(--pri);
+      color: #FFF;
+    }
+    .deck-nav-btn:hover:not(:disabled) {
+      background: var(--pri-hover);
+      color: #FFF;
+      transform: translateY(-1px);
+    }
+    .deck-nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .slide-counter-badge {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--ink-sub);
+    }
+
+    /* Quick Jump Drawer */
+    .slide-drawer {
+      position: absolute;
+      bottom: 56px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 10px 14px;
+      display: flex;
+      gap: 6px;
+      box-shadow: 0 16px 40px -12px rgba(104, 48, 249, 0.25);
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+    .slide-drawer.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .drawer-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--line);
+      background: #FAF8FF;
+      color: var(--ink-sub);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: all 0.15s;
+    }
+    .drawer-dot.active {
+      background: var(--pri);
+      color: #FFF;
+      border-color: var(--pri);
+    }
+    body.is-embedded .master-header {
+      display: none !important;
+    }
+    body.is-embedded .deck-viewport {
+      height: 100vh;
+      max-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck-viewport">
+  <!-- Top Master Bar -->
+  <header class="master-header">
+    <div class="brand-corp-tag">
+      <span class="corp">district</span>
+      <span style="font-size:10px; font-weight:800; color:var(--pri)">by zomato</span>
+      <span class="sep">/</span>
+      <span class="sub">Product Strategy Deck · Launch 2026</span>
+    </div>
+
+    <div class="header-links-group">
+      <a href="index.html#prototype" target="_top" onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}" class="proto-badge-link" title="Open Interactive Prototype">
+        <i class="fa-solid fa-play" style="font-size:10px"></i>
+        <span>Live App Sandbox</span>
+      </a>
+      <a href="https://github.com/pavitrapoojary/district-by-zomato" target="_blank" rel="noopener" class="gh-round-btn" title="GitHub Repository">
+        <i class="fa-brands fa-github"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- Slide Canvas Container -->
+  <main class="deck-stage" id="deckStage">
+
+    <!-- ========================================================
+         SLIDE 1: COVER SLIDE - DISTRICT BY ZOMATO RETRO-TECH POSTER
+         ======================================================== -->
+    <section class="slide-scene active" id="slide-1" style="display: flex; flex-direction: column; justify-content: space-between; padding: 18px 26px; background: radial-gradient(circle at 50% 30%, #FFFFFF 0%, #FAF6FE 55%, #F2EBFC 100%);">
+      <div class="slide-topbar" style="margin-bottom: 4px;">
+        <span class="slide-eyebrow"><span class="dot"></span>01 · STRATEGIC PRODUCT PROPOSAL · Q1 2026</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="metric-pill">ETERNAL / ZOMATO LTD</span>
+          <span class="metric-pill mint">THE GOING-OUT SUPER APP</span>
+        </div>
+      </div>
+
+      <!-- Poster Hero Display -->
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 0; margin: 4px 0;">
+        <div class="poster-hero-frame" onclick="nextSlide()" title="Click to begin presentation" style="position: relative; width: 100%; height: 100%; max-height: calc(100% - 6px); border-radius: 18px; overflow: hidden; box-shadow: 0 18px 46px -12px rgba(104, 48, 249, 0.28), 0 0 0 1.5px var(--line); background: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+          <img src="District by Zomato Retro-Tech Poster.png"
+               alt="District by Zomato Retro-Tech Poster"
+               style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 16px;">
+        </div>
+      </div>
+
+      <div class="footnote-bar" style="margin-top: 6px; padding-top: 6px;">
+        <span>Prepared by District Product &amp; Growth Pod · Executive Strategic Review.</span>
+        <span>Keyboard: Use &larr; &rarr; or Space</span>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 2: WHAT IS DISTRICT BY ZOMATO?
+         ======================================================== -->
+    <section class="slide-scene" id="slide-2">
+      <div class="slide-topbar">
+        <span class="slide-eyebrow"><span class="dot"></span>02 · CONTEXT &amp; BUSINESS PILLAR</span>
+        <span style="font-size: 12px; font-weight: 700; color: var(--ink-sub);">Zomato Ltd / Eternal Ecosystem</span>
+      </div>
+
+      <h2 class="slide-heading">What is District? The 3rd Giant Pillar of Eternal</h2>
+
+      <div class="grid-3">
+        <!-- Vertical Block 1: The Going-Out Super App -->
+        <div class="card purple-tint" style="display: flex; flex-direction: column; justify-content: space-between; padding: 14px 15px;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span class="metric-pill">BEYOND FOOD DELIVERY</span>
+              <span style="font-size: 18px;">🌆</span>
+            </div>
+            <h3 style="font-size: 16px; margin-bottom: 4px; color: var(--ink);">The Going-Out Super App</h3>
+            <p style="font-size: 11.5px; color: var(--ink-sub); line-height: 1.4; margin-bottom: 6px;">
+              Following <b>Zomato</b> (Food Delivery) and <b>Blinkit</b> (Quick Commerce), <b>District</b> is Eternal’s 3rd business engine — consolidating offline dining and entertainment under one canopy.
+            </p>
+          </div>
+
+          <!-- Meaningful Image: Urban Dining & Nightlife -->
+          <div style="position: relative; border-radius: 12px; overflow: hidden; height: 115px; margin: 4px 0 6px; border: 1px solid var(--line); box-shadow: 0 4px 14px rgba(104, 48, 249, 0.1);">
+            <img src="assets/district_going_out.jpg" alt="District by Zomato Going-Out Dining & Nightlife" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div style="position: absolute; bottom: 5px; left: 7px; background: rgba(20, 14, 38, 0.82); backdrop-filter: blur(6px); color: #FFF; font-size: 8.5px; font-weight: 800; padding: 2px 7px; border-radius: 99px;">
+              🍽️ Dining Out · Pubs &amp; Cafes
+            </div>
+          </div>
+
+          <div class="block-visual-box" style="margin-top: auto; margin-bottom: 0; padding: 6px 9px;">
+            <div style="display:flex; justify-content:space-between; font-weight:800; font-size:10px;">
+              <span>Consolidated Categories</span>
+              <span style="color:var(--pri)">1 Unified App</span>
+            </div>
+            <div style="display:flex; gap:3px; margin-top:2px; flex-wrap:wrap;">
+              <span class="mini-status-chip ok">Dining Out</span>
+              <span class="mini-status-chip pri">Live Concerts</span>
+              <span class="mini-status-chip warn">Movies &amp; IMAX</span>
+              <span class="mini-status-chip ok">Box Turfs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vertical Block 2: Experience Commerce & Orchestration -->
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 14px 15px;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span class="metric-pill mint">EXPERIENCE COMMERCE</span>
+              <span style="font-size: 18px;">🎟️</span>
+            </div>
+            <h3 style="font-size: 16px; margin-bottom: 4px; color: var(--ink);">End-to-End Orchestration</h3>
+            <p style="font-size: 11.5px; color: var(--ink-sub); line-height: 1.4; margin-bottom: 6px;">
+              District owns discovery, dynamic table reservations, ticketing, payment splits, and merchant check-ins with zero third-party redirects.
+            </p>
+          </div>
+
+          <!-- Meaningful Image: Live Concert & Ticketing -->
+          <div style="position: relative; border-radius: 12px; overflow: hidden; height: 115px; margin: 4px 0 6px; border: 1px solid var(--line); box-shadow: 0 4px 14px rgba(104, 48, 249, 0.1);">
+            <img src="assets/district_live_events.jpg" alt="District Live Events Concerts & Entertainment" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div style="position: absolute; bottom: 5px; left: 7px; background: rgba(20, 14, 38, 0.82); backdrop-filter: blur(6px); color: #FFF; font-size: 8.5px; font-weight: 800; padding: 2px 7px; border-radius: 99px;">
+              🎟️ Paytm Insider Ticketing Assets
+            </div>
+          </div>
+
+          <div class="block-visual-box" style="margin-top: auto; margin-bottom: 0; padding: 6px 9px;">
+            <div style="display:flex; justify-content:space-between; font-size:10px; font-weight:800;">
+              <span>Acquisition Synergy</span>
+              <span style="color:var(--accent-mint)">+100% Synergies</span>
+            </div>
+            <p style="font-size:9.5px; color:var(--ink-sub); margin:0; line-height:1.3;">
+              Acquired Paytm Insider ticketing assets to dominate Tier-1 live entertainment &amp; sports stadiums.
+            </p>
+          </div>
+        </div>
+
+        <!-- Vertical Block 3: The Multi-Player Reality -->
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 14px 15px;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span class="metric-pill coral">THE UNADDRESSED GAP</span>
+              <span style="font-size: 18px;">👥</span>
+            </div>
+            <h3 style="font-size: 16px; margin-bottom: 4px; color: var(--ink);">The Multi-Player Reality</h3>
+            <p style="font-size: 11.5px; color: var(--ink-sub); line-height: 1.4; margin-bottom: 6px;">
+              People don’t go out alone. <b>82% of going-out GMV</b> is driven by groups of 3 to 8 friends. Yet legacy checkouts were built for a single solo buyer.
+            </p>
+          </div>
+
+          <!-- Meaningful Image: Friends Planning Outing Together -->
+          <div style="position: relative; border-radius: 12px; overflow: hidden; height: 115px; margin: 4px 0 6px; border: 1px solid var(--line); box-shadow: 0 4px 14px rgba(104, 48, 249, 0.1);">
+            <img src="assets/district_squad_outing.jpg" alt="Squad Group Outing Multi-Player Dynamics" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div style="position: absolute; bottom: 5px; left: 7px; background: rgba(20, 14, 38, 0.82); backdrop-filter: blur(6px); color: #FFF; font-size: 8.5px; font-weight: 800; padding: 2px 7px; border-radius: 99px;">
+              👥 82% Outings are Multi-Player
+            </div>
+          </div>
+
+          <div class="highlight-ring" style="margin-top: auto; margin-bottom: 0; padding: 6px 9px;">
+            <span style="font-size:10px; font-weight:800; color:var(--pri);">⚡ The Strategic Mandate:</span>
+            <div style="font-size:9.5px; color:var(--ink-sub); margin-top:2px; line-height:1.3;">
+              Transition District from <i>Single-Player Booking</i> to <i>Collaborative Social Commerce</i>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote-bar">
+        <span>Reference: Eternal Ltd. Corporate Strategy &amp; Q2 FY25 Shareholder Letter (eternal.com/our-businesses/district).</span>
+        <a href="https://www.eternal.com/our-businesses/district/" target="_blank" rel="noopener">Official District Page ↗</a>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 3: POSITIONING & TARGET COHORTS
+         ======================================================== -->
+    <section class="slide-scene" id="slide-3">
+      <div class="slide-topbar">
+        <span class="slide-eyebrow"><span class="dot"></span>03 · AUDIENCE SEGMENTATION</span>
+        <span style="font-size: 12px; font-weight: 700; color: var(--ink-sub);">Urban Gen-Z &amp; Millennials</span>
+      </div>
+
+      <h2 class="slide-heading">Positioning &amp; Whom District Targets</h2>
+
+      <div class="grid-3">
+        <!-- Cohort 1: The Squad Organiser -->
+        <div class="card" style="border-top: 4px solid var(--pri); display:flex; flex-direction:column; justify-content:space-between; padding: 12px 14px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <b style="font-size: 13.5px; color: var(--pri);">The Squad Organiser</b>
+              <span class="mini-status-chip pri">&#34;Ranveer&#34;</span>
+            </div>
+
+            <!-- Avatar Clipart Showcase -->
+            <div class="avatar-showcase-box" style="background: linear-gradient(180deg, #EDE6FA 0%, #FAF7FF 100%);">
+              <img src="assets/avatar_squad_organiser.jpg" alt="Ranveer - The Squad Organiser">
+              <div class="avatar-pill-badge">
+                <span>📱</span> Coordination Anchor · 84 Texts
+              </div>
+            </div>
+
+            <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 0 0 6px;">
+              The proactive host who buys tickets upfront, reserves tables, and carries 100% financial and coordination fatigue.
+            </p>
+          </div>
+
+          <!-- Rich Visual Mockup: Debt & Stress Meter -->
+          <div class="block-visual-box" style="margin: 0 0 6px; padding: 6px 8px; background: #FFF; border: 1px solid #ECE7FA;">
+            <div style="display:flex; justify-content:space-between; font-weight:800; font-size:9.5px;">
+              <span>Upfront Debt Burden</span>
+              <span class="mini-status-chip bad">₹4,800 Owed</span>
+            </div>
+            <div style="height:5px; background:#F0EBFC; border-radius:4px; overflow:hidden; margin:3px 0;">
+              <div style="width:82%; height:100%; background:var(--accent-coral);"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:8.5px; color:var(--ink-muted);">
+              <span>84 WhatsApp texts sent</span>
+              <span style="color:var(--accent-coral); font-weight:800;">High Friction</span>
+            </div>
+          </div>
+
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--pri); border-top: 1px dashed var(--line); padding-top: 5px;">
+            ⚡ Value: Automated group holds + zero upfront debt.
+          </div>
+        </div>
+
+        <!-- Cohort 2: The Silent Compromiser -->
+        <div class="card" style="border-top: 4px solid var(--accent-coral); display:flex; flex-direction:column; justify-content:space-between; padding: 12px 14px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <b style="font-size: 13.5px; color: var(--accent-coral);">The Silent Compromiser</b>
+              <span class="mini-status-chip bad">&#34;Virat / Kartik&#34;</span>
+            </div>
+
+            <!-- Avatar Clipart Showcase -->
+            <div class="avatar-showcase-box" style="background: linear-gradient(180deg, #E6F3FB 0%, #FFF2F4 100%);">
+              <img src="assets/avatar_silent_compromiser.jpg" alt="Virat - The Silent Compromiser">
+              <div class="avatar-pill-badge">
+                <span>🛡️</span> Diet &amp; Budget Shield · Zero Friction
+              </div>
+            </div>
+
+            <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 0 0 6px;">
+              Has niche diets (vegan, Jain) or a tight wallet. Hesitates to speak up in front of 7 friends to avoid feeling awkward.
+            </p>
+          </div>
+
+          <!-- Rich Visual Mockup: Anonymous Preference Shield -->
+          <div class="block-visual-box" style="margin: 0 0 6px; padding: 6px 8px; background: #FFF; border: 1px solid #ECE7FA;">
+            <div style="display:flex; justify-content:space-between; font-weight:800; font-size:9.5px;">
+              <span>Private Shield Engine</span>
+              <span class="mini-status-chip ok">100% Encrypted</span>
+            </div>
+            <div style="display:flex; gap:4px; margin-top:3px;">
+              <span style="background:#E6FBF2; color:var(--accent-mint); font-size:8.5px; font-weight:800; padding:2px 5px; border-radius:4px;">🌱 Vegan Shield</span>
+              <span style="background:#FEF3C7; color:#B45309; font-size:8.5px; font-weight:800; padding:2px 5px; border-radius:4px;">🔒 ₹1.5k Cap</span>
+            </div>
+          </div>
+
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--accent-coral); border-top: 1px dashed var(--line); padding-top: 5px;">
+            ⚡ Value: 100% anonymous dietary &amp; budget shield.
+          </div>
+        </div>
+
+        <!-- Cohort 3: The Merchant & Venue -->
+        <div class="card" style="border-top: 4px solid var(--accent-mint); display:flex; flex-direction:column; justify-content:space-between; padding: 12px 14px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <b style="font-size: 13.5px; color: var(--accent-mint);">The Merchant &amp; Venue</b>
+              <span class="mini-status-chip ok">&#34;Restaurants &amp; Turfs&#34;</span>
+            </div>
+
+            <!-- Avatar Clipart Showcase -->
+            <div class="avatar-showcase-box" style="background: linear-gradient(180deg, #DDF5EA 0%, #F4FBF8 100%);">
+              <img src="assets/avatar_merchant_venue.jpg" alt="Restaurant &amp; Venue Partner">
+              <div class="avatar-pill-badge">
+                <span>🏪</span> POS Cloud Sync · Guaranteed Prepaid
+              </div>
+            </div>
+
+            <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 0 0 6px;">
+              Battling weekend table no-shows, unconfirmed 6-tops, and chaotic 20-minute manual bill splits at checkout.
+            </p>
+          </div>
+
+          <!-- Rich Visual Mockup: Merchant Table Yield Grid -->
+          <div class="block-visual-box" style="margin: 0 0 6px; padding: 6px 8px; background: #FFF; border: 1px solid #ECE7FA;">
+            <div style="display:flex; justify-content:space-between; font-weight:800; font-size:9.5px;">
+              <span>No-Show Rate Drop</span>
+              <span class="mini-status-chip ok">22% → 1.8%</span>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-top:3px; font-size:8px; font-weight:700;">
+              <div style="background:#E6FBF2; color:var(--accent-mint); padding:2px 4px; border-radius:4px; text-align:center;">Table Hold: Paid ✓</div>
+              <div style="background:#FAF7FF; color:var(--pri); padding:2px 4px; border-radius:4px; text-align:center;">Turnover: +35 mins</div>
+            </div>
+          </div>
+
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--accent-mint); border-top: 1px dashed var(--line); padding-top: 5px;">
+            ⚡ Value: Guaranteed prepaid bookings + faster turnover.
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote-bar">
+        <span>Survey sample: N=2,400 urban nightlife diners across Delhi NCR, Mumbai, Bengaluru, and Chennai (Q3 2025).</span>
+        <a href="index.html#prototype" target="_top" onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">See User Flow in Prototype ↗</a>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 4: A DAY IN THE LIFE OF A DISTRICT PM
+         ======================================================== -->
+    <section class="slide-scene" id="slide-4">
+      <div class="slide-topbar">
+        <span class="slide-eyebrow"><span class="dot"></span>04 · THE OPERATIONAL RHYTHM</span>
+        <span style="font-size: 12px; font-weight: 700; color: var(--ink-sub);">24-Hour Cadence</span>
+      </div>
+
+      <h2 class="slide-heading">A Day in the Life of a District Product Manager</h2>
+
+      <div style="flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; align-items: stretch;">
+        <!-- 09:30 AM -->
+        <div class="card" style="padding: 12px 12px; display: flex; flex-direction: column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 10.5px; color: var(--pri); text-transform: uppercase;">09:30 AM</b>
+              <span class="mini-status-chip bad">🚨 Spike</span>
+            </div>
+            <b style="font-size: 13px; color: var(--ink); margin: 3px 0 2px; display:block;">Telemetry Triage</b>
+            
+            <!-- Full-Width Portrait Clipart Visual -->
+            <div class="pm-cadence-img-box">
+              <img src="assets/pm_telemetry_triage.jpg" alt="09:30 AM Telemetry Triage" style="object-position: center 25%;">
+              <div class="avatar-pill-badge" style="bottom:6px; left:6px; font-size:8px; padding:2.5px 7px;">
+                <span>📊</span> Drop-off Funnel
+              </div>
+            </div>
+
+            <p style="font-size: 10.5px; color: var(--ink-sub); line-height: 1.35; margin: 0 0 5px;">
+              Inspect overnight drop-offs, group cart abandonment, &amp; partner API latency.
+            </p>
+          </div>
+          <!-- Dense Visual: Funnel Dropoff -->
+          <div class="block-visual-box" style="background:#FFF; border:1px solid #ECE7FA; padding: 6px 8px; margin-top: auto; margin-bottom: 0;">
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:800;">
+              <span>Squad Checkout</span>
+              <span style="color:var(--accent-coral); font-weight:800;">-64% Drop</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:3px; margin:4px 0;">
+              <div style="display:flex; justify-content:space-between; font-size:8.5px;"><span>Prompt:</span><b>100%</b></div>
+              <div style="height:3px; background:#EDE7FA; border-radius:2px;"><div style="width:100%; height:100%; background:var(--pri);"></div></div>
+              <div style="display:flex; justify-content:space-between; font-size:8.5px;"><span>Vote link:</span><b>36%</b></div>
+              <div style="height:3px; background:#EDE7FA; border-radius:2px;"><div style="width:36%; height:100%; background:var(--accent-coral);"></div></div>
+            </div>
+            <span style="font-size:8px; color:var(--ink-muted);">Root cause: 80-text WhatsApp friction</span>
+          </div>
+        </div>
+
+        <!-- 11:30 AM -->
+        <div class="card" style="padding: 12px 12px; display: flex; flex-direction: column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 10.5px; color: var(--pri); text-transform: uppercase;">11:30 AM</b>
+              <span class="mini-status-chip ok">🏪 On-Ground</span>
+            </div>
+            <b style="font-size: 13px; color: var(--ink); margin: 3px 0 2px; display:block;">Merchant Walk</b>
+
+            <!-- Full-Width Portrait Clipart Visual -->
+            <div class="pm-cadence-img-box">
+              <img src="assets/pm_merchant_walk.jpg" alt="11:30 AM Merchant Walk" style="object-position: center 25%;">
+              <div class="avatar-pill-badge" style="bottom:6px; left:6px; font-size:8px; padding:2.5px 7px;">
+                <span>🏪</span> POS Table Grid
+              </div>
+            </div>
+
+            <p style="font-size: 10.5px; color: var(--ink-sub); line-height: 1.35; margin: 0 0 5px;">
+              Audit cinema POS sync and table turnaround across high-traffic nightlife hubs.
+            </p>
+          </div>
+          <!-- Dense Visual: POS Table Grid -->
+          <div class="block-visual-box" style="background:#FFF; border:1px solid #ECE7FA; padding: 6px 8px; margin-top: auto; margin-bottom: 0;">
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:800;">
+              <span>POS Table Grid</span>
+              <span style="color:var(--accent-mint);">Synced ⚡</span>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:3px; text-align:center; font-size:8px; font-weight:800; margin:4px 0;">
+              <div style="background:#E6FBF2; color:var(--accent-mint); padding:3px 2px; border-radius:4px;">T1: 6-Top</div>
+              <div style="background:#EFEAFE; color:var(--pri); padding:3px 2px; border-radius:4px;">T2: Held</div>
+              <div style="background:#FFEBEF; color:var(--accent-coral); padding:3px 2px; border-radius:4px;">T3: Rush</div>
+            </div>
+            <span style="font-size:8px; color:var(--ink-muted);">Avg seat hold window: 15 mins</span>
+          </div>
+        </div>
+
+        <!-- 02:30 PM -->
+        <div class="card" style="padding: 12px 12px; display: flex; flex-direction: column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 10.5px; color: var(--pri); text-transform: uppercase;">02:30 PM</b>
+              <span class="mini-status-chip pri">⚡ Sprint</span>
+            </div>
+            <b style="font-size: 13px; color: var(--ink); margin: 3px 0 2px; display:block;">Experiment Sprint</b>
+
+            <!-- Full-Width Portrait Clipart Visual -->
+            <div class="pm-cadence-img-box">
+              <img src="assets/pm_experiment_sprint.jpg" alt="02:30 PM Experiment Sprint" style="object-position: center 25%;">
+              <div class="avatar-pill-badge" style="bottom:6px; left:6px; font-size:8px; padding:2.5px 7px;">
+                <span>⚡</span> +38% Lift Sprint
+              </div>
+            </div>
+
+            <p style="font-size: 10.5px; color: var(--ink-sub); line-height: 1.35; margin: 0 0 5px;">
+              Deploy high-velocity experiments on anonymous voting cards and UPI split triggers.
+            </p>
+          </div>
+          <!-- Dense Visual: A/B Test Results -->
+          <div class="block-visual-box" style="background:#FFF; border:1px solid #ECE7FA; padding: 6px 8px; margin-top: auto; margin-bottom: 0;">
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:800;">
+              <span>A/B Conversion</span>
+              <span class="mini-status-chip ok" style="padding:1px 4px;">+38% Lift</span>
+            </div>
+            <div style="display:flex; gap:4px; font-size:8px; margin:4px 0;">
+              <div style="flex:1; border:1px solid var(--line); border-radius:4px; padding:2px; text-align:center;">
+                <span style="display:block; color:var(--ink-muted);">Control</span><b>28%</b>
+              </div>
+              <div style="flex:1; border:1.5px solid var(--pri); background:#FAF7FF; border-radius:4px; padding:2px; text-align:center; color:var(--pri);">
+                <span style="display:block; font-weight:700;">Social Flow</span><b>66% ★</b>
+              </div>
+            </div>
+            <span style="font-size:8px; color:var(--ink-muted);">Sample: n=84,000 sessions</span>
+          </div>
+        </div>
+
+        <!-- 05:30 PM -->
+        <div class="card" style="padding: 12px 12px; display: flex; flex-direction: column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 10.5px; color: var(--pri); text-transform: uppercase;">05:30 PM</b>
+              <span class="mini-status-chip warn">🔥 Surge</span>
+            </div>
+            <b style="font-size: 13px; color: var(--ink); margin: 3px 0 2px; display:block;">War Room</b>
+
+            <!-- Full-Width Portrait Clipart Visual -->
+            <div class="pm-cadence-img-box">
+              <img src="assets/pm_war_room.jpg" alt="05:30 PM War Room" style="object-position: center 30%;">
+              <div class="avatar-pill-badge" style="bottom:6px; left:6px; font-size:8px; padding:2.5px 7px;">
+                <span>🔥</span> 94% Peak Surge
+              </div>
+            </div>
+
+            <p style="font-size: 10.5px; color: var(--ink-sub); line-height: 1.35; margin: 0 0 5px;">
+              Monitor live surge capacity, sold-out IMAX shows, &amp; auto-healing schedule buffers.
+            </p>
+          </div>
+          <!-- Dense Visual: Surge Wave -->
+          <div class="block-visual-box" style="background:#FFF; border:1px solid #ECE7FA; padding: 6px 8px; margin-top: auto; margin-bottom: 0;">
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:800;">
+              <span>Surge Utilization</span>
+              <span style="color:var(--accent-amber);">94% Peak</span>
+            </div>
+            <div style="height:6px; background:#FEF3C7; border-radius:4px; overflow:hidden; margin:4px 0;">
+              <div style="width:94%; height:100%; background:var(--accent-amber);"></div>
+            </div>
+            <span style="font-size:8px; color:var(--ink-muted);">Dynamic hold buffer auto-expanded</span>
+          </div>
+        </div>
+
+        <!-- 08:30 PM -->
+        <div class="card purple-tint" style="padding: 12px 12px; display: flex; flex-direction: column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 10.5px; color: var(--accent-coral); text-transform: uppercase;">08:30 PM</b>
+              <span class="mini-status-chip ok">🍕 Dogfood</span>
+            </div>
+            <b style="font-size: 13px; color: var(--ink); margin: 3px 0 2px; display:block;">Squad Dogfood</b>
+
+            <!-- Full-Width Portrait Clipart Visual -->
+            <div class="pm-cadence-img-box">
+              <img src="assets/pm_squad_dogfood.jpg" alt="08:30 PM Squad Dogfood" style="object-position: center 40%;">
+              <div class="avatar-pill-badge" style="bottom:6px; left:6px; font-size:8px; padding:2.5px 7px;">
+                <span>🍕</span> SplitPay Settled
+              </div>
+            </div>
+
+            <p style="font-size: 10.5px; color: var(--ink-sub); line-height: 1.35; margin: 0 0 5px;">
+              Head out with real squads, booking multi-stop plans via District to test UX firsthand.
+            </p>
+          </div>
+          <!-- Dense Visual: Receipt Mockup -->
+          <div class="block-visual-box" style="background:#FFF; border:1px solid #ECE7FA; padding: 6px 8px; margin-top: auto; margin-bottom: 0;">
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:800;">
+              <span>Multi-Stop Outing</span>
+              <span style="color:var(--accent-mint);">Settled ✓</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:8px; color:var(--pri); font-weight:700; margin:2px 0;">
+              <span>Cinema + Dinner</span>
+              <span>₹5,400</span>
+            </div>
+            <span style="font-size:8px; color:var(--accent-mint); font-weight:800;">6/6 Paid in 22 mins via SplitPay</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote-bar">
+        <span>Derived from operational dogfooding across Delhi NCR, Mumbai, Bengaluru, and Chennai product pods.</span>
+        <a href="index.html#prototype" target="_top" onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">Open Live App Sandbox ↗</a>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 5: OFFICIAL VISION, MISSION & NORTH STAR
+         ======================================================== -->
+    <section class="slide-scene" id="slide-5">
+      <div class="slide-topbar">
+        <span class="slide-eyebrow"><span class="dot"></span>05 · STRATEGIC COMPASS · OFFICIAL MANDATE</span>
+        <span style="font-size: 12px; font-weight: 700; color: var(--ink-sub);">Aligned with eternal.com</span>
+      </div>
+
+      <h2 class="slide-heading">Official Vision, Mission &amp; The PM North Star Metric</h2>
+
+      <div class="grid-2">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Official District Mission Statement -->
+          <div class="card purple-tint" style="border-left: 4px solid var(--pri);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <span class="metric-pill">DISTRICT CORE PURPOSE</span>
+              <span style="font-size:10px; font-weight:800; color:var(--pri);">ETERNAL Q2 FY25</span>
+            </div>
+            <h3 style="font-size: 18px; margin: 4px 0 6px; color: var(--ink); font-family: var(--font-editorial);">
+              &#34;World-Class Going-Out Experiences&#34;
+            </h3>
+            <p style="font-size: 12.5px; color: var(--ink-sub); line-height: 1.45;">
+              <i>District by Zomato</i> is more than just a platform — it is a powerful engine for cultural discovery and curated experiences across <b>dining, movies, live events, sports turfs, and shopping</b> — bringing the city’s best experiences under one roof.
+            </p>
+          </div>
+
+          <!-- Eternal Culture Alignment -->
+          <div class="card" style="border-left: 4px solid var(--accent-mint);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <span class="metric-pill mint">CULTURE &amp; PHILOSOPHY</span>
+              <a href="https://www.eternal.com/culture/" target="_blank" rel="noopener" style="font-size:10px; font-weight:800; color:var(--accent-mint); text-decoration:none;">eternal.com/culture ↗</a>
+            </div>
+            <h3 style="font-size: 15px; margin: 4px 0 4px; color: var(--ink);">
+              Accountability for Outcomes &amp; Ruthless Prioritisation
+            </h3>
+            <p style="font-size: 12px; color: var(--ink-sub); line-height: 1.45;">
+              We operate with high intellectual honesty, zero bureaucracy, and obsessive on-ground empathy. If a feature does not tangibly remove friction from a user’s real weekend, it does not get built.
+            </p>
+          </div>
+        </div>
+
+        <!-- The North Star Metric Definition -->
+        <div class="card" style="display: flex; flex-direction: column; justify-content: center; border-left: 5px solid var(--pri);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size: 11px; font-weight: 800; color: var(--pri); text-transform: uppercase;">
+              THE PRODUCT NORTH STAR METRIC
+            </span>
+            <span class="metric-pill pri">GROWTH ENGINE</span>
+          </div>
+          <div style="font-size: 26px; font-family: var(--font-editorial); font-weight: 700; color: var(--ink); margin: 6px 0 4px;">
+            Weekly Confirmed Group Outings (CGO)
+          </div>
+          <p style="font-size: 12.5px; color: var(--ink-sub); margin-bottom: 12px; line-height: 1.45;">
+            A multi-stop, multi-person verified transaction (minimum 3 people, cross-category dining + entertainment) completed and settled on District.
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div style="background: #FAF8FF; padding: 10px; border-radius: 12px; border: 1px solid var(--line);">
+              <span style="font-size: 10px; color: var(--ink-sub); font-weight: 700; text-transform:uppercase;">Viral K-Factor</span>
+              <div style="font-weight: 900; font-size: 15px; color: var(--pri); margin: 2px 0;">&gt; 1.40 Organic</div>
+              <span style="font-size:9.5px; color:var(--ink-sub);">Every host brings 5 squad members</span>
+            </div>
+            <div style="background: #FAF8FF; padding: 10px; border-radius: 12px; border: 1px solid var(--line);">
+              <span style="font-size: 10px; color: var(--ink-sub); font-weight: 700; text-transform:uppercase;">SplitPay Velocity</span>
+              <div style="font-weight: 900; font-size: 15px; color: var(--accent-mint); margin: 2px 0;">&lt; 35 Minutes</div>
+              <span style="font-size:9.5px; color:var(--ink-sub);">Zero debt carried by squad organiser</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote-bar">
+        <span>Official references: eternal.com/our-businesses/district and eternal.com/culture.</span>
+        <a href="https://www.eternal.com/our-businesses/district/" target="_blank" rel="noopener">District Official Page ↗</a>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 6: 16:9 INTERACTIVE PM TELEMETRY DASHBOARD
+         ======================================================== -->
+    <section class="slide-scene" id="slide-6">
+      <div class="slide-topbar">
+        <span class="slide-eyebrow"><span class="dot"></span>06 · PM TELEMETRY DASHBOARD</span>
+        <!-- Granular Filter Bar -->
+        <div style="display: flex; gap: 8px; align-items:center;">
+          <!-- City Filter -->
+          <select id="dashCityFilter" onchange="updateDashData()" style="padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line); font-size: 11px; font-weight: 700; color: var(--pri); background: #FFF; cursor:pointer;">
+            <option value="all">All Metros (Pan-India)</option>
+            <option value="delhi">Delhi NCR</option>
+            <option value="mumbai">Mumbai</option>
+            <option value="bengaluru">Bengaluru</option>
+            <option value="chennai">Chennai</option>
+            <option value="hyderabad">Hyderabad</option>
+          </select>
+
+          <!-- Category Segment Filter -->
+          <select id="dashCatFilter" onchange="updateDashData()" style="padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line); font-size: 11px; font-weight: 700; color: var(--ink-sub); background: #FFF; cursor:pointer;">
+            <option value="all">All Categories</option>
+            <option value="dining">Dining &amp; Bars</option>
+            <option value="movies">Movies &amp; IMAX</option>
+            <option value="turfs">Turfs &amp; Sports</option>
+            <option value="gigs">Live Gigs</option>
+          </select>
+
+          <!-- Time Granularity Filter -->
+          <div style="display: flex; background: var(--line-subtle); padding: 2px; border-radius: 99px;">
+            <button id="btnHourly" onclick="setDashTime('hourly')" style="padding: 3px 9px; border-radius: 99px; border: 0; font-size: 10px; font-weight: 800; background: transparent; color: var(--ink-sub); cursor:pointer;">Hourly</button>
+            <button id="btnDaily" onclick="setDashTime('daily')" style="padding: 3px 9px; border-radius: 99px; border: 0; font-size: 10px; font-weight: 800; background: var(--pri); color: #FFF; cursor:pointer;">Daily</button>
+            <button id="btnWeekly" onclick="setDashTime('weekly')" style="padding: 3px 9px; border-radius: 99px; border: 0; font-size: 10px; font-weight: 800; background: transparent; color: var(--ink-sub); cursor:pointer;">Weekly</button>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="slide-heading" style="margin-bottom: 6px;">Live Telemetry &amp; Squad Outing Velocity</h2>
+
+      <!-- Top Row: 4 Granular KPI Cards -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 8px;">
+        <div class="card purple-tint" style="padding: 9px 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size: 10px; color: var(--ink-sub); font-weight: 700;">Squad Outing GMV</span>
+            <span id="kpiGmvBadge" class="mini-status-chip ok">▲ +34% MoM</span>
+          </div>
+          <div id="kpiGmv" style="font-size: 19px; font-weight: 900; color: var(--pri); margin: 2px 0;">₹18.4 Cr</div>
+          <span style="font-size: 9.5px; color: var(--ink-muted);">Basket: ₹2,420 / pax</span>
+        </div>
+
+        <div class="card" style="padding: 9px 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size: 10px; color: var(--ink-sub); font-weight: 700;">Confirmed Outings (CGO)</span>
+            <span class="mini-status-chip pri">Viral K: 1.48</span>
+          </div>
+          <div id="kpiCgo" style="font-size: 19px; font-weight: 900; color: var(--ink); margin: 2px 0;">46,200</div>
+          <span style="font-size: 9.5px; color: var(--ink-muted);">Avg 5.2 people / squad</span>
+        </div>
+
+        <div class="card" style="padding: 9px 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size: 10px; color: var(--ink-sub); font-weight: 700;">SplitPay Settle Rate</span>
+            <span class="mini-status-chip ok">Avg 22 mins</span>
+          </div>
+          <div id="kpiSplit" style="font-size: 19px; font-weight: 900; color: var(--accent-mint); margin: 2px 0;">94.2%</div>
+          <span style="font-size: 9.5px; color: var(--ink-muted);">Zero debt carried by host</span>
+        </div>
+
+        <div class="card" style="padding: 9px 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size: 10px; color: var(--ink-sub); font-weight: 700;">Squad NPS &amp; CSAT</span>
+            <span class="mini-status-chip ok">99.2% Vegan Match</span>
+          </div>
+          <div id="kpiNps" style="font-size: 19px; font-weight: 900; color: var(--ink); margin: 2px 0;">4.78 ★</div>
+          <span style="font-size: 9.5px; color: var(--ink-muted);">NPS 76 · Zero Awkwardness</span>
+        </div>
+      </div>
+
+      <!-- Bottom Layout: Chart with Animated Dips/Highs + Auto-Derived Insights & Funnel -->
+      <div style="display:grid; grid-template-columns: 1.25fr 1fr; gap: 12px; flex: 1;">
+        <!-- Left: SVG Chart with Animated Dip and High Callouts -->
+        <div class="card" style="padding: 10px 14px; display:flex; flex-direction:column; justify-content:space-between; position:relative;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <b style="font-size: 12px; color: var(--ink);">Squad Demand Curve &amp; Conversion Telemetry</b>
+            <span id="chartTimeSpanLabel" style="font-size: 10px; color: var(--pri); font-weight:700;">Live Feed: 24-Hour Cycle</span>
+          </div>
+
+          <!-- The SVG Container with absolute positioned animated callouts -->
+          <div style="height: 125px; width: 100%; position: relative; margin: 4px 0;">
+            <!-- Dip Callout Badge with Pulsing Red Dot -->
+            <div id="dipBadge" class="metric-callout-marker dip" style="left: 32%; top: 62%;">
+              <span class="pulse-ring-dot red"></span>
+              <span id="dipLabel">📉 Dip: 3:15 PM Hold Timeout (-38%)</span>
+            </div>
+
+            <!-- Peak Callout Badge with Pulsing Green Dot -->
+            <div id="peakBadge" class="metric-callout-marker peak" style="right: 8%; top: 10%;">
+              <span class="pulse-ring-dot green"></span>
+              <span id="peakLabel">🚀 Peak: 8:20 PM Cinema+Dinner (+86%)</span>
+            </div>
+
+            <svg id="dashSvgChart" viewBox="0 0 380 100" style="width: 100%; height: 100%; overflow: visible;">
+              <defs>
+                <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#6830F9" stop-opacity="0.32"/>
+                  <stop offset="100%" stop-color="#6830F9" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <path id="dashChartArea" d="M 0 85 Q 70 80, 130 78 T 200 48 T 280 18 T 380 12 L 380 100 L 0 100 Z" fill="url(#chartGrad)"/>
+              <path id="dashChartLine" d="M 0 85 Q 70 80, 130 78 T 200 48 T 280 18 T 380 12" fill="none" stroke="#6830F9" stroke-width="3" stroke-linecap="round"/>
+              <!-- Dip Point -->
+              <circle id="chartDipPt" cx="130" cy="78" r="5" fill="#FF3366"/>
+              <!-- Peak Point -->
+              <circle id="chartPeakPt" cx="340" cy="14" r="5" fill="#10B981"/>
+            </svg>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; font-size:9px; color:var(--ink-muted);">
+            <span id="lblTime1">11:00 AM</span>
+            <span id="lblTime2">03:00 PM (Lull Window)</span>
+            <span id="lblTime3">06:30 PM (Voting Closes)</span>
+            <span id="lblTime4">09:30 PM (Nightlife Peak)</span>
+          </div>
+
+          <!-- Bottom Funnel Bar -->
+          <div style="background:#FAF8FF; border-radius:10px; padding:6px 10px; margin-top:6px; display:flex; justify-content:space-between; align-items:center; font-size:10px;">
+            <span style="font-weight:700; color:var(--ink-sub);">Outing Funnel:</span>
+            <span>Prompt: <b>100%</b></span>
+            <span style="color:#C3B4E8;">→</span>
+            <span>Link Opened: <b>88%</b></span>
+            <span style="color:#C3B4E8;">→</span>
+            <span>Votes In: <b>78%</b></span>
+            <span style="color:#C3B4E8;">→</span>
+            <span style="color:var(--accent-mint); font-weight:800;">Settled: 71%</span>
+          </div>
+        </div>
+
+        <!-- Right: Auto-Derived AI Insights Box (Changes dynamically with filters) -->
+        <div class="card purple-tint" style="padding: 10px 14px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <b style="font-size: 12px; color: var(--pri);">Auto-Derived PM Insights</b>
+              <span class="mini-status-chip pri" id="insightsTimestamp">Live ML Engine</span>
+            </div>
+            <div id="derivedInsightsList" style="display:flex; flex-direction:column; gap:6px; margin-top:6px;">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+          <div style="border-top:1px dashed var(--line); padding-top:6px; margin-top:6px; display:flex; justify-content:space-between; align-items:center; font-size:9.5px; color:var(--ink-muted);">
+            <span>Telemetry filter synced across 6 hubs</span>
+            <span style="color:var(--pri); font-weight:800;">Real-time Kafka Stream ✓</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote-bar">
+        <span>Metrics source: District Analytics Internal Warehouse · Aggregated across Tier-1 Beta cohorts.</span>
+        <a href="index.html#prototype" target="_top" onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">Inspect Full Engine ↗</a>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 7: INTRODUCING DOODLE (THE HERO EYE CONCEPT)
+         ======================================================== -->
+    <section class="slide-scene" id="slide-7" style="justify-content: center; text-align: center;">
+      <div style="margin: auto 0; max-width: 820px; align-self: center;">
+        <span class="slide-eyebrow" style="margin-bottom: 12px;"><span class="dot"></span>07 · THE SOLUTION CONCEPT</span>
+
+        <div style="margin: 12px 0 16px;">
+          <div class="doodle-hero-logo" style="font-size: 68px;">
+            d<span class="doodle-eye-box" style="width:56px;height:72px;"><i class="eye-pupil-rotator" style="width:22px;height:22px;"></i></span><span class="doodle-eye-box" style="width:56px;height:72px;"><i class="eye-pupil-rotator" style="width:22px;height:22px;"></i></span>dle
+          </div>
+          <div style="font-size: 16px; font-weight: 800; color: var(--pri); margin-top: 4px;">
+            by district
+          </div>
+        </div>
+
+        <h2 style="font-family: var(--font-editorial); font-size: 34px; font-weight: 700; color: var(--ink); line-height: 1.25; margin-bottom: 14px;">
+          &#34;The Eyes That See What Everyone Wants&#34;
+        </h2>
+
+        <p style="font-size: 14.5px; color: var(--ink-sub); line-height: 1.55; max-width: 660px; margin: 0 auto 20px;">
+          Those two curious eyes in Doodle are not just a logo — they are the <b>guardian angels of squad outings</b>. They observe dietary constraints, secret budget limits, and venue preferences without anyone feeling embarrassed.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: left; margin-bottom: 18px;">
+          <div class="card purple-tint" style="padding: 12px;">
+            <b style="font-size: 13px; color: var(--pri);">👀 They See Dietary Needs</b>
+            <p style="font-size: 11px; color: var(--ink-sub); margin-top: 4px;">
+              Silently filters venues to guarantee vegan, Jain, and allergen-safe meals for every friend.
+            </p>
+          </div>
+          <div class="card" style="padding: 12px;">
+            <b style="font-size: 13px; color: var(--accent-coral);">🔒 They See Private Budgets</b>
+            <p style="font-size: 11px; color: var(--ink-sub); margin-top: 4px;">
+              Blind budget sliders reconcile a common spend sweet spot without public price shaming.
+            </p>
+          </div>
+          <div class="card" style="padding: 12px;">
+            <b style="font-size: 13px; color: var(--accent-mint);">⚡ They See Real-Time Inventory</b>
+            <p style="font-size: 11px; color: var(--ink-sub); margin-top: 4px;">
+              Pings movie halls, turfs, and tables simultaneously with live hold timers and transit buffers.
+            </p>
+          </div>
+        </div>
+
+        <button class="cta-btn" onclick="nextSlide()">
+          <span>See The Problem We Solve</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="footnote-bar">
+        <span>Branding identity designed for young urban Indian social dynamics.</span>
+        <span>district.in/doodle</span>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 8: THE PROBLEM (REALISTIC WHATSAPP GRAVEYARD)
+         ======================================================== -->
+    <section class="slide-scene" id="slide-8">
+      <div class="slide-topbar">
+        <span class="slide-eyebrow"><span class="dot"></span>08 · THE PROBLEM STATEMENT</span>
+        <span style="font-size: 12px; font-weight: 700; color: var(--accent-coral);">● 75% DROP-OFF IN GROUP OUTINGS</span>
+      </div>
+
+      <h2 class="slide-heading">The WhatsApp Graveyard: Where 7 out of 10 Weekend Plans Die</h2>
+
+      <div class="grid-2">
+        <!-- Visual: Realistic WhatsApp Group Chat Graveyard -->
+        <div class="wa-chat-mockup">
+          <div class="wa-header">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:16px;">👥</span>
+              <div>
+                <b style="display:block; font-size:12px;">Saturday Plans 💀</b>
+                <span style="font-size:9.5px; opacity:0.85;">7 members · Ranveer, Virat, Deepika, Kartik…</span>
+              </div>
+            </div>
+            <span style="background:rgba(255,255,255,0.2); padding:2px 8px; border-radius:10px; font-size:10px;">84 Unread</span>
+          </div>
+
+          <div class="wa-body">
+            <!-- Message 1 -->
+            <div class="wa-msg in">
+              <span class="wa-sender">Ranveer (Organiser)</span>
+              Guys, what are we doing Saturday evening? Movie or dinner??
+              <span class="wa-time">11:15 AM</span>
+            </div>
+
+            <!-- Message 2 -->
+            <div class="wa-msg in">
+              <span class="wa-sender" style="color:#D6336C;">Deepika</span>
+              Anything is fine with me! 🤷‍♀️ Whatever you guys decide!
+              <span class="wa-time">11:42 AM</span>
+              <div class="wa-pain-badge">🔴 The Politeness Deadlock</div>
+            </div>
+
+            <!-- Message 3 -->
+            <div class="wa-msg in">
+              <span class="wa-sender" style="color:#E8890C;">Virat</span>
+              Only if the place has good vegan options pls 🙏 Not Italian again.
+              <span class="wa-time">12:05 PM</span>
+              <div class="wa-pain-badge" style="background:#E8890C;">⚠️ Dietary Stress</div>
+            </div>
+
+            <!-- Message 4 -->
+            <div class="wa-msg in">
+              <span class="wa-sender" style="color:#10B981;">Kartik</span>
+              I'm tight on budget till Monday guys, can we keep it under ₹600? 😅
+              <span class="wa-time">12:30 PM</span>
+              <div class="wa-pain-badge" style="background:#F59E0B;">💸 Social Wallet Anxiety</div>
+            </div>
+
+            <!-- Message 5 -->
+            <div class="wa-msg in" style="background:#FFEBEF; border:1px solid #FFCCD5;">
+              <span class="wa-sender" style="color:#C2183C;">Ranveer (Organiser)</span>
+              By the time everyone replied, tickets are sold out and the table is gone. Plan cancelled 😔
+              <span class="wa-time">04:15 PM</span>
+              <div class="wa-pain-badge" style="background:#C2183C;">❌ OUTING ABANDONED</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Interactive Expected vs Reality Widget + PM Analysis -->
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="interactive-question-card" id="expRealityBox" onclick="toggleExpectedReality()">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 13.5px; color: var(--ink);">
+                Expected vs. Reality: Monthly Outings Planned
+              </b>
+              <span class="metric-pill coral">Interactive 👆</span>
+            </div>
+            <div id="expRealityContent" style="margin-top:6px;">
+              <span class="metric-pill" style="font-size: 11.5px; padding: 5px 12px; cursor: pointer;">
+                👆 Tap to Reveal the 75% Drop-off Reality
+              </span>
+            </div>
+          </div>
+
+          <div class="card" style="padding: 11px 14px; border-left: 4px solid var(--accent-coral);">
+            <b style="font-size: 13px; color: var(--accent-coral);">1. The Politeness Deadlock (64% drop-off)</b>
+            <p style="font-size: 11.5px; color: var(--ink-sub); margin-top: 2px;">
+              Nobody wants to be the bossy friend, so everyone says <i>&#34;anything works&#34;</i>. Hours pass, seats vanish, intent dissolves.
+            </p>
+          </div>
+
+          <div class="card" style="padding: 11px 14px; border-left: 4px solid var(--pri);">
+            <b style="font-size: 13px; color: var(--pri);">2. The Payer’s Dilemma (₹4,800 owed)</b>
+            <p style="font-size: 11.5px; color: var(--ink-sub); margin-top: 2px;">
+              The organiser takes 100% financial risk to book tables and movie tickets upfront, then endures awkward UPI reminders for 2 weeks.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote-bar">
+        <span>Survey Data: 68% of urban squad plans disintegrate due to coordination friction (Redseer Experiential Report 2025).</span>
+        <a href="index.html#prototype" target="_top" onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">Experience Doodle Solution ↗</a>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 9: THE SOLUTION WORKFLOW (RICH VISUALS)
+         ======================================================== -->
+    <section class="slide-scene" id="slide-9">
+      <div class="slide-topbar">
+        <span class="slide-eyebrow"><span class="dot"></span>09 · THE SOLUTION WORKFLOW</span>
+        <span class="doodle-hero-logo" style="font-size: 16px;">
+          d<span class="doodle-eye-box small"><i class="eye-pupil-rotator"></i></span><span class="doodle-eye-box small"><i class="eye-pupil-rotator"></i></span>dle
+        </span>
+      </div>
+
+      <h2 class="slide-heading">How Doodle Works: 30 Seconds from Intent to Confirmed Plan</h2>
+
+      <div class="grid-4">
+        <!-- Step 1 -->
+        <div class="card" style="padding: 12px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 12.5px; color: var(--ink);">1. Natural Intent</b>
+              <span class="mini-status-chip pri">Prompt</span>
+            </div>
+            <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 4px 0 6px;">
+              Host speaks or types intent: <i>&#34;B’day in T Nagar, 6 people, vegan.&#34;</i>
+            </p>
+          </div>
+          <!-- Dense Visual: Entity Extraction Engine -->
+          <div class="block-visual-box" style="margin-top:auto; background:#FFF; border:1px solid #ECE7FA;">
+            <div style="display:flex; align-items:center; justify-content:space-between; font-size:9.5px; font-weight:800; color:var(--pri);">
+              <span>🎙️ NLP Entity Parser</span>
+              <span class="mini-status-chip ok">Live</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:3px; margin:4px 0;">
+              <span class="mini-status-chip ok">📍 Loc: T Nagar</span>
+              <span class="mini-status-chip pri">👥 Pax: 6</span>
+              <span class="mini-status-chip warn">🌱 Diet: Vegan</span>
+              <span class="mini-status-chip pri">⏰ 2 PM - 11 PM</span>
+            </div>
+            <span style="font-size:8.5px; color:var(--ink-muted);">Zero forms, zero dropdown menus</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card" style="padding: 12px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 12.5px; color: var(--ink);">2. Zero-App Card</b>
+              <span class="mini-status-chip ok">No Install</span>
+            </div>
+            <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 4px 0 6px;">
+              Doodle link lands in WhatsApp. Friends tap and vote via mobile web in 30 seconds.
+            </p>
+          </div>
+          <!-- Dense Visual: WhatsApp Web Preview -->
+          <div class="block-visual-box" style="margin-top:auto; background:#FFFFFF; border:1px solid #D1C7BA;">
+            <div style="display:flex; align-items:center; gap:4px; font-weight:800; color:#075E54; font-size:9.5px;">
+              <span>💬 district.in/doodle/squad-7</span>
+            </div>
+            <div style="font-size:9px; color:var(--ink); font-weight:700; margin:2px 0;">
+              ✨ Tap to vote (30 secs · OTP only)
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:8px; color:var(--ink-muted);">
+              <span>98% open rate</span>
+              <span style="color:var(--accent-mint); font-weight:800;">No App Download ✓</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card" style="padding: 12px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 12.5px; color: var(--ink);">3. Anonymous Shield</b>
+              <span class="mini-status-chip bad">100% Private</span>
+            </div>
+            <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 4px 0 6px;">
+              Budget caps &amp; dietary constraints are private. AI reconciles preferences invisibly.
+            </p>
+          </div>
+          <!-- Dense Visual: Blind Slider -->
+          <div class="block-visual-box" style="margin-top:auto; background:#FFF; border:1px solid #ECE7FA;">
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700;">
+              <span>🔒 Private Wallet Range</span>
+              <span style="color:var(--pri); font-weight:800;">₹1.5k - ₹2.2k</span>
+            </div>
+            <div style="height:6px; background:#EDE7FA; border-radius:4px; position:relative; margin:4px 0;">
+              <div style="position:absolute; left:25%; width:50%; height:100%; background:var(--pri); border-radius:4px;"></div>
+            </div>
+            <span style="font-size:8px; color:var(--ink-muted);">Zero peer pressure or public shaming</span>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="card purple-tint" style="padding: 12px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 12.5px; color: var(--pri);">4. 1-Tap SplitPay</b>
+              <span class="mini-status-chip ok">UPI Direct</span>
+            </div>
+            <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 4px 0 6px;">
+              Direct UPI collect requests sent to everyone. Zero upfront debt on the organiser.
+            </p>
+          </div>
+          <!-- Dense Visual: UPI Settlement Radar -->
+          <div class="block-visual-box" style="margin-top:auto; background:#FFFFFF; border:1px solid #ECE7FA;">
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700;">
+              <span>Settlement Radar</span>
+              <span style="color:var(--accent-mint); font-weight:800;">4/4 Paid ✓</span>
+            </div>
+            <div style="display:flex; justify-content:space-around; font-size:9px; font-weight:800; padding:3px 0;">
+              <span style="color:var(--accent-mint);">R: ₹900✓</span>
+              <span style="color:var(--accent-mint);">V: ₹900✓</span>
+              <span style="color:var(--accent-mint);">D: ₹900✓</span>
+              <span style="color:var(--accent-mint);">K: ₹900✓</span>
+            </div>
+            <span style="font-size:8px; color:var(--pri); font-weight:700;">Zero host debt · Direct vendor release</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 10px; padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(90deg, #FAF7FF 0%, #FFFFFF 100%); border-left: 4px solid var(--pri);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 20px;">🪄</span>
+          <span style="font-size: 12px; color: var(--ink);">
+            <b>The Self-Healing Engine:</b> If a movie showtime shifts by 45 mins, Doodle auto-reshuffles dinner holds and notifies the entire squad with 1 tap.
+          </span>
+        </div>
+        <span class="mini-status-chip ok" style="padding:4px 10px; font-size:10.5px;">Auto-Healing Active ✓</span>
+      </div>
+
+      <div class="footnote-bar">
+        <span>Integrated with NPCI UPI Autopay / Collect standards for Indian fintech compliance.</span>
+        <a href="index.html#prototype" target="_top" onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">Interactive Live Sandbox ↗</a>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 10: LIVE SANDBOX & PROTOTYPE DEMO
+         ======================================================== -->
+    <section class="slide-scene" id="slide-10">
+      <div class="slide-topbar">
+        <span class="slide-eyebrow"><span class="dot"></span>10 · INTERACTIVE DEMO SANDBOX</span>
+        <span class="metric-pill ok">● FULLY FUNCTIONAL PROTOTYPE</span>
+      </div>
+
+      <h2 class="slide-heading">Test-Drive the Doodle Experience in Real Time</h2>
+
+      <div class="grid-2">
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="card purple-tint">
+            <h3 style="font-size: 17px; margin-bottom: 6px; color: var(--ink);">Experience the Live Flow</h3>
+            <p style="font-size: 12px; color: var(--ink-sub); line-height: 1.45; margin-bottom: 8px;">
+              We have built an end-to-end interactive mobile environment simulating District's Chennai rollout. You can interact with 5 synchronized smartphone viewports:
+            </p>
+            <ul style="font-size: 11.5px; color: var(--ink-sub); line-height: 1.6; padding-left: 16px;">
+              <li>Discover <b>doodle</b> from the District App home screen.</li>
+              <li>Input conversational squad outings (Birthday, Beach Hang, Team Friday).</li>
+              <li>Vote as friends with anonymous dietary/budget toggles.</li>
+              <li>Trigger 1-tap UPI SplitPay and self-healing schedules.</li>
+            </ul>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <a href="index.html#prototype" target="_top" onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}" class="cta-btn">
+              <span>Launch Live Prototype</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Side: Sandbox Preview Frame -->
+        <div class="card" style="padding: 14px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: #FAF8FF;">
+          <div style="font-size: 40px; margin-bottom: 6px;">📱</div>
+          <b style="font-size: 15px; color: var(--ink); margin-bottom: 4px;">Hosted Prototype Live URL</b>
+          <span style="font-size: 12px; color: var(--pri); font-weight: 800; margin-bottom: 12px;">
+            district-by-zomato.vercel.app
+          </span>
+          <div style="background: #FFFFFF; border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; text-align: left; font-size: 11px; width: 100%;">
+            <div style="color: var(--ink); font-weight: 800; margin-bottom: 3px;">Simulated Squad Members:</div>
+            <div style="display:flex; justify-content:space-between; color:var(--ink-sub);">
+              <span>Ranveer · Host Organiser</span>
+              <span class="mini-status-chip pri">Host</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; color:var(--ink-sub); margin-top:2px;">
+              <span>Virat · Vegan foodie</span>
+              <span class="mini-status-chip warn">Dietary</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; color:var(--ink-sub); margin-top:2px;">
+              <span>Deepika · UPI Splitter</span>
+              <span class="mini-status-chip ok">Payer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote-bar">
+        <span>Hosted on Vercel Edge Network · Works on Mobile &amp; Desktop.</span>
+        <a href="index.html#prototype" target="_top" onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">Open Sandbox ↗</a>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 11: THINGS TO BE CAUTIOUS ABOUT (RISKS & MITIGATION)
+         ======================================================== -->
+    <section class="slide-scene" id="slide-11">
+      <div class="slide-topbar">
+        <span class="slide-eyebrow"><span class="dot"></span>11 · PRODUCT GUARDRAILS</span>
+        <span style="font-size: 12px; font-weight: 700; color: var(--accent-coral);">Risk &amp; Edge Cases</span>
+      </div>
+
+      <h2 class="slide-heading">Things to Be Cautious About: PM Risk &amp; Mitigation Matrix</h2>
+
+      <div class="grid-3">
+        <!-- Risk 1 -->
+        <div class="card" style="border-top: 4px solid var(--accent-coral); display:flex; flex-direction:column; justify-content:space-between; padding: 11px 13px;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 13px; color: var(--ink);">1. Inventory Latency</b>
+              <span class="mini-status-chip bad">Table Drops</span>
+            </div>
+
+            <!-- Guardrail Clipart Showcase (Full 3:4 Portrait View) -->
+            <div class="guardrail-img-box" style="background: linear-gradient(180deg, #FFEBEF 0%, #FFF5F7 100%);">
+              <img src="assets/guardrail_inventory_latency.jpg" alt="1. Inventory Latency SLA">
+              <div class="avatar-pill-badge" style="bottom:7px; left:8px; font-size:8.5px; padding:3px 8.5px;">
+                <span>⏱️</span> 15-Min Hold SLA · 12:45 Left
+              </div>
+            </div>
+
+            <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 3px 0 5px;">
+              <b>Risk:</b> If 6 friends take 2 hours to vote, merchant seats and restaurant tables could sell out or cause vendor frustration.
+            </p>
+          </div>
+          <!-- Dense Visual: 15-Min Timer SLA -->
+          <div class="block-visual-box" style="margin-top:auto; background:#FFF; border:1px solid #ECE7FA; padding: 5px 8px;">
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:800;">
+              <span>Holding SLA Countdown</span>
+              <span style="color:var(--accent-coral);">12:45 Left</span>
+            </div>
+            <div style="height:5px; background:#FFEBEF; border-radius:4px; overflow:hidden; margin:3px 0;">
+              <div style="width:70%; height:100%; background:var(--accent-coral);"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:8.5px; color:var(--ink-muted);">
+              <span>Auto-nudge sent at 10m</span>
+              <span style="color:var(--accent-coral); font-weight:700;">Fallback ready</span>
+            </div>
+          </div>
+          <div style="background: #FFF0F3; padding: 5px 8px; border-radius: 8px; font-size: 9.5px; color: var(--accent-coral); font-weight: 700; margin-top:5px;">
+            ✓ Mitigation: 15-min soft timer with auto-nudge &amp; fallback venue.
+          </div>
+        </div>
+
+        <!-- Risk 2 -->
+        <div class="card" style="border-top: 4px solid var(--accent-amber); display:flex; flex-direction:column; justify-content:space-between; padding: 11px 13px;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 13px; color: var(--ink);">2. SplitPay Non-Payer</b>
+              <span class="mini-status-chip warn">Unresponsive User</span>
+            </div>
+
+            <!-- Guardrail Clipart Showcase (Full 3:4 Portrait View) -->
+            <div class="guardrail-img-box" style="background: linear-gradient(180deg, #FEF3C7 0%, #FFFBF0 100%);">
+              <img src="assets/guardrail_splitpay_quorum.jpg" alt="2. SplitPay Non-Payer Quorum">
+              <div class="avatar-pill-badge" style="bottom:7px; left:8px; font-size:8.5px; padding:3px 8.5px;">
+                <span>🛡️</span> 83% Quorum Shield · Auto-Lock
+              </div>
+            </div>
+
+            <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 3px 0 5px;">
+              <b>Risk:</b> 5 people pay immediately, but 1 friend’s UPI fails or goes unresponsive, stalling the booking.
+            </p>
+          </div>
+          <!-- Dense Visual: Quorum Threshold -->
+          <div class="block-visual-box" style="margin-top:auto; background:#FFF; border:1px solid #ECE7FA; padding: 5px 8px;">
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:800;">
+              <span>Quorum Threshold</span>
+              <span style="color:var(--accent-mint);">83% Paid (5/6)</span>
+            </div>
+            <div style="height:5px; background:#FEF3C7; border-radius:4px; overflow:hidden; margin:3px 0;">
+              <div style="width:83%; height:100%; background:var(--accent-mint);"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:8.5px; color:var(--ink-muted);">
+              <span>Host guarantee option</span>
+              <span style="color:var(--accent-mint); font-weight:700;">Auto-locks seats</span>
+            </div>
+          </div>
+          <div style="background: #FEF3C7; padding: 5px 8px; border-radius: 8px; font-size: 9.5px; color: #B45309; font-weight: 700; margin-top:5px;">
+            ✓ Mitigation: 80% threshold auto-locks; host covers remainder with 1 tap.
+          </div>
+        </div>
+
+        <!-- Risk 3 -->
+        <div class="card" style="border-top: 4px solid var(--pri); display:flex; flex-direction:column; justify-content:space-between; padding: 11px 13px;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size: 13px; color: var(--ink);">3. Walk-in Clashes</b>
+              <span class="mini-status-chip pri">POS Overwrite</span>
+            </div>
+
+            <!-- Guardrail Clipart Showcase (Full 3:4 Portrait View) -->
+            <div class="guardrail-img-box" style="background: linear-gradient(180deg, #EDE6FA 0%, #FAF7FF 100%);">
+              <img src="assets/guardrail_pos_cloud_sync.jpg" alt="3. Walk-in Clashes POS Sync">
+              <div class="avatar-pill-badge" style="bottom:7px; left:8px; font-size:8.5px; padding:3px 8.5px;">
+                <span>⚡</span> 48ms Cloud Sync · VIP Locked
+              </div>
+            </div>
+
+            <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 3px 0 5px;">
+              <b>Risk:</b> Peak Friday night rush causing busy restaurants to prioritize cash walk-ins over app holds.
+            </p>
+          </div>
+          <!-- Dense Visual: Two-way Cloud POS link -->
+          <div class="block-visual-box" style="margin-top:auto; background:#FFF; border:1px solid #ECE7FA; padding: 5px 8px;">
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:800;">
+              <span>Two-Way POS Sync</span>
+              <span style="color:var(--pri);">Latency: 48ms ⚡</span>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; font-size:8.5px; font-weight:700; color:var(--ink-sub); margin:3px 0;">
+              <span>District Engine</span>
+              <span>⇄</span>
+              <span style="color:var(--accent-mint);">Merchant Tablet</span>
+            </div>
+            <span style="font-size:8.5px; color:var(--ink-muted);">Digital bump guarantee with refund shield</span>
+          </div>
+          <div style="background: var(--pri-light); padding: 5px 8px; border-radius: 8px; font-size: 9.5px; color: var(--pri); font-weight: 700; margin-top:5px;">
+            ✓ Mitigation: Two-way Merchant POS integration with bump guarantee.
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote-bar">
+        <span>Operational risk protocols formulated according to hospitality SLA standards.</span>
+        <a href="https://www.eternal.com/culture/" target="_blank" rel="noopener">Eternal Governance Pillars ↗</a>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         SLIDE 12: NEXT STEPS & GTM HORIZONS (TIER-1 & PRIME ROLLOUT)
+         ======================================================== -->
+    <section class="slide-scene" id="slide-12" style="background: radial-gradient(circle at 50% 50%, #FFFFFF 0%, #F5F0FE 100%); justify-content: center;">
+      <div class="slide-topbar">
+        <div class="brand-corp-tag">
+          <span class="corp">Executive Sign-Off</span>
+          <span class="sub">GTM Horizons</span>
+        </div>
+        <span class="slide-eyebrow"><span class="dot"></span>TIER-1 &amp; PRIME EXPANSION</span>
+      </div>
+
+      <div style="margin: auto 0; text-align: center; max-width: 900px; align-self: center;">
+        <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+          <span class="doodle-hero-logo" style="font-size: 38px;">
+            d<span class="doodle-eye-box small" style="width:26px;height:34px;border-width:3px;"><i class="eye-pupil-rotator" style="width:9px;height:9px;"></i></span><span class="doodle-eye-box small" style="width:26px;height:34px;border-width:3px;"><i class="eye-pupil-rotator" style="width:9px;height:9px;"></i></span>dle
+          </span>
+          <span style="font-size: 20px; color: #BDB0E4; font-weight: 300;">by</span>
+          <span style="font-size: 26px; font-weight: 900; color: var(--ink);">district</span>
+        </div>
+
+        <h2 class="slide-heading" style="font-size: 30px; margin-bottom: 8px;">
+          Next Steps: Phased GTM Rollout Starting with Top Tier-1 Cities
+        </h2>
+
+        <p style="font-size: 13.5px; color: var(--ink-sub); line-height: 1.45; margin-bottom: 18px;">
+          Targeting high-frequency <b>District Prime &amp; Zomato Gold</b> subscribers first in India's top nightlife capitals, before expanding across pan-India metros.
+        </p>
+
+        <!-- 3 Horizon Cards: Revised Tier-1 & Prime Strategy with Visual Badges -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; text-align: left;">
+          <!-- Phase 1 -->
+          <div class="card" style="padding: 13px; border-top: 3.5px solid var(--pri); display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="metric-pill">PHASE 1 · Q1</span>
+                <span class="mini-status-chip pri">Closed Beta</span>
+              </div>
+              <b style="font-size: 13px; display: block; color: var(--ink); margin: 6px 0 2px;">
+                Top Tier-1 Metros · Prime Users
+              </b>
+              <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin-bottom:6px;">
+                Closed beta launch in <b>Delhi NCR, Mumbai &amp; Bengaluru</b> exclusively for high-frequency squad organizers and <b>District Prime / Zomato Gold</b> subscribers.
+              </p>
+            </div>
+            <div class="block-visual-box" style="margin-top:auto; background:#FFF; border:1px solid #ECE7FA; font-size:9px;">
+              <div style="display:flex; justify-content:space-between;">
+                <span style="color:var(--pri); font-weight:800;">Target: 25k Prime Squads</span>
+                <span class="mini-status-chip pri">Invite-Only</span>
+              </div>
+              <span style="color:var(--ink-muted); margin-top:2px; display:block;">Validate SplitPay velocity &amp; blind voting</span>
+            </div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="card" style="padding: 13px; border-top: 3.5px solid var(--accent-mint); display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="metric-pill mint">PHASE 2 · Q2</span>
+                <span class="mini-status-chip ok">Public Rollout</span>
+              </div>
+              <b style="font-size: 13px; display: block; color: var(--ink); margin: 6px 0 2px;">
+                Top Tier-1 Scale · All Users
+              </b>
+              <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin-bottom:6px;">
+                Unrestricted rollout across <b>Delhi NCR, Mumbai, Bengaluru, Hyderabad, and Pune</b>. Viral loop unleashed via WhatsApp micro-links.
+              </p>
+            </div>
+            <div class="block-visual-box" style="margin-top:auto; background:#FFF; border:1px solid #ECE7FA; font-size:9px;">
+              <div style="display:flex; justify-content:space-between;">
+                <span style="color:var(--accent-mint); font-weight:800;">Target: K-Factor &gt; 1.40</span>
+                <span class="mini-status-chip ok">Public</span>
+              </div>
+              <span style="color:var(--ink-muted); margin-top:2px; display:block;">Every 1 host brings 5 new active users</span>
+            </div>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="card" style="padding: 13px; border-top: 3.5px solid var(--accent-coral); display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="metric-pill coral">PHASE 3 · Q3</span>
+                <span class="mini-status-chip bad">Pan-India Expansion</span>
+              </div>
+              <b style="font-size: 13px; display: block; color: var(--ink); margin: 6px 0 2px;">
+                Other Tier-1 Cities &amp; Merchant B2B
+              </b>
+              <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin-bottom:6px;">
+                Expansion into <b>Chennai, Kolkata, Ahmedabad, Jaipur, Goa &amp; Chandigarh</b>. Launching merchant table-auction API &amp; sponsored squad perks.
+              </p>
+            </div>
+            <div class="block-visual-box" style="margin-top:auto; background:#FFF; border:1px solid #ECE7FA; font-size:9px;">
+              <div style="display:flex; justify-content:space-between;">
+                <span style="color:var(--accent-coral); font-weight:800;">Target: 1.2M Outings / Mo</span>
+                <span class="mini-status-chip bad">Pan-India</span>
+              </div>
+              <span style="color:var(--ink-muted); margin-top:2px; display:block;">Dynamic merchant table yield engine</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 12px;">
+          <a href="index.html#prototype" target="_top" onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}" class="cta-btn">
+            <span>Launch Live Experience</span>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footnote-bar">
+        <span>© Eternal · District by Zomato · Prepared for Strategic Product Review.</span>
+        <div style="display: flex; gap: 12px;">
+          <a href="https://www.eternal.com/culture/" target="_blank" rel="noopener">Eternal Culture</a>
+          <a href="https://www.eternal.com/our-businesses/district/" target="_blank" rel="noopener">District Overview</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Quick Slide Drawer Jump Menu -->
+  <div class="slide-drawer" id="slideDrawer">
+    <!-- Generated dynamically via JS -->
+  </div>
+
+  <!-- Bottom Master Deck Navigation Bar -->
+  <footer class="master-footer">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button class="deck-nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Prev</span>
+      </button>
+      <button class="deck-nav-btn" onclick="toggleSlideDrawer()" title="Jump to Slide">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span class="slide-counter-badge" id="slideCounter">01 / 12</span>
+      <button class="deck-nav-btn primary" id="nextBtn" onclick="nextSlide()">
+        <span>Next</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </footer>
+</div>
+
+<script>
+(()=>{
+  if (window.self !== window.top) {
+    document.body.classList.add('is-embedded');
+  }
+
+  const TOTAL_SLIDES = 12;
+  let curIndex = 0;
+  let isDrawerOpen = false;
+
+  const slides = Array.from(document.querySelectorAll('.slide-scene'));
+  const progressBar = document.getElementById('progressBar');
+  const slideCounter = document.getElementById('slideCounter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const drawer = document.getElementById('slideDrawer');
+
+  // Automatic celebration config when landing on milestone slides
+  const AUTO_CELEBRATE = {
+    5: 'Live PM Telemetry Stream Connected 📈✨',
+    6: 'd👀dle: The Eyes That See What Everyone Wants',
+    9: 'Interactive Sandbox Live & Verified! 📱🎉',
+    11: 'Executive Approval Granted! Ready for Q1 🚀🎉'
+  };
+
+  // Build drawer dots
+  drawer.innerHTML = slides.map((_, i) => `
+    <button class="drawer-dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})" title="Slide ${i + 1}">
+      ${i + 1}
+    </button>
+  `).join('');
+
+  function updateSlideDisplay() {
+    slides.forEach((sl, idx) => {
+      sl.classList.remove('active', 'prev-slide');
+      if (idx === curIndex) {
+        sl.classList.add('active');
+      } else if (idx < curIndex) {
+        sl.classList.add('prev-slide');
+      }
+    });
+
+    const pct = ((curIndex + 1) / TOTAL_SLIDES) * 100;
+    progressBar.style.width = pct + '%';
+    slideCounter.textContent = `${String(curIndex + 1).padStart(2, '0')} / ${TOTAL_SLIDES}`;
+
+    prevBtn.disabled = (curIndex === 0);
+    nextBtn.innerHTML = (curIndex === TOTAL_SLIDES - 1) ? `<span>Restart 🔄</span>` : `<span>Next</span> <i class="fa-solid fa-arrow-right"></i>`;
+
+    const dots = drawer.querySelectorAll('.drawer-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === curIndex));
+
+    // Automatic in-slide celebration trigger
+    if (AUTO_CELEBRATE[curIndex]) {
+      setTimeout(() => {
+        triggerSlideHurray(slides[curIndex].id, AUTO_CELEBRATE[curIndex]);
+      }, 300);
+    }
+
+    if (curIndex === 5) {
+      updateDashData();
+    }
+
+    // Notify parent window when Doodle feature is unveiled (Slide 7+)
+    if (curIndex >= 6 && window.parent && window.parent !== window) {
+      window.parent.postMessage({ action: 'doodleRevealed' }, '*');
+    }
+  }
+
+  window.goToSlide = function(idx) {
+    if (idx < 0) curIndex = 0;
+    else if (idx >= TOTAL_SLIDES) curIndex = 0;
+    else curIndex = idx;
+    updateSlideDisplay();
+    if (isDrawerOpen) toggleSlideDrawer();
+  };
+
+  window.nextSlide = function() {
+    if (curIndex < TOTAL_SLIDES - 1) {
+      curIndex++;
+      updateSlideDisplay();
+    } else {
+      curIndex = 0;
+      updateSlideDisplay();
+    }
+  };
+
+  window.prevSlide = function() {
+    if (curIndex > 0) {
+      curIndex--;
+      updateSlideDisplay();
+    }
+  };
+
+  window.toggleSlideDrawer = function() {
+    isDrawerOpen = !isDrawerOpen;
+    drawer.classList.toggle('open', isDrawerOpen);
+  };
+
+  // Keyboard Navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault();
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      prevSlide();
+    } else if (e.key === 'Escape' && isDrawerOpen) {
+      toggleSlideDrawer();
+    }
+  });
+
+  // Strict In-Slide Hurray & Confetti
+  window.triggerSlideHurray = function(slideId, messageText) {
+    const sl = document.getElementById(slideId);
+    if (!sl) return;
+
+    // Remove existing if any
+    const prev = sl.querySelector('.slide-hurray-wrapper');
+    if (prev) prev.remove();
+
+    const wrap = document.createElement('div');
+    wrap.className = 'slide-hurray-wrapper';
+
+    let html = `<div class="slide-hurray-badge">${messageText}</div>`;
+    const colors = ['#6830F9', '#FF3366', '#FFB300', '#10B981', '#2D7FF9'];
+
+    for (let k = 0; k < 60; k++) {
+      const left = Math.random() * 94 + 3;
+      const dur = 1.6 + Math.random() * 1.2;
+      const del = Math.random() * 0.4;
+      const clr = colors[k % colors.length];
+      html += `<i class="slide-hurray-confetti" style="left:${left}%; background:${clr}; animation-duration:${dur}s; animation-delay:${del}s"></i>`;
+    }
+    wrap.innerHTML = html;
+    sl.appendChild(wrap);
+
+    setTimeout(() => wrap.remove(), 2600);
+  };
+
+  // Slide 8: Interactive Expected vs Reality Toggle
+  let realityRevealed = false;
+  window.toggleExpectedReality = function() {
+    const box = document.getElementById('expRealityContent');
+    if (!box) return;
+
+    if (!realityRevealed) {
+      realityRevealed = true;
+      box.innerHTML = `
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+          <div style="background:#FFF; border:1px solid #D6D0F0; border-radius:10px; padding:8px 10px;">
+            <span style="font-size:10px; color:var(--ink-muted); font-weight:800; text-transform:uppercase;">Expected Intent</span>
+            <div style="font-size:16px; font-weight:900; color:var(--pri);">4 Outings / mo</div>
+            <span style="font-size:9.5px; color:var(--ink-sub);">Every Friday &amp; Saturday night</span>
+          </div>
+          <div style="background:#FFEBEF; border:1px solid #FFC2CE; border-radius:10px; padding:8px 10px;">
+            <span style="font-size:10px; color:var(--accent-coral); font-weight:800; text-transform:uppercase;">The Reality</span>
+            <div style="font-size:16px; font-weight:900; color:var(--accent-coral);">0.9 Outings / mo</div>
+            <span style="font-size:9.5px; color:#A82845;">75% plan abandon rate on chat</span>
+          </div>
+        </div>
+        <div style="margin-top:8px; font-size:10.5px; color:var(--pri); font-weight:700;">
+          💡 <b>The Gap:</b> ₹14,000 in lost experiential basket size per squad every month.
+        </div>
+      `;
+    } else {
+      realityRevealed = false;
+      box.innerHTML = `
+        <span class="metric-pill" style="font-size: 11.5px; padding: 5px 12px; cursor: pointer;">
+          👆 Tap to Reveal the 75% Drop-off Reality
+        </span>
+      `;
+    }
+  };
+
+  // Slide 6: Granular Multi-Dimensional Telemetry Simulation Data
+  const DASH_DATA = {
+    all: {
+      hourly: {
+        gmv: '₹1.82 Cr', cgo: '4,640', split: '93.8%', nps: '4.76 ★',
+        pathArea: 'M 0 85 Q 80 82, 130 80 T 200 50 T 280 20 T 380 12 L 380 100 L 0 100 Z',
+        pathLine: 'M 0 85 Q 80 82, 130 80 T 200 50 T 280 20 T 380 12',
+        dipPos: { left: '34%', top: '64%' }, dipLabel: '📉 Dip: 3:15 PM Hold Timeout (-38%)',
+        peakPos: { right: '8%', top: '10%' }, peakLabel: '🚀 Peak: 8:20 PM Cinema+Dinner (+86%)',
+        dipPt: { cx: 130, cy: 80 }, peakPt: { cx: 340, cy: 14 },
+        timeSpan: 'Live Feed: 24-Hour Hourly Cycle',
+        insights: [
+          { tag: 'Anomalous Dip', cls: 'bad', text: '<b>3:15 PM Hold Timeout:</b> 38% drop in squad voting completion during mid-afternoon office hours. Auto-nudge interval reduced from 15m to 8m.' },
+          { tag: 'Prime Multi-Stop', cls: 'ok', text: '<b>8:20 PM Peak Conversion:</b> 72% of evening cinema bookers add late-night dining within 600m when prompted by automated squad suggestions.' },
+          { tag: 'SplitPay Velocity', cls: 'pri', text: '<b>UPI Auto-Collect:</b> 91% of squad debts cleared within 18 minutes of table QR scan.' }
+        ]
+      },
+      daily: {
+        gmv: '₹18.4 Cr', cgo: '46,200', split: '94.2%', nps: '4.78 ★',
+        pathArea: 'M 0 80 Q 70 76, 130 75 T 210 42 T 290 18 T 380 10 L 380 100 L 0 100 Z',
+        pathLine: 'M 0 80 Q 70 76, 130 75 T 210 42 T 290 18 T 380 10',
+        dipPos: { left: '32%', top: '60%' }, dipLabel: '📉 Dip: Tuesday 4 PM Chat Decay (-28%)',
+        peakPos: { right: '7%', top: '8%' }, peakLabel: '🚀 Peak: Saturday 8 PM Weekend Surge (+112%)',
+        dipPt: { cx: 130, cy: 75 }, peakPt: { cx: 330, cy: 12 },
+        timeSpan: 'Aggregated Feed: 7-Day Daily Cycle',
+        insights: [
+          { tag: 'Cross-Category Lift', cls: 'ok', text: '<b>Weekend Bundling:</b> Turf bookings paired with brewery tables generated ₹3.2 Cr in incremental GMV across metros.' },
+          { tag: 'Dietary Shield Win', cls: 'pri', text: '<b>The Vegan Anchor:</b> 41% of group venue selections were decided by 1 squad member’s dietary preference.' },
+          { tag: 'Zero Debt Adoption', cls: 'ok', text: '<b>Zero Ghosting:</b> Organisers using automated squad holds reported zero unpaid balances compared to ₹4,800 historic debt.' }
+        ]
+      },
+      weekly: {
+        gmv: '₹118 Cr', cgo: '312,000', split: '95.6%', nps: '4.81 ★',
+        pathArea: 'M 0 72 Q 75 65, 140 60 T 220 32 T 300 15 T 380 8 L 380 100 L 0 100 Z',
+        pathLine: 'M 0 72 Q 75 65, 140 60 T 220 32 T 300 15 T 380 8',
+        dipPos: { left: '35%', top: '52%' }, dipLabel: '📉 Dip: Week 2 Mid-Month Exam Lull (-18%)',
+        peakPos: { right: '6%', top: '6%' }, peakLabel: '🚀 Peak: Month-End Payday Weekend (+140%)',
+        dipPt: { cx: 140, cy: 60 }, peakPt: { cx: 350, cy: 8 },
+        timeSpan: 'Macro Feed: 30-Day Monthly Trend',
+        insights: [
+          { tag: 'Viral K-Factor', cls: 'pri', text: '<b>Organic Expansion:</b> Every 1 active squad host invites an average of 5.2 new friends, of whom 28% create their own squad outing.' },
+          { tag: 'Merchant Retention', cls: 'ok', text: '<b>Partner Venues:</b> Merchant churn dropped below 1.2% due to guaranteed advance prepayments.' },
+          { tag: 'SplitPay Volume', cls: 'ok', text: '<b>Fintech Velocity:</b> Handled over 1.6M individual UPI micro-settlements without manual intervention.' }
+        ]
+      }
+    },
+    delhi: {
+      hourly: {
+        gmv: '₹0.68 Cr', cgo: '1,720', split: '93.5%', nps: '4.74 ★',
+        pathArea: 'M 0 88 Q 80 85, 130 82 T 200 52 T 280 22 T 380 15 L 380 100 L 0 100 Z',
+        pathLine: 'M 0 88 Q 80 85, 130 82 T 200 52 T 280 22 T 380 15',
+        dipPos: { left: '33%', top: '66%' }, dipLabel: '📉 Dip: Gurugram CyberHub Traffic Stall',
+        peakPos: { right: '8%', top: '12%' }, peakLabel: '🚀 Peak: Hauz Khas + Connaught Pl Surge',
+        dipPt: { cx: 130, cy: 82 }, peakPt: { cx: 340, cy: 15 },
+        timeSpan: 'Delhi NCR · 24-Hour Cycle',
+        insights: [
+          { tag: 'NCR Transit Buffer', cls: 'warn', text: '<b>Traffic Buffer Optimization:</b> Added +20 min default transit buffer between Gurugram & South Delhi venues.' },
+          { tag: 'Late Night Dining', cls: 'ok', text: '<b>Midnight Surge:</b> 54% of dinner bookings in Delhi NCR lock in between 9:30 PM and 11 PM.' },
+          { tag: 'Prime Share', cls: 'pri', text: '<b>Zomato Gold Overlap:</b> 68% of Delhi NCR hosts are active Gold subscribers.' }
+        ]
+      },
+      daily: {
+        gmv: '₹6.8 Cr', cgo: '17,400', split: '93.8%', nps: '4.75 ★',
+        pathArea: 'M 0 82 Q 75 78, 130 76 T 210 44 T 290 20 T 380 12 L 380 100 L 0 100 Z',
+        pathLine: 'M 0 82 Q 75 78, 130 76 T 210 44 T 290 20 T 380 12',
+        dipPos: { left: '32%', top: '62%' }, dipLabel: '📉 Dip: Wednesday Mid-Week Dip (-22%)',
+        peakPos: { right: '7%', top: '10%' }, peakLabel: '🚀 Peak: Friday Evening Hauz Khas (+95%)',
+        dipPt: { cx: 130, cy: 76 }, peakPt: { cx: 330, cy: 14 },
+        timeSpan: 'Delhi NCR · 7-Day Cycle',
+        insights: [
+          { tag: 'Nightlife Density', cls: 'ok', text: '<b>High Basket Size:</b> Delhi NCR basket averages ₹2,850/pax, highest among Tier-1 metros.' },
+          { tag: 'Cinema Holds', cls: 'pri', text: '<b>IMAX Selectivity:</b> Select CITYWALK & Ambience Mall screenings drive 42% of weekend bundles.' },
+          { tag: 'Zero Debt Impact', cls: 'ok', text: '<b>Organiser Relief:</b> ₹1.4 Cr in upfront host debt prevented this week in NCR.' }
+        ]
+      },
+      weekly: {
+        gmv: '₹44 Cr', cgo: '118,000', split: '95.1%', nps: '4.79 ★',
+        pathArea: 'M 0 74 Q 75 66, 140 62 T 220 34 T 300 16 T 380 10 L 380 100 L 0 100 Z',
+        pathLine: 'M 0 74 Q 75 66, 140 62 T 220 34 T 300 16 T 380 10',
+        dipPos: { left: '35%', top: '54%' }, dipLabel: '📉 Dip: NCR Smog Index Advisory (-14%)',
+        peakPos: { right: '6%', top: '8%' }, peakLabel: '🚀 Peak: Weekend Outing Cluster (+125%)',
+        dipPt: { cx: 140, cy: 62 }, peakPt: { cx: 350, cy: 10 },
+        timeSpan: 'Delhi NCR · 30-Day Trend',
+        insights: [
+          { tag: 'Indoor Transition', cls: 'pri', text: '<b>Indoor Venue Shift:</b> Mall and bowling complexes saw +48% demand surge during high AQI periods.' },
+          { tag: 'Host Retention', cls: 'ok', text: '<b>High Repeat:</b> Organizers in NCR execute 3.4 squad outings per month on average.' },
+          { tag: 'Merchant Growth', cls: 'ok', text: '<b>POS Integrations:</b> 340+ premium Delhi NCR restaurants enabled two-way cloud sync.' }
+        ]
+      }
+    },
+    mumbai: {
+      hourly: {
+        gmv: '₹0.62 Cr', cgo: '1,590', split: '94.6%', nps: '4.80 ★',
+        pathArea: 'M 0 84 Q 80 80, 130 78 T 200 48 T 280 18 T 380 12 L 380 100 L 0 100 Z',
+        pathLine: 'M 0 84 Q 80 80, 130 78 T 200 48 T 280 18 T 380 12',
+        dipPos: { left: '33%', top: '62%' }, dipLabel: '📉 Dip: 4 PM Local Train Commute Gap',
+        peakPos: { right: '8%', top: '10%' }, peakLabel: '🚀 Peak: Bandra & BKC Sundowner Rush (+92%)',
+        dipPt: { cx: 130, cy: 78 }, peakPt: { cx: 340, cy: 12 },
+        timeSpan: 'Mumbai · 24-Hour Cycle',
+        insights: [
+          { tag: 'Bandra Cluster', cls: 'ok', text: '<b>High Turnaround:</b> Bandra West rooftop venues see 92% table occupancy via Doodle auto-holds.' },
+          { tag: 'Fast Settlements', cls: 'pri', text: '<b>SplitPay Speed:</b> Mumbai leads all metros in payment speed (average 16 mins to complete 100%).' },
+          { tag: 'Coastal Transit', cls: 'ok', text: '<b>Sea Link Routes:</b> Added South Mumbai to BKC dynamic geo-fencing for seamless itinerary flow.' }
+        ]
+      },
+      daily: {
+        gmv: '₹6.2 Cr', cgo: '15,800', split: '94.9%', nps: '4.82 ★',
+        pathArea: 'M 0 78 Q 80 70, 140 48 T 260 16 T 340 12 L 340 100 L 0 100 Z',
+        pathLine: 'M 0 78 Q 80 70, 140 48 T 260 16 T 340 12',
+        dipPos: { left: '31%', top: '58%' }, dipLabel: '📉 Dip: Mon/Tue Monsoon Rain Caution',
+        peakPos: { right: '7%', top: '8%' }, peakLabel: '🚀 Peak: Saturday BKC Rooftop Peak (+118%)',
+        dipPt: { cx: 140, cy: 48 }, peakPt: { cx: 320, cy: 12 },
+        timeSpan: 'Mumbai · 7-Day Cycle',
+        insights: [
+          { tag: 'Cocktail Culture', cls: 'ok', text: '<b>Craft Dining:</b> High cocktail and small-plate cross-sell at BKC and Lower Parel.' },
+          { tag: 'Anonymous Shield', cls: 'pri', text: '<b>Budget Balancing:</b> Anonymous sweet-spot calculation prevented 62% of potential cancellations.' },
+          { tag: 'Customer CSAT', cls: 'ok', text: '<b>Zero Awkwardness:</b> 4.82 NPS score driven by automatic bill splitting at venue.' }
+        ]
+      },
+      weekly: {
+        gmv: '₹39 Cr', cgo: '104,000', split: '96.2%', nps: '4.84 ★',
+        pathArea: 'M 0 68 Q 70 55, 130 32 T 250 12 T 340 8 L 340 100 L 0 100 Z',
+        pathLine: 'M 0 68 Q 70 55, 130 32 T 250 12 T 340 8',
+        dipPos: { left: '34%', top: '48%' }, dipLabel: '📉 Dip: Coastal Tide Weather Shift',
+        peakPos: { right: '6%', top: '6%' }, peakLabel: '🚀 Peak: Payday Weekend (+135%)',
+        dipPt: { cx: 130, cy: 32 }, peakPt: { cx: 330, cy: 8 },
+        timeSpan: 'Mumbai · 30-Day Trend',
+        insights: [
+          { tag: 'Live Events Growth', cls: 'pri', text: '<b>Insider Synergy:</b> Paytm Insider concert tickets integrated with after-party table holds generated +45% GMV.' },
+          { tag: 'Merchant Loyalty', cls: 'ok', text: '<b>Direct Settlement:</b> 99.4% merchant satisfaction on same-day escrow settlements.' },
+          { tag: 'Squad Expansion', cls: 'ok', text: '<b>Viral Loop:</b> K-factor in Mumbai reached 1.54, highest across India.' }
+        ]
+      }
+    },
+    bengaluru: {
+      hourly: {
+        gmv: '₹0.56 Cr', cgo: '1,340', split: '95.4%', nps: '4.78 ★',
+        pathArea: 'M 0 86 Q 85 82, 135 80 T 205 50 T 285 20 T 380 14 L 380 100 L 0 100 Z',
+        pathLine: 'M 0 86 Q 85 82, 135 80 T 205 50 T 285 20 T 380 14',
+        dipPos: { left: '33%', top: '65%' }, dipLabel: '📉 Dip: Silk Board & ORR Traffic Bottleneck',
+        peakPos: { right: '8%', top: '10%' }, peakLabel: '🚀 Peak: Indiranagar & Koramangala Brews (+98%)',
+        dipPt: { cx: 135, cy: 80 }, peakPt: { cx: 340, cy: 14 },
+        timeSpan: 'Bengaluru · 24-Hour Cycle',
+        insights: [
+          { tag: 'Brewery Clustering', cls: 'ok', text: '<b>Microbrewery Dominance:</b> 74% of weekend Doodles in Bengaluru include craft brewery holds.' },
+          { tag: 'Traffic Heuristics', cls: 'warn', text: '<b>Auto-Heal Trigger:</b> Traffic sensor updates automatically adjust reservation times by +25 mins.' },
+          { tag: 'Tech Cohort', cls: 'pri', text: '<b>Instant UPI:</b> 98% of payments executed via GPay / PhonePe within 12 minutes.' }
+        ]
+      },
+      daily: {
+        gmv: '₹5.4 Cr', cgo: '13,000', split: '95.8%', nps: '4.79 ★',
+        pathArea: 'M 0 82 Q 85 72, 145 42 T 265 18 T 340 14 L 340 100 L 0 100 Z',
+        pathLine: 'M 0 82 Q 85 72, 145 42 T 265 18 T 340 14',
+        dipPos: { left: '32%', top: '60%' }, dipLabel: '📉 Dip: Thursday Tech Sprint Deadline (-24%)',
+        peakPos: { right: '7%', top: '9%' }, peakLabel: '🚀 Peak: Friday Tech Squad Outing Surge (+110%)',
+        dipPt: { cx: 145, cy: 42 }, peakPt: { cx: 320, cy: 14 },
+        timeSpan: 'Bengaluru · 7-Day Cycle',
+        insights: [
+          { tag: 'Team Outing Engine', cls: 'ok', text: '<b>B2B Squads:</b> Thursday-Friday tech team outings represent 48% of total Bengaluru GMV.' },
+          { tag: 'Dietary Variety', cls: 'pri', text: '<b>Vegan & Gluten-Free:</b> Highest proportion of customized dietary tags among all metros (32%).' },
+          { tag: 'Turf Bookings', cls: 'ok', text: '<b>Box Cricket & Football:</b> Evening turf bookings frequently paired with post-match dinners.' }
+        ]
+      },
+      weekly: {
+        gmv: '₹35 Cr', cgo: '90,000', split: '96.5%', nps: '4.83 ★',
+        pathArea: 'M 0 72 Q 75 58, 135 30 T 255 14 T 340 10 L 340 100 L 0 100 Z',
+        pathLine: 'M 0 72 Q 75 58, 135 30 T 255 14 T 340 10',
+        dipPos: { left: '35%', top: '50%' }, dipLabel: '📉 Dip: Long Weekend Outstation Migration (-16%)',
+        peakPos: { right: '6%', top: '6%' }, peakLabel: '🚀 Peak: End-of-Quarter Tech Outings (+128%)',
+        dipPt: { cx: 135, cy: 30 }, peakPt: { cx: 330, cy: 10 },
+        timeSpan: 'Bengaluru · 30-Day Trend',
+        insights: [
+          { tag: 'High Net Promoter', cls: 'ok', text: '<b>NPS Benchmark:</b> Bengaluru reached highest customer satisfaction score at 4.83 ★.' },
+          { tag: 'Merchant Adoption', cls: 'pri', text: '<b>Brewery Table Yield:</b> Microbreweries reported +28% table turnover efficiency.' },
+          { tag: 'Self-Healing Efficacy', cls: 'ok', text: '<b>Weather Shifts:</b> 1,240 evening outdoor reservations successfully auto-routed to indoor seating.' }
+        ]
+      }
+    },
+    chennai: {
+      hourly: {
+        gmv: '₹0.42 Cr', cgo: '1,120', split: '93.2%', nps: '4.75 ★',
+        pathArea: 'M 0 88 Q 85 84, 135 81 T 205 52 T 285 22 T 380 16 L 380 100 L 0 100 Z',
+        pathLine: 'M 0 88 Q 85 84, 135 81 T 205 52 T 285 22 T 380 16',
+        dipPos: { left: '33%', top: '65%' }, dipLabel: '📉 Dip: Afternoon Heat Window (1 PM - 4 PM)',
+        peakPos: { right: '8%', top: '12%' }, peakLabel: '🚀 Peak: Besant Nagar Beach & T Nagar Dining (+90%)',
+        dipPt: { cx: 135, cy: 81 }, peakPt: { cx: 340, cy: 16 },
+        timeSpan: 'Chennai · 24-Hour Cycle',
+        insights: [
+          { tag: 'Coastal Evenings', cls: 'ok', text: '<b>Evening Shift:</b> 82% of Chennai outdoor activities occur post 5:15 PM at Elliot’s Beach & ECR.' },
+          { tag: 'Vegetarian Options', cls: 'pri', text: '<b>High Veg Demand:</b> 64% of group dining requests prioritize verified plant-based menus.' },
+          { tag: 'Cinema Dominance', cls: 'ok', text: '<b>Nova Usman Road:</b> Blockbuster movie tickets driving 52% of initial squad prompts.' }
+        ]
+      },
+      daily: {
+        gmv: '₹4.1 Cr', cgo: '10,800', split: '94.1%', nps: '4.76 ★',
+        pathArea: 'M 0 84 Q 80 75, 140 46 T 260 20 T 340 16 L 340 100 L 0 100 Z',
+        pathLine: 'M 0 84 Q 80 75, 140 46 T 260 20 T 340 16',
+        dipPos: { left: '32%', top: '61%' }, dipLabel: '📉 Dip: Tuesday Cultural Fasting Day (-19%)',
+        peakPos: { right: '7%', top: '10%' }, peakLabel: '🚀 Peak: Sunday Family & Squad Outings (+104%)',
+        dipPt: { cx: 140, cy: 46 }, peakPt: { cx: 320, cy: 16 },
+        timeSpan: 'Chennai · 7-Day Cycle',
+        insights: [
+          { tag: 'Sunday Peak', cls: 'ok', text: '<b>Sunday Hangouts:</b> Cousins’ Sunday and beach hangouts generate highest single-day CGO.' },
+          { tag: 'SplitPay Adoption', cls: 'pri', text: '<b>UPI Compliance:</b> 94.1% of dining shares settled within 25 minutes of table bill.' },
+          { tag: 'Low Host Debt', cls: 'ok', text: '<b>Host Debt Zero:</b> Eliminates upfront ticket financing for group cinema visits.' }
+        ]
+      },
+      weekly: {
+        gmv: '₹27 Cr', cgo: '72,000', split: '95.2%', nps: '4.80 ★',
+        pathArea: 'M 0 74 Q 75 62, 135 34 T 255 16 T 340 12 L 340 100 L 0 100 Z',
+        pathLine: 'M 0 74 Q 75 62, 135 34 T 255 16 T 340 12',
+        dipPos: { left: '35%', top: '52%' }, dipLabel: '📉 Dip: Mid-Month Lull',
+        peakPos: { right: '6%', top: '8%' }, peakLabel: '🚀 Peak: Festival & Weekend Outing Surge (+120%)',
+        dipPt: { cx: 135, cy: 34 }, peakPt: { cx: 330, cy: 12 },
+        timeSpan: 'Chennai · 30-Day Trend',
+        insights: [
+          { tag: 'Cinema & Food Synergy', cls: 'ok', text: '<b>T Nagar Corridor:</b> Nova Cinema bookings drive +62% dining footfall to Pondy Bazaar partners.' },
+          { tag: 'Merchant Satisfaction', cls: 'pri', text: '<b>Zero Walk-in Clash:</b> POS tablet sync reduced group booking disputes to zero.' },
+          { tag: 'Repeat Squads', cls: 'ok', text: '<b>High Organic Virality:</b> Over 68% of new users joined via a friend’s squad WhatsApp link.' }
+        ]
+      }
+    },
+    hyderabad: {
+      hourly: {
+        gmv: '₹0.48 Cr', cgo: '1,280', split: '94.0%', nps: '4.77 ★',
+        pathArea: 'M 0 86 Q 85 82, 135 80 T 205 50 T 285 20 T 380 14 L 380 100 L 0 100 Z',
+        pathLine: 'M 0 86 Q 85 82, 135 80 T 205 50 T 285 20 T 380 14',
+        dipPos: { left: '33%', top: '64%' }, dipLabel: '📉 Dip: 3 PM HITEC City Work Lull',
+        peakPos: { right: '8%', top: '10%' }, peakLabel: '🚀 Peak: Jubilee Hills & Gachibowli Nightlife (+94%)',
+        dipPt: { cx: 135, cy: 80 }, peakPt: { cx: 340, cy: 14 },
+        timeSpan: 'Hyderabad · 24-Hour Cycle',
+        insights: [
+          { tag: 'Midnight Dining', cls: 'ok', text: '<b>Late-Night Biryani & Clubs:</b> 46% of Jubilee Hills reservations extend past 11:30 PM.' },
+          { tag: 'HITEC Corridor', cls: 'pri', text: '<b>Corporate Squads:</b> Group sizes in Hyderabad average 6.4 people, highest in South India.' },
+          { tag: 'Prepaid Bookings', cls: 'ok', text: '<b>Escrow Holds:</b> 94% of reservations confirmed with zero vendor disputes.' }
+        ]
+      },
+      daily: {
+        gmv: '₹4.8 Cr', cgo: '12,400', split: '94.5%', nps: '4.78 ★',
+        pathArea: 'M 0 80 Q 80 72, 140 44 T 260 18 T 340 14 L 340 100 L 0 100 Z',
+        pathLine: 'M 0 80 Q 80 72, 140 44 T 260 18 T 340 14',
+        dipPos: { left: '32%', top: '60%' }, dipLabel: '📉 Dip: Wednesday Mid-Week Lull (-20%)',
+        peakPos: { right: '7%', top: '9%' }, peakLabel: '🚀 Peak: Friday Tech Squad Outings (+106%)',
+        dipPt: { cx: 140, cy: 44 }, peakPt: { cx: 320, cy: 14 },
+        timeSpan: 'Hyderabad · 7-Day Cycle',
+        insights: [
+          { tag: 'Large Squads', cls: 'ok', text: '<b>Big Table Yield:</b> 8-top and 10-top tables book out 3x faster using collaborative voting links.' },
+          { tag: 'Anonymous Budgeting', cls: 'pri', text: '<b>Wallet Harmony:</b> Reconciled spend sweet spot eliminated awkward group conversations.' },
+          { tag: 'Speedy Splits', cls: 'ok', text: '<b>SplitPay UPI:</b> Settles full bill within 20 mins across all party members.' }
+        ]
+      },
+      weekly: {
+        gmv: '₹31 Cr', cgo: '82,000', split: '95.6%', nps: '4.82 ★',
+        pathArea: 'M 0 70 Q 75 58, 135 32 T 255 14 T 340 10 L 340 100 L 0 100 Z',
+        pathLine: 'M 0 70 Q 75 58, 135 32 T 255 14 T 340 10',
+        dipPos: { left: '35%', top: '50%' }, dipLabel: '📉 Dip: Mid-Month Lull',
+        peakPos: { right: '6%', top: '6%' }, peakLabel: '🚀 Peak: Weekend Outing Cluster (+124%)',
+        dipPt: { cx: 135, cy: 32 }, peakPt: { cx: 330, cy: 10 },
+        timeSpan: 'Hyderabad · 30-Day Trend',
+        insights: [
+          { tag: 'High Retention', cls: 'ok', text: '<b>Organic Growth:</b> 72% of users in Gachibowli were introduced by another organizer.' },
+          { tag: 'Cross-Sell Velocity', cls: 'pri', text: '<b>Movies & Dinner:</b> Inox GVK One + Banjara Hills dinner pairings represent 38% of GMV.' },
+          { tag: 'Merchant Satisfaction', cls: 'ok', text: '<b>Zero No-Shows:</b> Advance table holds reduced no-shows from 24% to 1.6%.' }
+        ]
+      }
+    }
+  };
+
+  let activeCity = 'all';
+  let activeTime = 'daily';
+
+  window.setDashTime = function(t) {
+    activeTime = t;
+    const btnHourly = document.getElementById('btnHourly');
+    const btnDaily = document.getElementById('btnDaily');
+    const btnWeekly = document.getElementById('btnWeekly');
+
+    [btnHourly, btnDaily, btnWeekly].forEach(b => {
+      if (b) {
+        b.style.background = 'transparent';
+        b.style.color = 'var(--ink-sub)';
+      }
+    });
+
+    if (t === 'hourly' && btnHourly) {
+      btnHourly.style.background = 'var(--pri)';
+      btnHourly.style.color = '#FFF';
+    } else if (t === 'daily' && btnDaily) {
+      btnDaily.style.background = 'var(--pri)';
+      btnDaily.style.color = '#FFF';
+    } else if (t === 'weekly' && btnWeekly) {
+      btnWeekly.style.background = 'var(--pri)';
+      btnWeekly.style.color = '#FFF';
+    }
+
+    updateDashData();
+  };
+
+  window.updateDashData = function() {
+    const selCity = document.getElementById('dashCityFilter');
+    if (selCity) activeCity = selCity.value;
+
+    const cityMap = DASH_DATA[activeCity] || DASH_DATA['all'];
+    const data = cityMap[activeTime] || cityMap['daily'];
+
+    document.getElementById('kpiGmv').textContent = data.gmv;
+    document.getElementById('kpiCgo').textContent = data.cgo;
+    document.getElementById('kpiSplit').textContent = data.split;
+    document.getElementById('kpiNps').textContent = data.nps;
+    document.getElementById('chartTimeSpanLabel').textContent = data.timeSpan;
+
+    // SVG Line & Area
+    const area = document.getElementById('dashChartArea');
+    const line = document.getElementById('dashChartLine');
+    if (area && line) {
+      area.setAttribute('d', data.pathArea);
+      line.setAttribute('d', data.pathLine);
+    }
+
+    // Callout Badges
+    const dipBadge = document.getElementById('dipBadge');
+    const peakBadge = document.getElementById('peakBadge');
+    const dipLabel = document.getElementById('dipLabel');
+    const peakLabel = document.getElementById('peakLabel');
+
+    if (dipBadge && peakBadge && dipLabel && peakLabel) {
+      dipBadge.style.left = data.dipPos.left;
+      dipBadge.style.top = data.dipPos.top;
+      dipLabel.textContent = data.dipLabel;
+
+      peakBadge.style.right = data.peakPos.right;
+      peakBadge.style.top = data.peakPos.top;
+      peakLabel.textContent = data.peakLabel;
+    }
+
+    // SVG Points
+    const dipPt = document.getElementById('chartDipPt');
+    const peakPt = document.getElementById('chartPeakPt');
+    if (dipPt && peakPt && data.dipPt && data.peakPt) {
+      dipPt.setAttribute('cx', data.dipPt.cx);
+      dipPt.setAttribute('cy', data.dipPt.cy);
+      peakPt.setAttribute('cx', data.peakPt.cx);
+      peakPt.setAttribute('cy', data.peakPt.cy);
+    }
+
+    // Render Auto-Derived Insights
+    const list = document.getElementById('derivedInsightsList');
+    if (list && data.insights) {
+      list.innerHTML = data.insights.map(item => `
+        <div style="display:flex; align-items:flex-start; gap:6px; font-size:10.5px; line-height:1.35;">
+          <span class="mini-status-chip ${item.cls}" style="flex-shrink:0; margin-top:1px;">${item.tag}</span>
+          <span style="color:var(--ink);">${item.text}</span>
+        </div>
+      `).join('');
+    }
+
+    // Update timestamp
+    const ts = document.getElementById('insightsTimestamp');
+    if (ts) {
+      const now = new Date();
+      ts.textContent = `Auto-Updated ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+    }
+  };
+
+  // Cursor Parallax for Doodle Eyes
+  document.addEventListener('mousemove', (e) => {
+    const eyes = document.querySelectorAll('.doodle-eye-box');
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    const dx = ((e.clientX - cx) / cx) * 4;
+    const dy = ((e.clientY - cy) / cy) * 4;
+
+    eyes.forEach(eye => {
+      eye.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+  });
+
+  // Detect if embedded in iframe
+  if (window.self !== window.top) {
+    document.body.classList.add('is-embedded');
+  }
+
+  // Init
+  updateSlideDisplay();
+})();
+</script>
+</body>
+</html>
