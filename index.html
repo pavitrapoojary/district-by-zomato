@@ -1,2086 +1,2422 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>District by Zomato · Executive Strategy Deck &amp; Interactive Prototype</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236830F9'/><circle cx='11' cy='16' r='4.5' fill='white'/><circle cx='12' cy='16' r='2.2' fill='%231B1530'/><circle cx='21' cy='16' r='4.5' fill='white'/><circle cx='22' cy='16' r='2.2' fill='%231B1530'/></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-:root {
-  --bg: #F7F5FC;
-  --ink: #1B1530;
-  --mut: #6E6889;
-  --sc: #FFFFFF;
-  --pri: #6830F9;
-  --pri-dark: #501CD9;
-  --pri-light: #F0EBFF;
-  --pri-glow: rgba(104, 48, 249, 0.25);
-  --accent-pink: #FF3366;
-  --accent-yellow: #FFB300;
-  --ok: #10B981;
-  --ok-bg: #E6FBF2;
-  --warn: #F59E0B;
-  --warn-bg: #FEF3C7;
-  --line: #E8E2F5;
-  --phone-bg: #FFFFFF;
-  --phone-bar: #161226;
-  --chip-bg: #EDE7FB;
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>District by Zomato · Executive Strategy Deck &amp; Interactive Prototype</title>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236830F9'/><circle cx='11' cy='16' r='4.5' fill='white'/><circle cx='12' cy='16' r='2.2' fill='%231B1530'/><circle cx='21' cy='16' r='4.5' fill='white'/><circle cx='22' cy='16' r='2.2' fill='%231B1530'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg: #F7F5FC;
+      --ink: #1B1530;
+      --mut: #6E6889;
+      --sc: #FFFFFF;
+      --pri: #6830F9;
+      --pri-dark: #501CD9;
+      --pri-light: #F0EBFF;
+      --pri-glow: rgba(104, 48, 249, 0.25);
+      --accent-pink: #FF3366;
+      --accent-yellow: #FFB300;
+      --ok: #10B981;
+      --ok-bg: #E6FBF2;
+      --warn: #F59E0B;
+      --warn-bg: #FEF3C7;
+      --line: #E8E2F5;
+      --phone-bg: #FFFFFF;
+      --phone-bar: #161226;
+      --chip-bg: #EDE7FB;
+    }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0F0C1B;
-    --ink: #F4F1FD;
-    --mut: #9B94B8;
-    --sc: #19142B;
-    --line: #292244;
-    --phone-bg: #141026;
-    --chip-bg: #261D42;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0F0C1B;
-  --ink: #F4F1FD;
-  --mut: #9B94B8;
-  --sc: #19142B;
-  --line: #292244;
-  --phone-bg: #141026;
-  --chip-bg: #261D42;
-}
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0F0C1B;
+        --ink: #F4F1FD;
+        --mut: #9B94B8;
+        --sc: #19142B;
+        --line: #292244;
+        --phone-bg: #141026;
+        --chip-bg: #261D42;
+      }
+    }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  height: 100vh;
-  max-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-y: hidden;
-  user-select: text;
-  -webkit-user-select: text;
-}
-::selection {
-  background: rgba(104, 48, 249, 0.22);
-  color: #3810A6;
-}
+    :root[data-theme="dark"] {
+      --bg: #0F0C1B;
+      --ink: #F4F1FD;
+      --mut: #9B94B8;
+      --sc: #19142B;
+      --line: #292244;
+      --phone-bg: #141026;
+      --chip-bg: #261D42;
+    }
 
-/* Header & Official District Logo */
-header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 24px;
-  max-width: 1560px;
-  width: 100%;
-  margin: 0 auto;
-  border-bottom: 1px solid var(--line);
-  background: var(--sc);
-  flex-shrink: 0;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.district-brand-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: inherit;
-}
-.district-logo-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #140E26;
-  padding: 5px 10px 5px 6px;
-  border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(20, 14, 38, 0.25);
-}
-.district-logo-img {
-  height: 28px;
-  width: 38px;
-  object-fit: cover;
-  object-position: 25% 40%;
-  border-radius: 7px;
-  border: 1px solid rgba(255,255,255,0.18);
-}
-.district-text-group {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-}
-.district-main-text {
-  font-size: 19px;
-  font-weight: 900;
-  color: #FFFFFF;
-  letter-spacing: -0.6px;
-}
-.district-sub-text {
-  font-size: 9px;
-  font-weight: 800;
-  color: #C3B4FD;
-  letter-spacing: 0.3px;
-  margin-top: 1px;
-}
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-/* Header Right Actions: GitHub + Switch */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.gh-link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
-  border-radius: 99px;
-  background: var(--sc);
-  border: 1px solid var(--line);
-  color: var(--ink);
-  text-decoration: none;
-  font-size: 12.5px;
-  font-weight: 800;
-  transition: all .2s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-}
-.gh-link-btn:hover {
-  background: #1B1530;
-  color: #FFF;
-  border-color: #1B1530;
-  transform: translateY(-1px);
-}
-.gh-link-btn svg {
-  flex-shrink: 0;
-}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      height: 100vh;
+      max-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-y: hidden;
+      user-select: text;
+      -webkit-user-select: text;
+    }
 
-/* Central View Mode Switcher */
-.view-mode-switcher {
-  display: inline-flex;
-  align-items: center;
-  background: var(--chip-bg);
-  padding: 3.5px;
-  border-radius: 99px;
-  border: 1px solid var(--line);
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.04);
-}
-.view-switch-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 99px;
-  border: 0;
-  background: transparent;
-  color: var(--mut);
-  font: 800 12px 'Plus Jakarta Sans', system-ui, sans-serif;
-  cursor: pointer;
-  transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
-  text-decoration: none;
-}
-.view-switch-btn:hover {
-  color: var(--ink);
-}
-.view-switch-btn.active {
-  background: var(--sc);
-  color: var(--pri);
-  box-shadow: 0 2px 8px rgba(104, 48, 249, 0.15), 0 0 0 1px var(--line);
-}
-.vs-icon {
-  font-size: 13px;
-  line-height: 1;
-}
-.vs-pill {
-  font-size: 9px;
-  font-weight: 800;
-  padding: 2px 6px;
-  border-radius: 99px;
-  background: var(--line);
-  color: var(--mut);
-}
-.view-switch-btn.active .vs-pill {
-  background: var(--pri-light);
-  color: var(--pri);
-}
-.vs-pill.pulse {
-  background: #E6FBF2;
-  color: var(--ok);
-}
+    ::selection {
+      background: rgba(104, 48, 249, 0.22);
+      color: #3810A6;
+    }
 
-/* Header Sub-Actions */
-.header-sub-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.proto-launch-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: var(--pri);
-  color: #FFFFFF;
-  font: 800 12.5px 'Plus Jakarta Sans', system-ui, sans-serif;
-  padding: 7px 15px;
-  border-radius: 99px;
-  border: 1px solid var(--pri);
-  cursor: pointer;
-  box-shadow: 0 4px 14px var(--pri-glow);
-  transition: all .2s ease;
-}
-.proto-launch-cta:hover {
-  background: var(--pri-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px var(--pri-glow);
-}
-.deck-return-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--pri-light);
-  color: var(--pri);
-  font: 800 12px 'Plus Jakarta Sans', system-ui, sans-serif;
-  padding: 6.5px 13px;
-  border-radius: 99px;
-  border: 1px solid rgba(104, 48, 249, 0.25);
-  cursor: pointer;
-  transition: all .2s ease;
-}
-.deck-return-btn:hover {
-  background: var(--pri);
-  color: #FFFFFF;
-  transform: translateY(-1px);
-}
+    /* Header & Official District Logo */
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px;
+      max-width: 1560px;
+      width: 100%;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--line);
+      background: var(--sc);
+      flex-shrink: 0;
+    }
 
-/* Sidebar Return to Deck Button */
-.proto-deck-nav-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 99px;
-  background: var(--pri-light);
-  border: 1px solid rgba(104, 48, 249, 0.25);
-  color: var(--pri);
-  font: 800 11.5px 'Plus Jakarta Sans', system-ui, sans-serif;
-  cursor: pointer;
-  transition: all .2s ease;
-}
-.proto-deck-nav-btn:hover {
-  background: var(--pri);
-  color: #FFFFFF;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px var(--pri-glow);
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-/* View Containers */
-.deck-view-container {
-  flex: 1;
-  width: 100%;
-  height: calc(100vh - 58px);
-  display: block;
-  overflow: hidden;
-  background: var(--bg);
-}
-.deck-frame {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-.prototype-view-container {
-  flex: 1;
-  width: 100%;
-  height: calc(100vh - 58px);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+    .district-brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
 
-/* The Animated Doodle Eyes Logo */
-.doodle-txt {
-  display: inline-flex;
-  align-items: center;
-  color: var(--pri);
-  font-weight: 900;
-}
-.eyes-container {
-  display: inline-flex;
-  align-items: center;
-  gap: 2.5px;
-  margin: 0 1px;
-  vertical-align: middle;
-}
-.doodle-eye {
-  width: 16px;
-  height: 20px;
-  background: #FFF;
-  border: 2.5px solid var(--pri);
-  border-radius: 50% 50% 48% 48%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 2px 3px rgba(0,0,0,0.15);
-}
-.pupil {
-  width: 6.5px;
-  height: 6.5px;
-  background: #1B1530;
-  border-radius: 50%;
-  position: absolute;
-  animation: eyeGlance 4.5s infinite ease-in-out;
-}
-.doodle-eye::after {
-  content: "";
-  position: absolute;
-  top: 1.5px;
-  left: 2px;
-  width: 3px;
-  height: 3px;
-  background: #fff;
-  border-radius: 50%;
-  z-index: 2;
-}
+    .district-logo-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #140E26;
+      padding: 5px 10px 5px 6px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(20, 14, 38, 0.25);
+    }
 
-@keyframes eyeGlance {
-  0%, 25% { transform: translate(0, 0); }
-  30%, 45% { transform: translate(3px, -1px); }
-  50%, 65% { transform: translate(-3px, -1px); }
-  70%, 85% { transform: translate(0, 2px); }
-  90%, 100% { transform: translate(0, 0); }
-}
+    .district-logo-img {
+      height: 28px;
+      width: 38px;
+      object-fit: cover;
+      object-position: 25% 40%;
+      border-radius: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
 
-/* Switch */
-.sw {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12.5px;
-  font-weight: 700;
-  cursor: pointer;
-  user-select: none;
-  background: var(--sc);
-  padding: 7px 12px;
-  border-radius: 99px;
-  border: 1px solid var(--line);
-}
-.sw i {
-  width: 34px;
-  height: 20px;
-  border-radius: 99px;
-  background: #D4CCE8;
-  position: relative;
-  transition: .2s;
-}
-.sw i:after {
-  content: "";
-  position: absolute;
-  left: 2px;
-  top: 2px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fff;
-  transition: .2s;
-}
-.sw.on i { background: var(--pri); }
-.sw.on i:after { left: 16px; }
+    .district-text-group {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
 
-/* 2-Column App Workspace: Stage in Main Limelight, Tour in Right Sidebar */
-.app-workspace {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 1560px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 10px 24px;
-  gap: 28px;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-}
-.stage-wrapper {
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.sidebar-panel {
-  width: 360px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-height: 100%;
-}
-.sidebar-top-bar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 8px;
-  width: 100%;
-}
-.feature-info-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 13px;
-  border-radius: 99px;
-  background: var(--sc);
-  border: 1px solid var(--line);
-  color: var(--ink);
-  font: 700 12px 'Plus Jakarta Sans', system-ui, sans-serif;
-  cursor: pointer;
-  transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-.feature-info-btn:hover {
-  background: var(--pri-light);
-  color: var(--pri-dark);
-  border-color: var(--pri);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px var(--pri-glow);
-}
-.feature-info-btn:active {
-  transform: translateY(0);
-}
-.fib-sparkle {
-  font-size: 13px;
-  line-height: 1;
-}
-.fib-label {
-  font-weight: 800;
-  letter-spacing: -0.2px;
-}
-.fib-badge {
-  font-size: 9.5px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 2.5px 7px;
-  border-radius: 99px;
-  background: var(--chip-bg);
-  color: var(--pri);
-  transition: all .2s ease;
-}
-.feature-info-btn:hover .fib-badge {
-  background: var(--pri);
-  color: #FFFFFF;
-}
-.tc {
-  background: var(--sc);
-  border-radius: 20px;
-  padding: 18px 20px;
-  border: 1px solid var(--line);
-  box-shadow: 0 16px 40px -24px var(--pri-glow);
-  position: relative;
-  max-height: min(520px, calc(100vh - 168px));
-  overflow-y: auto;
-}
-.tc h2 {
-  margin: 0 0 8px;
-  font-size: 18px;
-  letter-spacing: -0.4px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-}
-.tc h2 .step-pill {
-  font-size: 10.5px;
-  background: var(--pri-light);
-  color: var(--pri);
-  padding: 3px 9px;
-  border-radius: 99px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-}
-.tc p {
-  margin: 0;
-  color: var(--mut);
-  line-height: 1.5;
-  font-size: 13px;
-}
-.ctl {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 16px;
-  flex-wrap: wrap;
-}
-.nav button {
-  font: 700 13px 'Plus Jakarta Sans', system-ui, sans-serif;
-  border: 0;
-  border-radius: 12px;
-  padding: 8px 15px;
-  cursor: pointer;
-  background: var(--pri-light);
-  color: var(--pri);
-  transition: all .15s ease;
-}
-.nav button.p {
-  background: var(--pri);
-  color: #fff;
-}
-.nav button.p:hover {
-  background: var(--pri-dark);
-  transform: translateY(-1px);
-}
-.nav button:disabled { opacity: 0.35; cursor: not-allowed; }
-.dots {
-  display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
-}
-.dots button {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: 1.5px solid var(--line);
-  background: transparent;
-  color: var(--mut);
-  font: 800 11px 'Plus Jakarta Sans', system-ui, sans-serif;
-  cursor: pointer;
-  transition: .15s;
-}
-.dots button.on {
-  background: var(--pri);
-  color: #fff;
-  border-color: var(--pri);
-}
-.off .txt, .off .nav { display: none; }
-.off .ctl { margin-top: 0; }
-.hint {
-  display: none;
-  text-align: center;
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--mut);
-  margin-bottom: 8px;
-}
+    .district-main-text {
+      font-size: 19px;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.6px;
+    }
 
-/* Stage & Mobile Frames */
-.stage {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-height: 100%;
-}
-.col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  animation: phoneSlideIn .4s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-@keyframes phoneSlideIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: none; }
-}
+    .district-sub-text {
+      font-size: 9px;
+      font-weight: 800;
+      color: #C3B4FD;
+      letter-spacing: 0.3px;
+      margin-top: 1px;
+    }
 
-/* The Mobile Hardware Frame */
-.ph {
-  width: 292px;
-  height: min(560px, calc(100vh - 128px));
-  border-radius: 38px;
-  background: #FFF;
-  border: 7px solid var(--phone-bar);
-  box-shadow: 0 20px 50px -20px rgba(22, 18, 38, 0.35), 0 0 0 1px rgba(0,0,0,0.06);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  color: #1B1530;
-  position: relative;
-  isolation: isolate;
-}
-.sb {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 20px 4px;
-  font-size: 10.5px;
-  font-weight: 800;
-  background: inherit;
-  z-index: 10;
-  color: inherit;
-}
-.island {
-  width: 76px;
-  height: 16px;
-  background: var(--phone-bar);
-  border-radius: 20px;
-  margin: 0 auto;
-}
+    /* Header Right Actions: GitHub + Switch */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-/* Scrollable In-App Content */
-.ap {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: none;
-  padding: 8px 14px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-  background: linear-gradient(180deg, #FFFFFF 0%, #F9F7FD 100%);
-  position: relative;
-}
-.ap::-webkit-scrollbar { display: none; }
-.ap.ch { background: #EFE9F7; }
+    .gh-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 99px;
+      background: var(--sc);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 800;
+      transition: all .2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
 
-/* Phone Bottom Nav (District App) */
-.bnav {
-  height: 48px;
-  border-top: 1px solid #ECE7F6;
-  background: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 4px;
-  flex: none;
-  z-index: 10;
-}
-.bnav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  font-size: 9.5px;
-  font-weight: 700;
-  color: #8C85A8;
-  cursor: pointer;
-  position: relative;
-  text-decoration: none;
-}
-.bnav-item.active {
-  color: var(--pri);
-}
-.bnav-icon {
-  font-size: 16px;
-}
-.bnav-item .badge {
-  position: absolute;
-  top: -3px;
-  right: -5px;
-  background: var(--accent-pink);
-  color: #fff;
-  font-size: 8px;
-  padding: 1px 4px;
-  border-radius: 6px;
-  font-weight: 800;
-}
+    .gh-link-btn:hover {
+      background: #1B1530;
+      color: #FFF;
+      border-color: #1B1530;
+      transform: translateY(-1px);
+    }
 
-/* User Avatar & Label below device */
-.cap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-}
-.cap span:last-child { color: var(--mut); }
-.av {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  display: inline-grid;
-  place-items: center;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  flex: none;
-}
+    .gh-link-btn svg {
+      flex-shrink: 0;
+    }
 
-/* UI Elements inside Mobile */
-.top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.brand-mark {
-  font-weight: 900;
-  font-size: 19px;
-  letter-spacing: -0.7px;
-  color: #1B1530;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.brand-mark small {
-  font-size: 9px;
-  color: var(--mut);
-  font-weight: 700;
-  letter-spacing: 0;
-}
+    /* Central View Mode Switcher */
+    .view-mode-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: var(--chip-bg);
+      padding: 3.5px;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
 
-.h {
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
-}
-.s {
-  font-size: 12px;
-  color: #6E6889;
-  line-height: 1.45;
-}
+    .view-switch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 99px;
+      border: 0;
+      background: transparent;
+      color: var(--mut);
+      font: 800 12px 'Plus Jakarta Sans', system-ui, sans-serif;
+      cursor: pointer;
+      transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+    }
 
-/* Cards & Widgets */
-.cd {
-  background: #FFFFFF;
-  border: 1px solid #ECE7F6;
-  border-radius: 16px;
-  padding: 11px 13px;
-  font-size: 13px;
-  box-shadow: 0 2px 8px rgba(104, 48, 249, 0.03);
-}
-.q {
-  font-size: 14.5px;
-  font-weight: 600;
-  line-height: 1.4;
-  border: 1.5px solid var(--pri);
-  box-shadow: 0 0 0 3px var(--pri-light);
-  background: #FAF8FF;
-}
-.cur {
-  display: inline-block;
-  width: 2px;
-  height: 16px;
-  background: var(--pri);
-  margin-left: 2px;
-  vertical-align: -3px;
-  animation: cursorBlink 1s steps(1) infinite;
-}
-@keyframes cursorBlink { 50% { opacity: 0; } }
+    .view-switch-btn:hover {
+      color: var(--ink);
+    }
 
-.loc {
-  display: inline-flex;
-  gap: 5px;
-  align-self: flex-start;
-  font-size: 11.5px;
-  font-weight: 800;
-  background: var(--pri-light);
-  color: var(--pri);
-  padding: 5px 11px;
-  border-radius: 99px;
-}
+    .view-switch-btn.active {
+      background: var(--sc);
+      color: var(--pri);
+      box-shadow: 0 2px 8px rgba(104, 48, 249, 0.15), 0 0 0 1px var(--line);
+    }
 
-.pr {
-  border: 1.5px dashed #C9BEEC;
-  border-radius: 12px;
-  padding: 9px 11px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all .15s ease;
-  background: #FFF;
-}
-.pr:hover { border-color: var(--pri); }
-.pr.on {
-  border-style: solid;
-  border-color: var(--pri);
-  background: var(--pri-light);
-  color: var(--pri);
-}
+    .vs-icon {
+      font-size: 13px;
+      line-height: 1;
+    }
 
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  font-weight: 800;
-  padding: 4px 9px;
-  border-radius: 99px;
-  background: var(--pri-light);
-  color: var(--pri);
-}
-.chip.ok { background: var(--ok-bg); color: var(--ok); }
-.chip.wn { background: var(--warn-bg); color: var(--warn); }
-.chip.rd { background: #FFEBEF; color: var(--accent-pink); }
+    .vs-pill {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 99px;
+      background: var(--line);
+      color: var(--mut);
+    }
 
-.btn {
-  margin-top: auto;
-  background: var(--pri);
-  color: #fff;
-  border: 0;
-  border-radius: 16px;
-  padding: 13px;
-  font: 800 13.5px 'Plus Jakarta Sans', system-ui, sans-serif;
-  width: 100%;
-  cursor: pointer;
-  flex: none;
-  transition: .15s ease;
-  box-shadow: 0 8px 18px -4px var(--pri-glow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-.btn:hover { background: var(--pri-dark); }
-.btn.g { background: var(--pri-light); color: var(--pri); margin-top: 0; box-shadow: none; }
-.btn.done { background: var(--ok); color: #fff; box-shadow: none; }
+    .view-switch-btn.active .vs-pill {
+      background: var(--pri-light);
+      color: var(--pri);
+    }
 
-/* Timeline Slots */
-.sl {
-  display: grid;
-  grid-template-columns: 46px 1fr;
-  gap: 8px;
-  align-items: start;
-  animation: slotIn .35s ease both;
-}
-@keyframes slotIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: none; }
-}
-.tm {
-  font-size: 10.5px;
-  font-weight: 800;
-  color: var(--pri);
-  padding-top: 8px;
-  line-height: 1.25;
-}
-.sl .cd { padding: 9px 11px; }
-.alt {
-  font-size: 11px;
-  color: #6E6889;
-  margin-top: 4px;
-  border-top: 1px dashed var(--line);
-  padding-top: 4px;
-}
+    .vs-pill.pulse {
+      background: #E6FBF2;
+      color: var(--ok);
+    }
 
-/* Polling & Sliders */
-.opt {
-  border: 1.5px solid var(--line);
-  border-radius: 13px;
-  padding: 9px 11px;
-  font-size: 12px;
-  cursor: pointer;
-  margin-top: 7px;
-  display: flex;
-  justify-content: space-between;
-  gap: 6px;
-  background: #FFF;
-  transition: .15s;
-}
-.opt.on {
-  border-color: var(--pri);
-  background: var(--pri-light);
-}
-.bar {
-  height: 6px;
-  border-radius: 9px;
-  background: #ECE7F6;
-  overflow: hidden;
-  margin: 5px 0 9px;
-}
-.bar i {
-  display: block;
-  height: 100%;
-  background: var(--pri);
-  border-radius: 9px;
-}
-.row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 12px;
-  padding: 2.5px 0;
-}
-.bub {
-  max-width: 86%;
-  padding: 9px 12px;
-  border-radius: 16px;
-  font-size: 12.5px;
-  line-height: 1.38;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-.bub.me {
-  align-self: flex-end;
-  background: #DCF8C6;
-  color: #123315;
-}
-.lk {
-  margin-top: 7px;
-  border-radius: 12px;
-  background: #FFFFFF;
-  border: 1.5px solid var(--pri-light);
-  padding: 10px;
-  font-size: 11.5px;
-  box-shadow: 0 4px 14px rgba(104,48,249,0.08);
-}
-.lk-head {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
-}
-.lk-badge {
-  background: var(--pri);
-  color: #fff;
-  font-size: 9px;
-  font-weight: 900;
-  padding: 2px 6px;
-  border-radius: 6px;
-}
-.slider {
-  height: 6px;
-  border-radius: 9px;
-  background: #ECE7F6;
-  position: relative;
-  margin: 12px 4px 6px;
-}
-.slider i {
-  position: absolute;
-  left: 20%;
-  width: 50%;
-  top: 0;
-  bottom: 0;
-  background: var(--pri);
-  border-radius: 9px;
-}
-.slider-handle {
-  position: absolute;
-  top: -5px;
-  width: 16px;
-  height: 16px;
-  background: #fff;
-  border: 3px solid var(--pri);
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-.slider-handle.l { left: 18%; }
-.slider-handle.r { left: 68%; }
+    /* Header Sub-Actions */
+    .header-sub-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.ai {
-  display: flex;
-  gap: 7px;
-  font-size: 12px;
-  padding: 2.5px 0;
-  line-height: 1.35;
-}
-.ai:before {
-  content: "✓";
-  color: var(--ok);
-  font-weight: 900;
-}
+    .proto-launch-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--pri);
+      color: #FFFFFF;
+      font: 800 12.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+      padding: 7px 15px;
+      border-radius: 99px;
+      border: 1px solid var(--pri);
+      cursor: pointer;
+      box-shadow: 0 4px 14px var(--pri-glow);
+      transition: all .2s ease;
+    }
 
-/* Spinner Loader */
-.ld {
-  margin: auto;
-  text-align: center;
-  display: grid;
-  gap: 14px;
-  justify-items: center;
-}
-.sp {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 5px solid var(--pri-light);
-  border-top-color: var(--pri);
-  animation: rot .8s linear infinite;
-}
-@keyframes rot { to { transform: rotate(1turn); } }
+    .proto-launch-cta:hover {
+      background: var(--pri-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px var(--pri-glow);
+    }
 
-/* Footer */
-.app-footer {
-  padding: 8px 20px;
-  border-top: 1px solid var(--line);
-  background: var(--sc);
-  text-align: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--mut);
-  flex-shrink: 0;
-}
-.footer-content {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.creator-link {
-  color: var(--pri);
-  font-weight: 800;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  background: var(--pri-light);
-  padding: 3px 10px;
-  border-radius: 99px;
-  transition: all .2s ease;
-}
-.creator-link:hover {
-  background: var(--pri);
-  color: #fff;
-  transform: translateY(-1px);
-}
-.footer-dot {
-  opacity: 0.4;
-}
+    .deck-return-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pri-light);
+      color: var(--pri);
+      font: 800 12px 'Plus Jakarta Sans', system-ui, sans-serif;
+      padding: 6.5px 13px;
+      border-radius: 99px;
+      border: 1px solid rgba(104, 48, 249, 0.25);
+      cursor: pointer;
+      transition: all .2s ease;
+    }
 
-/* District App Home Screen Components */
-.dist-hero {
-  background: linear-gradient(135deg, #3B0078 0%, #6830F9 100%);
-  border-radius: 20px;
-  padding: 14px 15px;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 10px 24px -6px rgba(104, 48, 249, 0.45);
-}
-.dist-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(255,255,255,0.22);
-  backdrop-filter: blur(8px);
-  padding: 3px 8px;
-  border-radius: 99px;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-.dist-hero h3 {
-  margin: 6px 0 3px;
-  font-size: 17px;
-  font-weight: 900;
-  letter-spacing: -0.4px;
-}
-.dist-hero p {
-  margin: 0 0 12px;
-  font-size: 11.5px;
-  opacity: 0.9;
-  line-height: 1.4;
-}
-.dist-hero-btn {
-  background: #FFF;
-  color: var(--pri);
-  border: 0;
-  border-radius: 12px;
-  padding: 8px 14px;
-  font-weight: 800;
-  font-size: 12px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-.dist-cats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 7px;
-  margin-top: 4px;
-}
-.dist-cat-item {
-  background: #FFF;
-  border: 1px solid #ECE7F6;
-  border-radius: 13px;
-  padding: 8px 4px;
-  text-align: center;
-  font-size: 10px;
-  font-weight: 700;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-.dist-cat-icon {
-  font-size: 20px;
-}
+    .deck-return-btn:hover {
+      background: var(--pri);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
 
-/* ==========================================================
+    /* Sidebar Return to Deck Button */
+    .proto-deck-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: var(--pri-light);
+      border: 1px solid rgba(104, 48, 249, 0.25);
+      color: var(--pri);
+      font: 800 11.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .proto-deck-nav-btn:hover {
+      background: var(--pri);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px var(--pri-glow);
+    }
+
+    /* View Containers */
+    .deck-view-container {
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - 58px);
+      display: block;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .deck-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .prototype-view-container {
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - 58px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* The Animated Doodle Eyes Logo */
+    .doodle-txt {
+      display: inline-flex;
+      align-items: center;
+      color: var(--pri);
+      font-weight: 900;
+    }
+
+    .eyes-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 2.5px;
+      margin: 0 1px;
+      vertical-align: middle;
+    }
+
+    .doodle-eye {
+      width: 16px;
+      height: 20px;
+      background: #FFF;
+      border: 2.5px solid var(--pri);
+      border-radius: 50% 50% 48% 48%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    .pupil {
+      width: 6.5px;
+      height: 6.5px;
+      background: #1B1530;
+      border-radius: 50%;
+      position: absolute;
+      animation: eyeGlance 4.5s infinite ease-in-out;
+    }
+
+    .doodle-eye::after {
+      content: "";
+      position: absolute;
+      top: 1.5px;
+      left: 2px;
+      width: 3px;
+      height: 3px;
+      background: #fff;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    @keyframes eyeGlance {
+
+      0%,
+      25% {
+        transform: translate(0, 0);
+      }
+
+      30%,
+      45% {
+        transform: translate(3px, -1px);
+      }
+
+      50%,
+      65% {
+        transform: translate(-3px, -1px);
+      }
+
+      70%,
+      85% {
+        transform: translate(0, 2px);
+      }
+
+      90%,
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+
+    /* Switch */
+    .sw {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      background: var(--sc);
+      padding: 7px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+    }
+
+    .sw i {
+      width: 34px;
+      height: 20px;
+      border-radius: 99px;
+      background: #D4CCE8;
+      position: relative;
+      transition: .2s;
+    }
+
+    .sw i:after {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      transition: .2s;
+    }
+
+    .sw.on i {
+      background: var(--pri);
+    }
+
+    .sw.on i:after {
+      left: 16px;
+    }
+
+    /* 2-Column App Workspace: Stage in Main Limelight, Tour in Right Sidebar */
+    .app-workspace {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 1560px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 10px 24px;
+      gap: 28px;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .stage-wrapper {
+      flex: 1;
+      min-width: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-panel {
+      width: 360px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-height: 100%;
+    }
+
+    .sidebar-top-bar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 8px;
+      width: 100%;
+    }
+
+    .feature-info-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 13px;
+      border-radius: 99px;
+      background: var(--sc);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font: 700 12px 'Plus Jakarta Sans', system-ui, sans-serif;
+      cursor: pointer;
+      transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .feature-info-btn:hover {
+      background: var(--pri-light);
+      color: var(--pri-dark);
+      border-color: var(--pri);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px var(--pri-glow);
+    }
+
+    .feature-info-btn:active {
+      transform: translateY(0);
+    }
+
+    .fib-sparkle {
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .fib-label {
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+
+    .fib-badge {
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2.5px 7px;
+      border-radius: 99px;
+      background: var(--chip-bg);
+      color: var(--pri);
+      transition: all .2s ease;
+    }
+
+    .feature-info-btn:hover .fib-badge {
+      background: var(--pri);
+      color: #FFFFFF;
+    }
+
+    .tc {
+      background: var(--sc);
+      border-radius: 20px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 40px -24px var(--pri-glow);
+      position: relative;
+      max-height: min(520px, calc(100vh - 168px));
+      overflow-y: auto;
+    }
+
+    .tc h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: -0.4px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .tc h2 .step-pill {
+      font-size: 10.5px;
+      background: var(--pri-light);
+      color: var(--pri);
+      padding: 3px 9px;
+      border-radius: 99px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .tc p {
+      margin: 0;
+      color: var(--mut);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .ctl {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .nav button {
+      font: 700 13px 'Plus Jakarta Sans', system-ui, sans-serif;
+      border: 0;
+      border-radius: 12px;
+      padding: 8px 15px;
+      cursor: pointer;
+      background: var(--pri-light);
+      color: var(--pri);
+      transition: all .15s ease;
+    }
+
+    .nav button.p {
+      background: var(--pri);
+      color: #fff;
+    }
+
+    .nav button.p:hover {
+      background: var(--pri-dark);
+      transform: translateY(-1px);
+    }
+
+    .nav button:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .dots {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .dots button {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1.5px solid var(--line);
+      background: transparent;
+      color: var(--mut);
+      font: 800 11px 'Plus Jakarta Sans', system-ui, sans-serif;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .dots button.on {
+      background: var(--pri);
+      color: #fff;
+      border-color: var(--pri);
+    }
+
+    .off .txt,
+    .off .nav {
+      display: none;
+    }
+
+    .off .ctl {
+      margin-top: 0;
+    }
+
+    .hint {
+      display: none;
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--mut);
+      margin-bottom: 8px;
+    }
+
+    /* Stage & Mobile Frames */
+    .stage {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-height: 100%;
+    }
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: phoneSlideIn .4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes phoneSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* The Mobile Hardware Frame */
+    .ph {
+      width: 292px;
+      height: min(560px, calc(100vh - 128px));
+      border-radius: 38px;
+      background: #FFF;
+      border: 7px solid var(--phone-bar);
+      box-shadow: 0 20px 50px -20px rgba(22, 18, 38, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      color: #1B1530;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .sb {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 20px 4px;
+      font-size: 10.5px;
+      font-weight: 800;
+      background: inherit;
+      z-index: 10;
+      color: inherit;
+    }
+
+    .island {
+      width: 76px;
+      height: 16px;
+      background: var(--phone-bar);
+      border-radius: 20px;
+      margin: 0 auto;
+    }
+
+    /* Scrollable In-App Content */
+    .ap {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: none;
+      padding: 8px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #F9F7FD 100%);
+      position: relative;
+    }
+
+    .ap::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ap.ch {
+      background: #EFE9F7;
+    }
+
+    /* Phone Bottom Nav (District App) */
+    .bnav {
+      height: 48px;
+      border-top: 1px solid #ECE7F6;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 4px;
+      flex: none;
+      z-index: 10;
+    }
+
+    .bnav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #8C85A8;
+      cursor: pointer;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .bnav-item.active {
+      color: var(--pri);
+    }
+
+    .bnav-icon {
+      font-size: 16px;
+    }
+
+    .bnav-item .badge {
+      position: absolute;
+      top: -3px;
+      right: -5px;
+      background: var(--accent-pink);
+      color: #fff;
+      font-size: 8px;
+      padding: 1px 4px;
+      border-radius: 6px;
+      font-weight: 800;
+    }
+
+    /* User Avatar & Label below device */
+    .cap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .cap span:last-child {
+      color: var(--mut);
+    }
+
+    .av {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      flex: none;
+    }
+
+    /* UI Elements inside Mobile */
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-mark {
+      font-weight: 900;
+      font-size: 19px;
+      letter-spacing: -0.7px;
+      color: #1B1530;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .brand-mark small {
+      font-size: 9px;
+      color: var(--mut);
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .h {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .s {
+      font-size: 12px;
+      color: #6E6889;
+      line-height: 1.45;
+    }
+
+    /* Cards & Widgets */
+    .cd {
+      background: #FFFFFF;
+      border: 1px solid #ECE7F6;
+      border-radius: 16px;
+      padding: 11px 13px;
+      font-size: 13px;
+      box-shadow: 0 2px 8px rgba(104, 48, 249, 0.03);
+    }
+
+    .q {
+      font-size: 14.5px;
+      font-weight: 600;
+      line-height: 1.4;
+      border: 1.5px solid var(--pri);
+      box-shadow: 0 0 0 3px var(--pri-light);
+      background: #FAF8FF;
+    }
+
+    .cur {
+      display: inline-block;
+      width: 2px;
+      height: 16px;
+      background: var(--pri);
+      margin-left: 2px;
+      vertical-align: -3px;
+      animation: cursorBlink 1s steps(1) infinite;
+    }
+
+    @keyframes cursorBlink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .loc {
+      display: inline-flex;
+      gap: 5px;
+      align-self: flex-start;
+      font-size: 11.5px;
+      font-weight: 800;
+      background: var(--pri-light);
+      color: var(--pri);
+      padding: 5px 11px;
+      border-radius: 99px;
+    }
+
+    .pr {
+      border: 1.5px dashed #C9BEEC;
+      border-radius: 12px;
+      padding: 9px 11px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .15s ease;
+      background: #FFF;
+    }
+
+    .pr:hover {
+      border-color: var(--pri);
+    }
+
+    .pr.on {
+      border-style: solid;
+      border-color: var(--pri);
+      background: var(--pri-light);
+      color: var(--pri);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 99px;
+      background: var(--pri-light);
+      color: var(--pri);
+    }
+
+    .chip.ok {
+      background: var(--ok-bg);
+      color: var(--ok);
+    }
+
+    .chip.wn {
+      background: var(--warn-bg);
+      color: var(--warn);
+    }
+
+    .chip.rd {
+      background: #FFEBEF;
+      color: var(--accent-pink);
+    }
+
+    .btn {
+      margin-top: auto;
+      background: var(--pri);
+      color: #fff;
+      border: 0;
+      border-radius: 16px;
+      padding: 13px;
+      font: 800 13.5px 'Plus Jakarta Sans', system-ui, sans-serif;
+      width: 100%;
+      cursor: pointer;
+      flex: none;
+      transition: .15s ease;
+      box-shadow: 0 8px 18px -4px var(--pri-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background: var(--pri-dark);
+    }
+
+    .btn.g {
+      background: var(--pri-light);
+      color: var(--pri);
+      margin-top: 0;
+      box-shadow: none;
+    }
+
+    .btn.done {
+      background: var(--ok);
+      color: #fff;
+      box-shadow: none;
+    }
+
+    /* Timeline Slots */
+    .sl {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 8px;
+      align-items: start;
+      animation: slotIn .35s ease both;
+    }
+
+    @keyframes slotIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .tm {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--pri);
+      padding-top: 8px;
+      line-height: 1.25;
+    }
+
+    .sl .cd {
+      padding: 9px 11px;
+    }
+
+    .alt {
+      font-size: 11px;
+      color: #6E6889;
+      margin-top: 4px;
+      border-top: 1px dashed var(--line);
+      padding-top: 4px;
+    }
+
+    /* Polling & Sliders */
+    .opt {
+      border: 1.5px solid var(--line);
+      border-radius: 13px;
+      padding: 9px 11px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 7px;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      background: #FFF;
+      transition: .15s;
+    }
+
+    .opt.on {
+      border-color: var(--pri);
+      background: var(--pri-light);
+    }
+
+    .bar {
+      height: 6px;
+      border-radius: 9px;
+      background: #ECE7F6;
+      overflow: hidden;
+      margin: 5px 0 9px;
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      background: var(--pri);
+      border-radius: 9px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      padding: 2.5px 0;
+    }
+
+    .bub {
+      max-width: 86%;
+      padding: 9px 12px;
+      border-radius: 16px;
+      font-size: 12.5px;
+      line-height: 1.38;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .bub.me {
+      align-self: flex-end;
+      background: #DCF8C6;
+      color: #123315;
+    }
+
+    .lk {
+      margin-top: 7px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--pri-light);
+      padding: 10px;
+      font-size: 11.5px;
+      box-shadow: 0 4px 14px rgba(104, 48, 249, 0.08);
+    }
+
+    .lk-head {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .lk-badge {
+      background: var(--pri);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .slider {
+      height: 6px;
+      border-radius: 9px;
+      background: #ECE7F6;
+      position: relative;
+      margin: 12px 4px 6px;
+    }
+
+    .slider i {
+      position: absolute;
+      left: 20%;
+      width: 50%;
+      top: 0;
+      bottom: 0;
+      background: var(--pri);
+      border-radius: 9px;
+    }
+
+    .slider-handle {
+      position: absolute;
+      top: -5px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border: 3px solid var(--pri);
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .slider-handle.l {
+      left: 18%;
+    }
+
+    .slider-handle.r {
+      left: 68%;
+    }
+
+    .ai {
+      display: flex;
+      gap: 7px;
+      font-size: 12px;
+      padding: 2.5px 0;
+      line-height: 1.35;
+    }
+
+    .ai:before {
+      content: "✓";
+      color: var(--ok);
+      font-weight: 900;
+    }
+
+    /* Spinner Loader */
+    .ld {
+      margin: auto;
+      text-align: center;
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+    }
+
+    .sp {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 5px solid var(--pri-light);
+      border-top-color: var(--pri);
+      animation: rot .8s linear infinite;
+    }
+
+    @keyframes rot {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+    /* Footer */
+    .app-footer {
+      padding: 8px 20px;
+      border-top: 1px solid var(--line);
+      background: var(--sc);
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--mut);
+      flex-shrink: 0;
+    }
+
+    .footer-content {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .creator-link {
+      color: var(--pri);
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      background: var(--pri-light);
+      padding: 3px 10px;
+      border-radius: 99px;
+      transition: all .2s ease;
+    }
+
+    .creator-link:hover {
+      background: var(--pri);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .footer-dot {
+      opacity: 0.4;
+    }
+
+    /* District App Home Screen Components */
+    .dist-hero {
+      background: linear-gradient(135deg, #3B0078 0%, #6830F9 100%);
+      border-radius: 20px;
+      padding: 14px 15px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 24px -6px rgba(104, 48, 249, 0.45);
+    }
+
+    .dist-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(8px);
+      padding: 3px 8px;
+      border-radius: 99px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .dist-hero h3 {
+      margin: 6px 0 3px;
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -0.4px;
+    }
+
+    .dist-hero p {
+      margin: 0 0 12px;
+      font-size: 11.5px;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+
+    .dist-hero-btn {
+      background: #FFF;
+      color: var(--pri);
+      border: 0;
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .dist-cats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-top: 4px;
+    }
+
+    .dist-cat-item {
+      background: #FFF;
+      border: 1px solid #ECE7F6;
+      border-radius: 13px;
+      padding: 8px 4px;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .dist-cat-icon {
+      font-size: 20px;
+    }
+
+    /* ==========================================================
    STRICT IN-SCREEN HURRAY & CONFETTI (Contained within mobile)
    ========================================================== */
-.in-phone-celebrate {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 40;
-  border-radius: 34px;
-}
-.in-phone-confetti-piece {
-  position: absolute;
-  top: -16px;
-  width: 7px;
-  height: 12px;
-  border-radius: 2px;
-  animation: inPhoneConfettiFall linear forwards;
-}
-@keyframes inPhoneConfettiFall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(580px) rotate(720deg); opacity: 0; }
-}
-.in-phone-hurray-bubble {
-  position: absolute;
-  left: 50%;
-  top: 42%;
-  transform: translate(-50%, -50%);
-  background: #FFFFFF;
-  color: var(--pri);
-  font-weight: 800;
-  font-size: 13.5px;
-  padding: 10px 16px;
-  border-radius: 20px;
-  box-shadow: 0 16px 36px -8px rgba(104, 48, 249, 0.5), 0 0 0 1px var(--line);
-  white-space: nowrap;
-  animation: inPhonePop 2.6s cubic-bezier(0.2, 1.4, 0.4, 1) forwards;
-  z-index: 45;
-  text-align: center;
-}
-@keyframes inPhonePop {
-  0% { transform: translate(-50%, -50%) scale(0) rotate(-6deg); opacity: 0; }
-  18% { transform: translate(-50%, -50%) scale(1.06) rotate(2deg); opacity: 1; }
-  30% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-  85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0; }
-}
+    .in-phone-celebrate {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 40;
+      border-radius: 34px;
+    }
 
-@media (max-width: 960px), (max-height: 580px) {
-  body {
-    height: auto;
-    max-height: none;
-    overflow-y: auto;
-  }
-  .app-workspace {
-    flex-direction: column;
-    gap: 20px;
-    padding: 14px 16px;
-    height: auto;
-    overflow: visible;
-  }
-  .sidebar-panel {
-    width: 100%;
-  }
-  .stage {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    justify-content: flex-start;
-    padding-bottom: 8px;
-  }
-  .col {
-    flex-shrink: 0;
-    scroll-snap-align: center;
-  }
-  .hint:not([hidden]) { display: block; }
-}
+    .in-phone-confetti-piece {
+      position: absolute;
+      top: -16px;
+      width: 7px;
+      height: 12px;
+      border-radius: 2px;
+      animation: inPhoneConfettiFall linear forwards;
+    }
 
-/* ==========================================================
+    @keyframes inPhoneConfettiFall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(580px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .in-phone-hurray-bubble {
+      position: absolute;
+      left: 50%;
+      top: 42%;
+      transform: translate(-50%, -50%);
+      background: #FFFFFF;
+      color: var(--pri);
+      font-weight: 800;
+      font-size: 13.5px;
+      padding: 10px 16px;
+      border-radius: 20px;
+      box-shadow: 0 16px 36px -8px rgba(104, 48, 249, 0.5), 0 0 0 1px var(--line);
+      white-space: nowrap;
+      animation: inPhonePop 2.6s cubic-bezier(0.2, 1.4, 0.4, 1) forwards;
+      z-index: 45;
+      text-align: center;
+    }
+
+    @keyframes inPhonePop {
+      0% {
+        transform: translate(-50%, -50%) scale(0) rotate(-6deg);
+        opacity: 0;
+      }
+
+      18% {
+        transform: translate(-50%, -50%) scale(1.06) rotate(2deg);
+        opacity: 1;
+      }
+
+      30% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+
+      85% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 960px),
+    (max-height: 580px) {
+      body {
+        height: auto;
+        max-height: none;
+        overflow-y: auto;
+      }
+
+      .app-workspace {
+        flex-direction: column;
+        gap: 20px;
+        padding: 14px 16px;
+        height: auto;
+        overflow: visible;
+      }
+
+      .sidebar-panel {
+        width: 100%;
+      }
+
+      .stage {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        justify-content: flex-start;
+        padding-bottom: 8px;
+      }
+
+      .col {
+        flex-shrink: 0;
+        scroll-snap-align: center;
+      }
+
+      .hint:not([hidden]) {
+        display: block;
+      }
+    }
+
+    /* ==========================================================
    FULL-SCREEN PRODUCT STORY & STRATEGY MODAL
    ========================================================== */
-.feature-modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: rgba(15, 12, 27, 0.78);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity .25s ease, visibility .25s ease;
-}
-.feature-modal-overlay.open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-.feature-modal-card {
-  background: var(--sc);
-  color: var(--ink);
-  border: 1px solid var(--line);
-  border-radius: 26px;
-  box-shadow: 0 30px 90px -15px rgba(20, 14, 38, 0.5), 0 0 0 1px rgba(104, 48, 249, 0.2);
-  width: min(1080px, 96vw);
-  max-height: min(880px, 92vh);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transform: scale(0.96) translateY(14px);
-  transition: transform .28s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.feature-modal-overlay.open .feature-modal-card {
-  transform: scale(1) translateY(0);
-}
+    .feature-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(15, 12, 27, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .25s ease, visibility .25s ease;
+    }
 
-/* Modal Header */
-.fm-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 24px;
-  border-bottom: 1px solid var(--line);
-  background: var(--sc);
-  flex-shrink: 0;
-  gap: 12px;
-}
-.fm-brand-wrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.fm-dot {
-  color: var(--mut);
-  font-size: 11px;
-}
-.fm-type-pill {
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--pri);
-  background: var(--pri-light);
-  padding: 4px 10px;
-  border-radius: 99px;
-  letter-spacing: 0.3px;
-}
-:root[data-theme="dark"] .fm-type-pill {
-  background: rgba(104, 48, 249, 0.2);
-  color: #C3B4FD;
-}
-.fm-close-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--chip-bg);
-  border: 1px solid var(--line);
-  color: var(--ink);
-  font: 700 12px 'Plus Jakarta Sans', system-ui, sans-serif;
-  padding: 6px 12px;
-  border-radius: 99px;
-  cursor: pointer;
-  transition: all .15s ease;
-}
-.fm-close-btn:hover {
-  background: var(--pri);
-  color: #FFF;
-  border-color: var(--pri);
-  transform: translateY(-1px);
-}
-.fm-esc-hint {
-  font-size: 9.5px;
-  font-weight: 800;
-  padding: 1px 5px;
-  border-radius: 4px;
-  background: rgba(0,0,0,0.08);
-  letter-spacing: 0.5px;
-}
-:root[data-theme="dark"] .fm-esc-hint {
-  background: rgba(255,255,255,0.12);
-}
+    .feature-modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
 
-/* Modal Scrollable Body */
-.fm-body {
-  padding: 26px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  flex: 1;
-}
+    .feature-modal-card {
+      background: var(--sc);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: 0 30px 90px -15px rgba(20, 14, 38, 0.5), 0 0 0 1px rgba(104, 48, 249, 0.2);
+      width: min(1080px, 96vw);
+      max-height: min(880px, 92vh);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.96) translateY(14px);
+      transition: transform .28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-/* Dual Concept Hero Cards */
-.fm-hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.fm-hero-card {
-  background: linear-gradient(135deg, rgba(104, 48, 249, 0.05) 0%, rgba(255, 51, 102, 0.02) 100%);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-  overflow: hidden;
-}
-.fm-hero-card.accent {
-  background: linear-gradient(135deg, rgba(104, 48, 249, 0.08) 0%, rgba(104, 48, 249, 0.02) 100%);
-  border-color: rgba(104, 48, 249, 0.28);
-}
-.fm-hero-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3.5px;
-  background: linear-gradient(90deg, var(--pri), var(--accent-pink));
-}
-.fm-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10.5px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  color: var(--pri);
-}
-.fm-hero-title {
-  font-size: 21px;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.fm-hero-tagline {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--ink);
-  margin: 0;
-}
-.fm-hero-desc {
-  font-size: 12.5px;
-  line-height: 1.6;
-  color: var(--mut);
-  margin: 0;
-}
-.fm-chips-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
-}
-.fm-micro-chip {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 9px;
-  border-radius: 99px;
-  background: var(--sc);
-  border: 1px solid var(--line);
-  color: var(--ink);
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
+    .feature-modal-overlay.open .feature-modal-card {
+      transform: scale(1) translateY(0);
+    }
 
-/* Sections */
-.fm-section {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.fm-sec-hdr {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.fm-sec-title {
-  font-size: 17.5px;
-  font-weight: 800;
-  letter-spacing: -0.4px;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.fm-sec-sub {
-  font-size: 12.5px;
-  color: var(--mut);
-  margin: 0;
-}
+    /* Modal Header */
+    .fm-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--line);
+      background: var(--sc);
+      flex-shrink: 0;
+      gap: 12px;
+    }
 
-/* Problem-Solution Contrast Cards */
-.fm-contrast-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-.fm-contrast-card {
-  background: var(--sc);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  transition: transform .2s ease, border-color .2s ease;
-}
-.fm-contrast-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--pri);
-}
-.fm-cc-icon-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.fm-cc-icon {
-  font-size: 22px;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--pri-light);
-}
-:root[data-theme="dark"] .fm-cc-icon {
-  background: rgba(104, 48, 249, 0.2);
-}
-.fm-cc-badge {
-  font-size: 10px;
-  font-weight: 800;
-  padding: 3px 8px;
-  border-radius: 99px;
-  background: #FEE2E2;
-  color: #DC2626;
-}
-:root[data-theme="dark"] .fm-cc-badge {
-  background: rgba(220, 38, 38, 0.2);
-  color: #F87171;
-}
-.fm-cc-title {
-  font-size: 14.5px;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: -0.2px;
-}
-.fm-cc-problem {
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--mut);
-  background: rgba(239, 68, 68, 0.05);
-  border-left: 3px solid #EF4444;
-  padding: 7px 10px;
-  border-radius: 0 8px 8px 0;
-  margin: 0;
-}
-.fm-cc-fix {
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--ink);
-  background: rgba(16, 185, 129, 0.06);
-  border-left: 3px solid var(--ok);
-  padding: 7px 10px;
-  border-radius: 0 8px 8px 0;
-  margin: 0;
-  font-weight: 600;
-}
+    .fm-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-/* 5 Pillars Blueprint */
-.fm-pillars-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-}
-.fm-pillar-card {
-  background: var(--sc);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 14px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  text-align: left;
-  position: relative;
-  transition: transform .2s ease;
-}
-.fm-pillar-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--pri);
-}
-.fm-pillar-num {
-  font-size: 10px;
-  font-weight: 900;
-  color: var(--pri);
-  background: var(--pri-light);
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-:root[data-theme="dark"] .fm-pillar-num {
-  background: rgba(104, 48, 249, 0.25);
-}
-.fm-pillar-title {
-  font-size: 12.5px;
-  font-weight: 800;
-  margin: 0;
-  line-height: 1.35;
-}
-.fm-pillar-desc {
-  font-size: 11px;
-  line-height: 1.5;
-  color: var(--mut);
-  margin: 0;
-}
+    .fm-dot {
+      color: var(--mut);
+      font-size: 11px;
+    }
 
-/* Strategic Metrics Strip */
-.fm-metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-.fm-metric-box {
-  background: linear-gradient(180deg, var(--sc) 0%, rgba(104, 48, 249, 0.03) 100%);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.fm-metric-val {
-  font-size: 22px;
-  font-weight: 900;
-  color: var(--pri);
-  letter-spacing: -0.5px;
-}
-.fm-metric-label {
-  font-size: 13.5px;
-  font-weight: 800;
-  color: var(--ink);
-  margin: 0;
-}
-.fm-metric-desc {
-  font-size: 11.5px;
-  line-height: 1.5;
-  color: var(--mut);
-  margin: 0;
-}
+    .fm-type-pill {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--pri);
+      background: var(--pri-light);
+      padding: 4px 10px;
+      border-radius: 99px;
+      letter-spacing: 0.3px;
+    }
 
-/* Modal Footer */
-.fm-footer {
-  padding: 14px 24px;
-  border-top: 1px solid var(--line);
-  background: var(--sc);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.fm-foot-meta {
-  font-size: 12px;
-  color: var(--mut);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.fm-foot-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.fm-btn {
-  font: 700 13px 'Plus Jakarta Sans', system-ui, sans-serif;
-  border-radius: 99px;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: all .15s ease;
-  border: 1px solid transparent;
-}
-.fm-btn.sec {
-  background: var(--chip-bg);
-  border-color: var(--line);
-  color: var(--ink);
-}
-.fm-btn.sec:hover {
-  background: var(--line);
-}
-.fm-btn.pri {
-  background: var(--pri);
-  color: #FFF;
-  border-color: var(--pri);
-  box-shadow: 0 4px 14px var(--pri-glow);
-}
-.fm-btn.pri:hover {
-  background: var(--pri-dark);
-  transform: translateY(-1px);
-}
+    :root[data-theme="dark"] .fm-type-pill {
+      background: rgba(104, 48, 249, 0.2);
+      color: #C3B4FD;
+    }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .fm-hero-grid,
-  .fm-contrast-grid,
-  .fm-metrics-grid {
-    grid-template-columns: 1fr;
-  }
-  .fm-pillars-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .feature-modal-card {
-    max-height: 94vh;
-  }
-}
-@media (max-width: 600px) {
-  .fm-pillars-grid {
-    grid-template-columns: 1fr;
-  }
-  .fm-footer {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .fm-foot-actions {
-    justify-content: flex-end;
-  }
-}
-</style>
+    .fm-close-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--chip-bg);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font: 700 12px 'Plus Jakarta Sans', system-ui, sans-serif;
+      padding: 6px 12px;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+
+    .fm-close-btn:hover {
+      background: var(--pri);
+      color: #FFF;
+      border-color: var(--pri);
+      transform: translateY(-1px);
+    }
+
+    .fm-esc-hint {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.08);
+      letter-spacing: 0.5px;
+    }
+
+    :root[data-theme="dark"] .fm-esc-hint {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Modal Scrollable Body */
+    .fm-body {
+      padding: 26px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      flex: 1;
+    }
+
+    /* Dual Concept Hero Cards */
+    .fm-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .fm-hero-card {
+      background: linear-gradient(135deg, rgba(104, 48, 249, 0.05) 0%, rgba(255, 51, 102, 0.02) 100%);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fm-hero-card.accent {
+      background: linear-gradient(135deg, rgba(104, 48, 249, 0.08) 0%, rgba(104, 48, 249, 0.02) 100%);
+      border-color: rgba(104, 48, 249, 0.28);
+    }
+
+    .fm-hero-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3.5px;
+      background: linear-gradient(90deg, var(--pri), var(--accent-pink));
+    }
+
+    .fm-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--pri);
+    }
+
+    .fm-hero-title {
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fm-hero-tagline {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .fm-hero-desc {
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--mut);
+      margin: 0;
+    }
+
+    .fm-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .fm-micro-chip {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 99px;
+      background: var(--sc);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Sections */
+    .fm-section {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .fm-sec-hdr {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .fm-sec-title {
+      font-size: 17.5px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fm-sec-sub {
+      font-size: 12.5px;
+      color: var(--mut);
+      margin: 0;
+    }
+
+    /* Problem-Solution Contrast Cards */
+    .fm-contrast-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .fm-contrast-card {
+      background: var(--sc);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .fm-contrast-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--pri);
+    }
+
+    .fm-cc-icon-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .fm-cc-icon {
+      font-size: 22px;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--pri-light);
+    }
+
+    :root[data-theme="dark"] .fm-cc-icon {
+      background: rgba(104, 48, 249, 0.2);
+    }
+
+    .fm-cc-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 99px;
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    :root[data-theme="dark"] .fm-cc-badge {
+      background: rgba(220, 38, 38, 0.2);
+      color: #F87171;
+    }
+
+    .fm-cc-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: -0.2px;
+    }
+
+    .fm-cc-problem {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--mut);
+      background: rgba(239, 68, 68, 0.05);
+      border-left: 3px solid #EF4444;
+      padding: 7px 10px;
+      border-radius: 0 8px 8px 0;
+      margin: 0;
+    }
+
+    .fm-cc-fix {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--ink);
+      background: rgba(16, 185, 129, 0.06);
+      border-left: 3px solid var(--ok);
+      padding: 7px 10px;
+      border-radius: 0 8px 8px 0;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    /* 5 Pillars Blueprint */
+    .fm-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .fm-pillar-card {
+      background: var(--sc);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: left;
+      position: relative;
+      transition: transform .2s ease;
+    }
+
+    .fm-pillar-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--pri);
+    }
+
+    .fm-pillar-num {
+      font-size: 10px;
+      font-weight: 900;
+      color: var(--pri);
+      background: var(--pri-light);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    :root[data-theme="dark"] .fm-pillar-num {
+      background: rgba(104, 48, 249, 0.25);
+    }
+
+    .fm-pillar-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      margin: 0;
+      line-height: 1.35;
+    }
+
+    .fm-pillar-desc {
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--mut);
+      margin: 0;
+    }
+
+    /* Strategic Metrics Strip */
+    .fm-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .fm-metric-box {
+      background: linear-gradient(180deg, var(--sc) 0%, rgba(104, 48, 249, 0.03) 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .fm-metric-val {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--pri);
+      letter-spacing: -0.5px;
+    }
+
+    .fm-metric-label {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .fm-metric-desc {
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--mut);
+      margin: 0;
+    }
+
+    /* Modal Footer */
+    .fm-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--line);
+      background: var(--sc);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .fm-foot-meta {
+      font-size: 12px;
+      color: var(--mut);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fm-foot-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fm-btn {
+      font: 700 13px 'Plus Jakarta Sans', system-ui, sans-serif;
+      border-radius: 99px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: all .15s ease;
+      border: 1px solid transparent;
+    }
+
+    .fm-btn.sec {
+      background: var(--chip-bg);
+      border-color: var(--line);
+      color: var(--ink);
+    }
+
+    .fm-btn.sec:hover {
+      background: var(--line);
+    }
+
+    .fm-btn.pri {
+      background: var(--pri);
+      color: #FFF;
+      border-color: var(--pri);
+      box-shadow: 0 4px 14px var(--pri-glow);
+    }
+
+    .fm-btn.pri:hover {
+      background: var(--pri-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+
+      .fm-hero-grid,
+      .fm-contrast-grid,
+      .fm-metrics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .fm-pillars-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .feature-modal-card {
+        max-height: 94vh;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .fm-pillars-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .fm-footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .fm-foot-actions {
+        justify-content: flex-end;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<header class="app-global-header">
-  <div class="brand">
-    <a href="#" onclick="switchView('deck'); return false;" class="district-brand-link" aria-label="district by zomato">
-      <div class="district-logo-badge">
-        <img src="https://rukmini1.flixcart.com/image/1500/1500/xif0q/e-gift-voucher/v/w/e/open-anyone-district-by-zomato-100-original-imahhmcpztega5nu.jpeg?q=70"
-             alt="district by zomato"
-             class="district-logo-img"
-             onerror="this.style.display='none'" />
-        <div class="district-text-group">
-          <span class="district-main-text">district</span>
-          <span class="district-sub-text">by zomato</span>
-        </div>
-      </div>
-    </a>
-    <div class="doodle-brand-tag" id="headerDoodleTag" style="display:none;" onclick="switchView('deck'); return false;" title="doodle by district">
-      <span class="doodle-txt">d<span class="eyes-container"><span class="doodle-eye"><i class="pupil"></i></span><span class="doodle-eye"><i class="pupil"></i></span></span>dle</span>
-    </div>
-  </div>
-
-  <!-- Central Mode Switcher -->
-  <div class="view-mode-switcher" role="tablist" aria-label="Experience view selector">
-    <button id="viewSwitchDeck" class="view-switch-btn active" type="button" role="tab" aria-selected="true" onclick="switchView('deck')">
-      <span class="vs-icon">📊</span>
-      <span class="vs-text">Executive Deck</span>
-      <span class="vs-pill">12 Slides</span>
-    </button>
-    <button id="viewSwitchProto" class="view-switch-btn" type="button" role="tab" aria-selected="false" onclick="switchView('prototype')">
-      <span class="vs-icon">📱</span>
-      <span class="vs-text">Live Prototype</span>
-      <span class="vs-pill pulse">Sandbox</span>
-    </button>
-  </div>
-
-  <!-- Right Actions: Contextual -->
-  <div class="header-actions">
-    <div id="deckHeaderActions" class="header-sub-actions">
-      <button class="proto-launch-cta" type="button" onclick="switchView('prototype')" title="Switch to Live Prototype Simulator">
-        <i class="fa-solid fa-play" style="font-size:10px"></i>
-        <span>Live Prototype →</span>
-      </button>
-    </div>
-
-    <div id="protoHeaderActions" class="header-sub-actions" style="display:none">
-      <button class="deck-return-btn" type="button" onclick="switchView('deck')" title="Return to Executive Product Deck">
-        <span>← Product Deck</span>
-      </button>
-      <div class="sw on" id="sw" role="switch" aria-checked="true" tabindex="0" title="Toggle Guided Explanations">
-        <span>Guided Tour</span><i></i>
-      </div>
-    </div>
-
-    <a href="https://github.com/pavitrapoojary/district-by-zomato"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="gh-link-btn"
-       title="View project on GitHub"
-       aria-label="GitHub Repository">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-      </svg>
-      <span class="gh-text">GitHub</span>
-    </a>
-  </div>
-</header>
-
-<!-- Executive Deck View Container (Starts Active by Default) -->
-<div id="deckView" class="deck-view-container">
-  <iframe id="deckFrame" src="doodle_by_district_presentation.html" title="doodle by district · Executive Product Deck" class="deck-frame"></iframe>
-</div>
-
-<!-- Live Prototype View Container (Hidden Initially) -->
-<div id="prototypeView" class="prototype-view-container" style="display:none">
-  <div class="app-workspace">
-    <!-- Phones Stage in Main Light -->
-    <div class="stage-wrapper">
-      <div class="hint" id="hint">Swipe sideways to see other phones →</div>
-      <main class="stage" id="stage"></main>
-    </div>
-
-    <!-- Instructions Panel on Right Side -->
-    <aside class="sidebar-panel">
-      <div class="sidebar-top-bar">
-        <button id="protoToDeckBtn" class="proto-deck-nav-btn" type="button" onclick="switchView('deck')" title="Return to Executive Product Deck">
-          <span class="pdn-icon">📊</span>
-          <span class="pdn-label">Executive Deck</span>
-        </button>
-        <button id="openFeatureModalBtn" class="feature-info-btn" type="button" aria-haspopup="dialog" aria-expanded="false" title="Product Brief: What is Doodle & District by Zomato?">
-          <span class="fib-sparkle">✨</span>
-          <span class="fib-label">Why Doodle?</span>
-          <span class="fib-badge">Brief</span>
-        </button>
-      </div>
-      <div class="tc" id="tc"></div>
-    </aside>
-  </div>
-
-  <footer class="app-footer">
-    <div class="footer-content">
-      <span>Made with curiosity by</span>
-      <a href="https://pavitra-poojary.vercel.app/" target="_blank" rel="noopener noreferrer" class="creator-link">
-        <span>Pavitra Poojary</span>
-      </a>
-      <span class="footer-dot">·</span>
-      <span>district by zomato · interactive experience</span>
-    </div>
-  </footer>
-</div>
-
-<!-- Full-Screen Product Story & Strategy Modal -->
-<div id="featureModal" class="feature-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle" aria-hidden="true">
-  <div class="feature-modal-card">
-    <!-- Header -->
-    <div class="fm-header">
-      <div class="fm-brand-wrap">
-        <div class="district-logo-badge" style="padding: 4px 8px;">
-          <img src="https://rukmini1.flixcart.com/image/1500/1500/xif0q/e-gift-voucher/v/w/e/open-anyone-district-by-zomato-100-original-imahhmcpztega5nu.jpeg?q=70"
-               alt="district by zomato" class="district-logo-img" style="height:22px; width:30px;"
-               onerror="this.style.display='none'" />
+  <header class="app-global-header">
+    <div class="brand">
+      <a href="#" onclick="switchView('deck'); return false;" class="district-brand-link"
+        aria-label="district by zomato">
+        <div class="district-logo-badge">
+          <img
+            src="https://rukmini1.flixcart.com/image/1500/1500/xif0q/e-gift-voucher/v/w/e/open-anyone-district-by-zomato-100-original-imahhmcpztega5nu.jpeg?q=70"
+            alt="district by zomato" class="district-logo-img" onerror="this.style.display='none'" />
           <div class="district-text-group">
-            <span class="district-main-text" style="font-size:15px">district</span>
-            <span class="district-sub-text" style="font-size:8px">by zomato</span>
+            <span class="district-main-text">district</span>
+            <span class="district-sub-text">by zomato</span>
           </div>
         </div>
-        <span class="fm-dot">✕</span>
-        <span class="doodle-txt" style="font-size: 16px;">
-          d<span class="eyes-container"><span class="doodle-eye" style="width:13px;height:16px"><i class="pupil" style="width:5px;height:5px"></i></span><span class="doodle-eye" style="width:13px;height:16px"><i class="pupil" style="width:5px;height:5px"></i></span></span>dle
-        </span>
-        <span class="fm-type-pill">Product Story & Strategy</span>
+      </a>
+      <div class="doodle-brand-tag" id="headerDoodleTag" style="display:none;"
+        onclick="switchView('deck'); return false;" title="doodle by district">
+        <span class="doodle-txt">d<span class="eyes-container"><span class="doodle-eye"><i
+                class="pupil"></i></span><span class="doodle-eye"><i class="pupil"></i></span></span>dle</span>
       </div>
-      <button id="closeFeatureModalBtn" class="fm-close-btn" aria-label="Close feature overview">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-        <span>Close</span>
-        <span class="fm-esc-hint">ESC</span>
+    </div>
+
+    <!-- Central Mode Switcher -->
+    <div class="view-mode-switcher" role="tablist" aria-label="Experience view selector">
+      <button id="viewSwitchDeck" class="view-switch-btn active" type="button" role="tab" aria-selected="true"
+        onclick="switchView('deck')">
+        <span class="vs-icon">📊</span>
+        <span class="vs-text">Executive Deck</span>
+      </button>
+      <button id="viewSwitchProto" class="view-switch-btn" type="button" role="tab" aria-selected="false"
+        onclick="switchView('prototype')">
+        <span class="vs-icon">📱</span>
+        <span class="vs-text">Live Prototype</span>
+        <span class="vs-pill pulse">Sandbox</span>
       </button>
     </div>
 
-    <!-- Scrollable Body -->
-    <div class="fm-body">
-      <!-- Dual Concept Hero -->
-      <div class="fm-hero-grid">
-        <!-- What is District by Zomato? -->
-        <div class="fm-hero-card">
-          <span class="fm-eyebrow">📍 The Parent Platform · Going-Out Super-App</span>
-          <h2 class="fm-hero-title" id="modalProductTitle">
-            <span>District by Zomato</span>
-          </h2>
-          <p class="fm-hero-tagline">“Zomato for everything you do outside your home.”</p>
-          <p class="fm-hero-desc">
-            Just as Zomato powers food delivery and Blinkit leads quick commerce, <b>District is Zomato’s third standalone powerhouse</b>. It consolidates fragmented offline lifestyle bookings — dining out, live concerts, movies, sports, and nightlife — into one unified real-world experiences platform.
-          </p>
-          <div class="fm-chips-wrap">
-            <span class="fm-micro-chip">🍽️ Dining Out & Pubs</span>
-            <span class="fm-micro-chip">🎟️ Live Concerts & Comedy</span>
-            <span class="fm-micro-chip">🎬 Cinema Ticketing</span>
-            <span class="fm-micro-chip">🏏 Sports Turfs & Arcades</span>
-            <span class="fm-micro-chip">🍸 Nightlife Curations</span>
-          </div>
-        </div>
+    <!-- Right Actions: Contextual -->
+    <div class="header-actions">
+      <div id="deckHeaderActions" class="header-sub-actions">
+        <button class="proto-launch-cta" type="button" onclick="switchView('prototype')"
+          title="Switch to Live Prototype Simulator">
+          <i class="fa-solid fa-play" style="font-size:10px"></i>
+          <span>Live Prototype →</span>
+        </button>
+      </div>
 
-        <!-- What is Doodle? -->
-        <div class="fm-hero-card accent">
-          <span class="fm-eyebrow">✨ The Signature Feature · Social Commerce Layer</span>
-          <h2 class="fm-hero-title">
-            <span>d<span class="eyes-container"><span class="doodle-eye" style="width:14px;height:17px"><i class="pupil" style="width:5.5px;height:5.5px"></i></span><span class="doodle-eye" style="width:14px;height:17px"><i class="pupil" style="width:5.5px;height:5.5px"></i></span></span>dle by district</span>
-          </h2>
-          <p class="fm-hero-tagline">“Stop the 80-text group chat debate. Booked in 30 seconds.”</p>
-          <p class="fm-hero-desc">
-            <b>Doodle</b> is an AI social canvas built directly into District. Instead of endless WhatsApp back-and-forth, the organiser prompts natural intent. Doodle holds seats across multi-stop venues, creates a 30-sec WhatsApp mini-app, collects anonymous votes & diets, and auto-splits bills via 1-tap UPI.
-          </p>
-          <div class="fm-chips-wrap">
-            <span class="fm-micro-chip">⚡ 30-Sec Web Mini-App (No App Install)</span>
-            <span class="fm-micro-chip">🛡️ Anonymous Preference Shield</span>
-            <span class="fm-micro-chip">💸 1-Tap SplitPay via UPI</span>
-            <span class="fm-micro-chip">🪄 Self-Healing Dynamic Timeline</span>
-          </div>
+      <div id="protoHeaderActions" class="header-sub-actions" style="display:none">
+        <button class="deck-return-btn" type="button" onclick="switchView('deck')"
+          title="Return to Executive Product Deck">
+          <span>← Product Deck</span>
+        </button>
+        <div class="sw on" id="sw" role="switch" aria-checked="true" tabindex="0" title="Toggle Guided Explanations">
+          <span>Guided Tour</span><i></i>
         </div>
       </div>
 
-      <!-- Why is it Needed? (The Problem Space) -->
-      <div class="fm-section">
-        <div class="fm-sec-hdr">
-          <span class="fm-eyebrow">🎯 The Problem Space · Why It Is Needed</span>
-          <h3 class="fm-sec-title">The "Group Chat Paradox": Why 62% of Outings Drop Off</h3>
-          <p class="fm-sec-sub">Outings don't die from lack of enthusiasm — they die from coordination fatigue, social anxiety, and payment friction.</p>
-        </div>
+      <a href="https://github.com/pavitrapoojary/district-by-zomato" target="_blank" rel="noopener noreferrer"
+        class="gh-link-btn" title="View project on GitHub" aria-label="GitHub Repository">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+        </svg>
+        <span class="gh-text">GitHub</span>
+      </a>
+    </div>
+  </header>
 
-        <div class="fm-contrast-grid">
-          <!-- Friction 1 -->
-          <div class="fm-contrast-card">
-            <div class="fm-cc-icon-row">
-              <span class="fm-cc-icon">🗣️</span>
-              <span class="fm-cc-badge">Coordination Chaos</span>
-            </div>
-            <h4 class="fm-cc-title">The 84-Text Group Chat Black Hole</h4>
-            <p class="fm-cc-problem">
-              <b>The Pain:</b> <i>“Where should we go?”, “Anything is fine!”, “Not Italian again pls”</i>. Endless banter with zero decisions. Hours drag on, cinema seats vanish, dinner tables are lost, and the outing is abandoned.
-            </p>
-            <p class="fm-cc-fix">
-              <b>Doodle Fix:</b> 1 Interactive Canvas Link. Replaces 84 texts with a 30-second decision card dropped directly into WhatsApp.
-            </p>
-          </div>
+  <!-- Executive Deck View Container (Starts Active by Default) -->
+  <div id="deckView" class="deck-view-container">
+    <iframe id="deckFrame" src="doodle_by_district_presentation.html"
+      title="doodle by district · Executive Product Deck" class="deck-frame"></iframe>
+  </div>
 
-          <!-- Friction 2 -->
-          <div class="fm-contrast-card">
-            <div class="fm-cc-icon-row">
-              <span class="fm-cc-icon">🤫</span>
-              <span class="fm-cc-badge">Social Anxiety</span>
-            </div>
-            <h4 class="fm-cc-title">Dietary & Budget Peer Pressure</h4>
-            <p class="fm-cc-problem">
-              <b>The Pain:</b> Friends hesitate to speak up about tight budgets or niche diets (vegan, Jain, halal) to avoid feeling high-maintenance or awkward in front of the squad.
-            </p>
-            <p class="fm-cc-fix">
-              <b>Doodle Fix:</b> The Anonymous Shield. Attendance is confirmed openly, but budget sliders and venue A/B votes remain strictly anonymous.
-            </p>
-          </div>
-
-          <!-- Friction 3 -->
-          <div class="fm-contrast-card">
-            <div class="fm-cc-icon-row">
-              <span class="fm-cc-icon">💸</span>
-              <span class="fm-cc-badge">Payment Stress</span>
-            </div>
-            <h4 class="fm-cc-title">The Organiser’s Burden & Money Chasing</h4>
-            <p class="fm-cc-problem">
-              <b>The Pain:</b> One well-meaning friend fronts ₹6,000+ on their card and spends the next 3 weeks chasing people on GPay/UPI or computing complicated split sheets.
-            </p>
-            <p class="fm-cc-fix">
-              <b>Doodle Fix:</b> Instant 1-Tap SplitPay via UPI. District dispatches itemised UPI collection links directly. Vendors are settled instantly.
-            </p>
-          </div>
-        </div>
+  <!-- Live Prototype View Container (Hidden Initially) -->
+  <div id="prototypeView" class="prototype-view-container" style="display:none">
+    <div class="app-workspace">
+      <!-- Phones Stage in Main Light -->
+      <div class="stage-wrapper">
+        <div class="hint" id="hint">Swipe sideways to see other phones →</div>
+        <main class="stage" id="stage"></main>
       </div>
 
-      <!-- The 5 Product Pillars -->
-      <div class="fm-section">
-        <div class="fm-sec-hdr">
-          <span class="fm-eyebrow">⚙️ Product Architecture · The 5 Core Pillars</span>
-          <h3 class="fm-sec-title">How Doodle Orchestrates Seamless Squad Experiences</h3>
-          <p class="fm-sec-sub">Designed specifically around Indian urban nightlife, food culture, and UPI payment dynamics.</p>
+      <!-- Instructions Panel on Right Side -->
+      <aside class="sidebar-panel">
+        <div class="sidebar-top-bar">
+          <button id="protoToDeckBtn" class="proto-deck-nav-btn" type="button" onclick="switchView('deck')"
+            title="Return to Executive Product Deck">
+            <span class="pdn-icon">📊</span>
+            <span class="pdn-label">Executive Deck</span>
+          </button>
         </div>
-
-        <div class="fm-pillars-grid">
-          <div class="fm-pillar-card">
-            <span class="fm-pillar-num">1</span>
-            <h5 class="fm-pillar-title">Natural Intent to Canvas</h5>
-            <p class="fm-pillar-desc">Speak naturally (e.g. <i>“Birthday in T Nagar, 6 friends, one vegan”</i>). AI secures real-time table & ticket holds with zero advance fee.</p>
-          </div>
-
-          <div class="fm-pillar-card">
-            <span class="fm-pillar-num">2</span>
-            <h5 class="fm-pillar-title">Zero-Install WhatsApp Mini-App</h5>
-            <p class="fm-pillar-desc">Friends tap a WhatsApp link and vote in 30 seconds inside mobile Safari/Chrome. Zero app download or account creation required.</p>
-          </div>
-
-          <div class="fm-pillar-card">
-            <span class="fm-pillar-num">3</span>
-            <h5 class="fm-pillar-title">Anonymous Consensus Radar</h5>
-            <p class="fm-pillar-desc">Blind A/B venue voting and private spend sliders ensure honest squad preferences without peer pressure or debates.</p>
-          </div>
-
-          <div class="fm-pillar-card">
-            <span class="fm-pillar-num">4</span>
-            <h5 class="fm-pillar-title">Direct UPI SplitPay</h5>
-            <p class="fm-pillar-desc">Everyone pays their equal share via UPI / GPay deep links. The organiser's screen updates live from Pending to Paid ✓.</p>
-          </div>
-
-          <div class="fm-pillar-card">
-            <span class="fm-pillar-num">5</span>
-            <h5 class="fm-pillar-title">Dynamic Auto-Heal Engine</h5>
-            <p class="fm-pillar-desc">When a movie show shifts by 45 mins, Doodle recalibrates subsequent dinner holds automatically with 1-tap host approval.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Strategic Business Impact -->
-      <div class="fm-section">
-        <div class="fm-sec-hdr">
-          <span class="fm-eyebrow">📈 Growth Engine · Business Value For District</span>
-          <h3 class="fm-sec-title">The Strategic Moat for Zomato's Offline Business</h3>
-          <p class="fm-sec-sub">Why social group coordination creates the ultimate organic viral loop.</p>
-        </div>
-
-        <div class="fm-metrics-grid">
-          <div class="fm-metric-box">
-            <span class="fm-metric-val">1.4x – 1.8x</span>
-            <h5 class="fm-metric-label">Organic Viral Loop (K-Factor)</h5>
-            <p class="fm-metric-desc">Every 1 organiser introduces 5+ friends directly to District via the WhatsApp link — achieving zero-CAC customer acquisition.</p>
-          </div>
-
-          <div class="fm-metric-box">
-            <span class="fm-metric-val">+340%</span>
-            <h5 class="fm-metric-label">Multi-Stop GMV Basket Size</h5>
-            <p class="fm-metric-desc">Stitching activity + dinner + late-night dessert transforms solo ₹600 ticket sales into ₹3,500+ multi-stop group transactions.</p>
-          </div>
-
-          <div class="fm-metric-box">
-            <span class="fm-metric-val">&lt; 6%</span>
-            <h5 class="fm-metric-label">Reduced Merchant No-Shows</h5>
-            <p class="fm-metric-desc">Advance UPI SplitPay holds eliminate the 28% weekend table no-show rate for partner restaurants and venues.</p>
-          </div>
-        </div>
-      </div>
+        <div class="tc" id="tc"></div>
+      </aside>
     </div>
 
-    <!-- Modal Footer -->
-    <div class="fm-footer">
-      <div class="fm-foot-meta">
-        <span>📍 District by Zomato · Doodle Concept Brief</span>
-        <span>•</span>
-        <span>Interactive Scenario Simulator</span>
+    <footer class="app-footer">
+      <div class="footer-content">
+        <span>Made with curiosity by</span>
+        <a href="https://pavitra-poojary.vercel.app/" target="_blank" rel="noopener noreferrer" class="creator-link">
+          <span>Pavitra Poojary</span>
+        </a>
+        <span class="footer-dot">·</span>
+        <span>district by zomato · interactive experience</span>
       </div>
-      <div class="fm-foot-actions">
-        <button id="modalDeckBtn" class="fm-btn sec" type="button" onclick="closeProductModal(); switchView('deck');"><span>📊 View Executive Deck</span></button>
-        <button id="modalCloseFooterBtn" class="fm-btn sec" type="button">Close Brief</button>
-        <button id="modalExploreBtn" class="fm-btn pri" type="button">Explore Live Prototype →</button>
+    </footer>
+  </div>
+
+  <!-- Full-Screen Product Story & Strategy Modal -->
+  <div id="featureModal" class="feature-modal-overlay" role="dialog" aria-modal="true"
+    aria-labelledby="modalProductTitle" aria-hidden="true">
+    <div class="feature-modal-card">
+      <!-- Header -->
+      <div class="fm-header">
+        <div class="fm-brand-wrap">
+          <div class="district-logo-badge" style="padding: 4px 8px;">
+            <img
+              src="https://rukmini1.flixcart.com/image/1500/1500/xif0q/e-gift-voucher/v/w/e/open-anyone-district-by-zomato-100-original-imahhmcpztega5nu.jpeg?q=70"
+              alt="district by zomato" class="district-logo-img" style="height:22px; width:30px;"
+              onerror="this.style.display='none'" />
+            <div class="district-text-group">
+              <span class="district-main-text" style="font-size:15px">district</span>
+              <span class="district-sub-text" style="font-size:8px">by zomato</span>
+            </div>
+          </div>
+          <span class="fm-dot">✕</span>
+          <span class="doodle-txt" style="font-size: 16px;">
+            d<span class="eyes-container"><span class="doodle-eye" style="width:13px;height:16px"><i class="pupil"
+                  style="width:5px;height:5px"></i></span><span class="doodle-eye" style="width:13px;height:16px"><i
+                  class="pupil" style="width:5px;height:5px"></i></span></span>dle
+          </span>
+          <span class="fm-type-pill">Product Story & Strategy</span>
+        </div>
+        <button id="closeFeatureModalBtn" class="fm-close-btn" aria-label="Close feature overview">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          <span>Close</span>
+          <span class="fm-esc-hint">ESC</span>
+        </button>
+      </div>
+
+      <!-- Scrollable Body -->
+      <div class="fm-body">
+        <!-- Dual Concept Hero -->
+        <div class="fm-hero-grid">
+          <!-- What is District by Zomato? -->
+          <div class="fm-hero-card">
+            <span class="fm-eyebrow">📍 The Parent Platform · Going-Out Super-App</span>
+            <h2 class="fm-hero-title" id="modalProductTitle">
+              <span>District by Zomato</span>
+            </h2>
+            <p class="fm-hero-tagline">“Zomato for everything you do outside your home.”</p>
+            <p class="fm-hero-desc">
+              Just as Zomato powers food delivery and Blinkit leads quick commerce, <b>District is Zomato’s third
+                standalone powerhouse</b>. It consolidates fragmented offline lifestyle bookings — dining out, live
+              concerts, movies, sports, and nightlife — into one unified real-world experiences platform.
+            </p>
+            <div class="fm-chips-wrap">
+              <span class="fm-micro-chip">🍽️ Dining Out & Pubs</span>
+              <span class="fm-micro-chip">🎟️ Live Concerts & Comedy</span>
+              <span class="fm-micro-chip">🎬 Cinema Ticketing</span>
+              <span class="fm-micro-chip">🏏 Sports Turfs & Arcades</span>
+              <span class="fm-micro-chip">🍸 Nightlife Curations</span>
+            </div>
+          </div>
+
+          <!-- What is Doodle? -->
+          <div class="fm-hero-card accent">
+            <span class="fm-eyebrow">✨ The Signature Feature · Social Commerce Layer</span>
+            <h2 class="fm-hero-title">
+              <span>d<span class="eyes-container"><span class="doodle-eye" style="width:14px;height:17px"><i
+                      class="pupil" style="width:5.5px;height:5.5px"></i></span><span class="doodle-eye"
+                    style="width:14px;height:17px"><i class="pupil"
+                      style="width:5.5px;height:5.5px"></i></span></span>dle by district</span>
+            </h2>
+            <p class="fm-hero-tagline">“Stop the 80-text group chat debate. Booked in 30 seconds.”</p>
+            <p class="fm-hero-desc">
+              <b>Doodle</b> is an AI social canvas built directly into District. Instead of endless WhatsApp
+              back-and-forth, the organiser prompts natural intent. Doodle holds seats across multi-stop venues, creates
+              a 30-sec WhatsApp mini-app, collects anonymous votes & diets, and auto-splits bills via 1-tap UPI.
+            </p>
+            <div class="fm-chips-wrap">
+              <span class="fm-micro-chip">⚡ 30-Sec Web Mini-App (No App Install)</span>
+              <span class="fm-micro-chip">🛡️ Anonymous Preference Shield</span>
+              <span class="fm-micro-chip">💸 1-Tap SplitPay via UPI</span>
+              <span class="fm-micro-chip">🪄 Self-Healing Dynamic Timeline</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Why is it Needed? (The Problem Space) -->
+        <div class="fm-section">
+          <div class="fm-sec-hdr">
+            <span class="fm-eyebrow">🎯 The Problem Space · Why It Is Needed</span>
+            <h3 class="fm-sec-title">The "Group Chat Paradox": Why 62% of Outings Drop Off</h3>
+            <p class="fm-sec-sub">Outings don't die from lack of enthusiasm — they die from coordination fatigue, social
+              anxiety, and payment friction.</p>
+          </div>
+
+          <div class="fm-contrast-grid">
+            <!-- Friction 1 -->
+            <div class="fm-contrast-card">
+              <div class="fm-cc-icon-row">
+                <span class="fm-cc-icon">🗣️</span>
+                <span class="fm-cc-badge">Coordination Chaos</span>
+              </div>
+              <h4 class="fm-cc-title">The 84-Text Group Chat Black Hole</h4>
+              <p class="fm-cc-problem">
+                <b>The Pain:</b> <i>“Where should we go?”, “Anything is fine!”, “Not Italian again pls”</i>. Endless
+                banter with zero decisions. Hours drag on, cinema seats vanish, dinner tables are lost, and the outing
+                is abandoned.
+              </p>
+              <p class="fm-cc-fix">
+                <b>Doodle Fix:</b> 1 Interactive Canvas Link. Replaces 84 texts with a 30-second decision card dropped
+                directly into WhatsApp.
+              </p>
+            </div>
+
+            <!-- Friction 2 -->
+            <div class="fm-contrast-card">
+              <div class="fm-cc-icon-row">
+                <span class="fm-cc-icon">🤫</span>
+                <span class="fm-cc-badge">Social Anxiety</span>
+              </div>
+              <h4 class="fm-cc-title">Dietary & Budget Peer Pressure</h4>
+              <p class="fm-cc-problem">
+                <b>The Pain:</b> Friends hesitate to speak up about tight budgets or niche diets (vegan, Jain, halal) to
+                avoid feeling high-maintenance or awkward in front of the squad.
+              </p>
+              <p class="fm-cc-fix">
+                <b>Doodle Fix:</b> The Anonymous Shield. Attendance is confirmed openly, but budget sliders and venue
+                A/B votes remain strictly anonymous.
+              </p>
+            </div>
+
+            <!-- Friction 3 -->
+            <div class="fm-contrast-card">
+              <div class="fm-cc-icon-row">
+                <span class="fm-cc-icon">💸</span>
+                <span class="fm-cc-badge">Payment Stress</span>
+              </div>
+              <h4 class="fm-cc-title">The Organiser’s Burden & Money Chasing</h4>
+              <p class="fm-cc-problem">
+                <b>The Pain:</b> One well-meaning friend fronts ₹6,000+ on their card and spends the next 3 weeks
+                chasing people on GPay/UPI or computing complicated split sheets.
+              </p>
+              <p class="fm-cc-fix">
+                <b>Doodle Fix:</b> Instant 1-Tap SplitPay via UPI. District dispatches itemised UPI collection links
+                directly. Vendors are settled instantly.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- The 5 Product Pillars -->
+        <div class="fm-section">
+          <div class="fm-sec-hdr">
+            <span class="fm-eyebrow">⚙️ Product Architecture · The 5 Core Pillars</span>
+            <h3 class="fm-sec-title">How Doodle Orchestrates Seamless Squad Experiences</h3>
+            <p class="fm-sec-sub">Designed specifically around Indian urban nightlife, food culture, and UPI payment
+              dynamics.</p>
+          </div>
+
+          <div class="fm-pillars-grid">
+            <div class="fm-pillar-card">
+              <span class="fm-pillar-num">1</span>
+              <h5 class="fm-pillar-title">Natural Intent to Canvas</h5>
+              <p class="fm-pillar-desc">Speak naturally (e.g. <i>“Birthday in T Nagar, 6 friends, one vegan”</i>). AI
+                secures real-time table & ticket holds with zero advance fee.</p>
+            </div>
+
+            <div class="fm-pillar-card">
+              <span class="fm-pillar-num">2</span>
+              <h5 class="fm-pillar-title">Zero-Install WhatsApp Mini-App</h5>
+              <p class="fm-pillar-desc">Friends tap a WhatsApp link and vote in 30 seconds inside mobile Safari/Chrome.
+                Zero app download or account creation required.</p>
+            </div>
+
+            <div class="fm-pillar-card">
+              <span class="fm-pillar-num">3</span>
+              <h5 class="fm-pillar-title">Anonymous Consensus Radar</h5>
+              <p class="fm-pillar-desc">Blind A/B venue voting and private spend sliders ensure honest squad preferences
+                without peer pressure or debates.</p>
+            </div>
+
+            <div class="fm-pillar-card">
+              <span class="fm-pillar-num">4</span>
+              <h5 class="fm-pillar-title">Direct UPI SplitPay</h5>
+              <p class="fm-pillar-desc">Everyone pays their equal share via UPI / GPay deep links. The organiser's
+                screen updates live from Pending to Paid ✓.</p>
+            </div>
+
+            <div class="fm-pillar-card">
+              <span class="fm-pillar-num">5</span>
+              <h5 class="fm-pillar-title">Dynamic Auto-Heal Engine</h5>
+              <p class="fm-pillar-desc">When a movie show shifts by 45 mins, Doodle recalibrates subsequent dinner holds
+                automatically with 1-tap host approval.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategic Business Impact -->
+        <div class="fm-section">
+          <div class="fm-sec-hdr">
+            <span class="fm-eyebrow">📈 Growth Engine · Business Value For District</span>
+            <h3 class="fm-sec-title">The Strategic Moat for Zomato's Offline Business</h3>
+            <p class="fm-sec-sub">Why social group coordination creates the ultimate organic viral loop.</p>
+          </div>
+
+          <div class="fm-metrics-grid">
+            <div class="fm-metric-box">
+              <span class="fm-metric-val">1.4x – 1.8x</span>
+              <h5 class="fm-metric-label">Organic Viral Loop (K-Factor)</h5>
+              <p class="fm-metric-desc">Every 1 organiser introduces 5+ friends directly to District via the WhatsApp
+                link — achieving zero-CAC customer acquisition.</p>
+            </div>
+
+            <div class="fm-metric-box">
+              <span class="fm-metric-val">+340%</span>
+              <h5 class="fm-metric-label">Multi-Stop GMV Basket Size</h5>
+              <p class="fm-metric-desc">Stitching activity + dinner + late-night dessert transforms solo ₹600 ticket
+                sales into ₹3,500+ multi-stop group transactions.</p>
+            </div>
+
+            <div class="fm-metric-box">
+              <span class="fm-metric-val">&lt; 6%</span>
+              <h5 class="fm-metric-label">Reduced Merchant No-Shows</h5>
+              <p class="fm-metric-desc">Advance UPI SplitPay holds eliminate the 28% weekend table no-show rate for
+                partner restaurants and venues.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="fm-footer">
+        <div class="fm-foot-meta">
+          <span>📍 District by Zomato · Doodle Concept Brief</span>
+          <span>•</span>
+          <span>Interactive Scenario Simulator</span>
+        </div>
+        <div class="fm-foot-actions">
+          <button id="modalDeckBtn" class="fm-btn sec" type="button"
+            onclick="closeProductModal(); switchView('deck');"><span>📊 View Executive Deck</span></button>
+          <button id="modalCloseFooterBtn" class="fm-btn sec" type="button">Close Brief</button>
+          <button id="modalExploreBtn" class="fm-btn pri" type="button">Explore Live Prototype →</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-(()=>{
-// Creative eye-branded Doodle logo helper
-const DOODLE_LOGO = `<span class="doodle-txt">d<span class="eyes-container"><span class="doodle-eye"><i class="pupil"></i></span><span class="doodle-eye"><i class="pupil"></i></span></span>dle</span>`;
+  <script>
+    (() => {
+      // Creative eye-branded Doodle logo helper
+      const DOODLE_LOGO = `<span class="doodle-txt">d<span class="eyes-container"><span class="doodle-eye"><i class="pupil"></i></span><span class="doodle-eye"><i class="pupil"></i></span></span>dle</span>`;
 
-const P = {
-  R: ['Ranveer', 'Host · Squad Organiser', '#6830F9'],
-  V: ['Virat', 'Squad · Vegan foodie', '#E8890C'],
-  D: ['Deepika', 'Squad · Movie lover', '#D6336C'],
-  K: ['Kartik', 'Squad · Wildcard planner', '#10B981'],
-  S: ['Shraddha', 'Squad · Dessert scout', '#2D7FF9']
-};
+      const P = {
+        R: ['Ranveer', 'Host · Squad Organiser', '#6830F9'],
+        V: ['Virat', 'Squad · Vegan foodie', '#E8890C'],
+        D: ['Deepika', 'Squad · Movie lover', '#D6336C'],
+        K: ['Kartik', 'Squad · Wildcard planner', '#10B981'],
+        S: ['Shraddha', 'Squad · Dessert scout', '#2D7FF9']
+      };
 
-const SC = [
-  {
-    l: '🎂 Birthday in T Nagar (2 PM - 11 PM)',
-    a: 'T Nagar',
-    g: 'Ananya’s B’day Squad 🎂',
-    ti: 'Ananya’s Birthday Doodle',
-    d: 'Sat 31 Oct',
-    by: 'Fri 8 PM',
-    p: 'Birthday outing from 2 pm at T Nagar till 11 pm, 6 of us, one vegan, budget flexible',
-    st: [
-      ['2:00 PM', '🍽', 'Late lunch · Banana Leaf Social', 'Pondy Bazaar · vegan thali sorted ✓'],
-      ['3:45 PM', '🛍', 'Gift hunt · Pondy Bazaar', 'District Verified · quick stroll'],
-      ['5:30 PM', '🎬', 'Movie · Nova Cinemas', 'Usman Road · 6 seats together held'],
-      ['8:30 PM', '🥘', 'Dinner · Kolam Kitchen', 'Table for 6 · plant-based options ✓'],
-      ['10:00 PM', '🍨', 'Dessert · Scoops & Stories', 'Late night open till 11:30 PM']
-    ],
-    v: 3,
-    o: ['Kolam Kitchen', 'Marina Brew House'],
-    os: ['Plant-based feast ✓ (4.8★)', '2 vegan dishes + rooftop (4.6★)'],
-    idea: 'VR Escape room before dessert?',
-    h: [2, 3],
-    hs: ['5:30 → 6:15 PM', '8:30 → 9:15 PM'],
-    cs: 'Movie show delayed by 45 mins',
-    c: [['Movie tickets (6 seats)', 540], ['Dessert pre-order', 420]],
-    n: '🎂 Birthday girl’s share is automatically covered by the group.'
-  },
-  {
-    l: '🏖 Cousins’ Sunday in Besant Nagar',
-    a: 'Besant Nagar',
-    g: 'Cousins Gang 🏖',
-    ti: 'Cousins Sunday Beach Hang',
-    d: 'Sun 1 Nov',
-    by: 'Sat 8 PM',
-    p: 'Cousins’ Sunday at Besant Nagar, 11 am to 6 pm, 6 of us, one vegan foodie',
-    st: [
-      ['11:00 AM', '🏏', 'Beach cricket · Elliot’s Beach', 'Bring a bat · coastal breeze'],
-      ['1:00 PM', '🍛', 'Lunch · Seaview Kitchen', 'Table for 6 reserved · vegan thali ✓'],
-      ['3:30 PM', '🎳', 'Bowling · Strike Zone Besant', '2 lanes booked · 90 min'],
-      ['5:15 PM', '☕', 'Sunset Coffee · Kaapi Corner', 'Outdoor seaside seating']
-    ],
-    v: 1,
-    o: ['Seaview Kitchen', 'Banyan Bites Cafe'],
-    os: ['Traditional vegan spread ✓', 'Coastal continental + juices'],
-    idea: 'Pottery session at Kalakshetra?',
-    h: [2, 3],
-    hs: ['3:30 → 4:15 PM', '5:15 → 6:00 PM'],
-    cs: 'Bowling lanes undergoing maintenance',
-    c: [['Bowling slots (2 lanes)', 420], ['Kaapi & snacks hold', 210]],
-    n: ''
-  },
-  {
-    l: '💼 Team Friday on OMR',
-    a: 'OMR Expressway',
-    g: 'Team Friday Chill 💼',
-    ti: 'Tech Team Outing Doodle',
-    d: 'Fri 30 Oct',
-    by: 'Thu 6 PM',
-    p: 'Team outing on OMR, Friday 4 pm to 10 pm, 6 of us, one vegan, fun activities',
-    st: [
-      ['4:00 PM', '🏎', 'Go-karting · Race Lab OMR', 'Slots for 6 · high-speed track'],
-      ['6:00 PM', '🏟', 'Box Cricket · Turf 9', '2 floodlight matches · 90 min'],
-      ['8:30 PM', '🍽', 'Dinner · Spice Route Social', 'Table for 6 reserved · craft brews & mocktails']
-    ],
-    v: 2,
-    o: ['Spice Route Social', 'Grill & Chill Yard'],
-    os: ['Dedicated vegan menu ✓', 'Live music & smokey bbq'],
-    idea: 'Live pub trivia during dinner?',
-    h: [1, 2],
-    hs: ['6:00 → 6:45 PM', '8:30 → 9:15 PM'],
-    cs: 'Rain delay on open karting track',
-    c: [['Go-karting grid slots', 680], ['Turf booking', 320]],
-    n: ''
-  }
-];
+      const SC = [
+        {
+          l: '🎂 Birthday in T Nagar (2 PM - 11 PM)',
+          a: 'T Nagar',
+          g: 'Ananya’s B’day Squad 🎂',
+          ti: 'Ananya’s Birthday Doodle',
+          d: 'Sat 31 Oct',
+          by: 'Fri 8 PM',
+          p: 'Birthday outing from 2 pm at T Nagar till 11 pm, 6 of us, one vegan, budget flexible',
+          st: [
+            ['2:00 PM', '🍽', 'Late lunch · Banana Leaf Social', 'Pondy Bazaar · vegan thali sorted ✓'],
+            ['3:45 PM', '🛍', 'Gift hunt · Pondy Bazaar', 'District Verified · quick stroll'],
+            ['5:30 PM', '🎬', 'Movie · Nova Cinemas', 'Usman Road · 6 seats together held'],
+            ['8:30 PM', '🥘', 'Dinner · Kolam Kitchen', 'Table for 6 · plant-based options ✓'],
+            ['10:00 PM', '🍨', 'Dessert · Scoops & Stories', 'Late night open till 11:30 PM']
+          ],
+          v: 3,
+          o: ['Kolam Kitchen', 'Marina Brew House'],
+          os: ['Plant-based feast ✓ (4.8★)', '2 vegan dishes + rooftop (4.6★)'],
+          idea: 'VR Escape room before dessert?',
+          h: [2, 3],
+          hs: ['5:30 → 6:15 PM', '8:30 → 9:15 PM'],
+          cs: 'Movie show delayed by 45 mins',
+          c: [['Movie tickets (6 seats)', 540], ['Dessert pre-order', 420]],
+          n: '🎂 Birthday girl’s share is automatically covered by the group.'
+        },
+        {
+          l: '🏖 Cousins’ Sunday in Besant Nagar',
+          a: 'Besant Nagar',
+          g: 'Cousins Gang 🏖',
+          ti: 'Cousins Sunday Beach Hang',
+          d: 'Sun 1 Nov',
+          by: 'Sat 8 PM',
+          p: 'Cousins’ Sunday at Besant Nagar, 11 am to 6 pm, 6 of us, one vegan foodie',
+          st: [
+            ['11:00 AM', '🏏', 'Beach cricket · Elliot’s Beach', 'Bring a bat · coastal breeze'],
+            ['1:00 PM', '🍛', 'Lunch · Seaview Kitchen', 'Table for 6 reserved · vegan thali ✓'],
+            ['3:30 PM', '🎳', 'Bowling · Strike Zone Besant', '2 lanes booked · 90 min'],
+            ['5:15 PM', '☕', 'Sunset Coffee · Kaapi Corner', 'Outdoor seaside seating']
+          ],
+          v: 1,
+          o: ['Seaview Kitchen', 'Banyan Bites Cafe'],
+          os: ['Traditional vegan spread ✓', 'Coastal continental + juices'],
+          idea: 'Pottery session at Kalakshetra?',
+          h: [2, 3],
+          hs: ['3:30 → 4:15 PM', '5:15 → 6:00 PM'],
+          cs: 'Bowling lanes undergoing maintenance',
+          c: [['Bowling slots (2 lanes)', 420], ['Kaapi & snacks hold', 210]],
+          n: ''
+        },
+        {
+          l: '💼 Team Friday on OMR',
+          a: 'OMR Expressway',
+          g: 'Team Friday Chill 💼',
+          ti: 'Tech Team Outing Doodle',
+          d: 'Fri 30 Oct',
+          by: 'Thu 6 PM',
+          p: 'Team outing on OMR, Friday 4 pm to 10 pm, 6 of us, one vegan, fun activities',
+          st: [
+            ['4:00 PM', '🏎', 'Go-karting · Race Lab OMR', 'Slots for 6 · high-speed track'],
+            ['6:00 PM', '🏟', 'Box Cricket · Turf 9', '2 floodlight matches · 90 min'],
+            ['8:30 PM', '🍽', 'Dinner · Spice Route Social', 'Table for 6 reserved · craft brews & mocktails']
+          ],
+          v: 2,
+          o: ['Spice Route Social', 'Grill & Chill Yard'],
+          os: ['Dedicated vegan menu ✓', 'Live music & smokey bbq'],
+          idea: 'Live pub trivia during dinner?',
+          h: [1, 2],
+          hs: ['6:00 → 6:45 PM', '8:30 → 9:15 PM'],
+          cs: 'Rain delay on open karting track',
+          c: [['Go-karting grid slots', 680], ['Turf booking', 320]],
+          n: ''
+        }
+      ];
 
-let curStep = 0;
-let sc = 0;
-let guided = true;
+      let curStep = 0;
+      let sc = 0;
+      let guided = true;
 
-const sh = s => s[2].split(' · ')[0];
+      const sh = s => s[2].split(' · ')[0];
 
-// Phone template with safe areas and bottom navigation where appropriate
-const phoneShell = (userKey, bodyHtml, options = {}) => {
-  const user = P[userKey];
-  const isDistrictApp = options.showDistrictNav;
-  const isChat = options.isChat;
+      // Phone template with safe areas and bottom navigation where appropriate
+      const phoneShell = (userKey, bodyHtml, options = {}) => {
+        const user = P[userKey];
+        const isDistrictApp = options.showDistrictNav;
+        const isChat = options.isChat;
 
-  const bnavHtml = isDistrictApp ? `
+        const bnavHtml = isDistrictApp ? `
     <div class="bnav">
       <div class="bnav-item ${options.activeTab === 'explore' ? 'active' : ''}">
         <span class="bnav-icon">🧭</span>
@@ -2101,7 +2437,7 @@ const phoneShell = (userKey, bodyHtml, options = {}) => {
       </div>
     </div>` : '';
 
-  return `
+        return `
     <div class="col" data-phone-id="${userKey}">
       <div class="ph">
         <div class="sb">
@@ -2121,10 +2457,10 @@ const phoneShell = (userKey, bodyHtml, options = {}) => {
       </div>
     </div>
   `;
-};
+      };
 
-// Top app header inside the phone
-const distHeader = (rightTag = '') => `
+      // Top app header inside the phone
+      const distHeader = (rightTag = '') => `
   <div class="top">
     <span class="brand-mark">
       district<small style="color:var(--pri);font-weight:800">by zomato</small>
@@ -2133,10 +2469,10 @@ const distHeader = (rightTag = '') => `
   </div>
 `;
 
-const avBadge = k => `<span class="av" style="background:${P[k][2]}">${P[k][0][0]}</span>`;
+      const avBadge = k => `<span class="av" style="background:${P[k][2]}">${P[k][0][0]}</span>`;
 
-const slotCards = (arr, altObj) => arr.map((s, k) => `
-  <div class="sl" style="animation-delay:${k*75}ms">
+      const slotCards = (arr, altObj) => arr.map((s, k) => `
+  <div class="sl" style="animation-delay:${k * 75}ms">
     <div class="tm">${s[0].replace(' ', '<br>')}</div>
     <div class="cd">
       <b>${s[1]} ${s[2]}</b>
@@ -2146,38 +2482,38 @@ const slotCards = (arr, altObj) => arr.map((s, k) => `
   </div>
 `).join('');
 
-// Strict in-screen celebration / confetti
-function celebrateInsidePhone(targetPhoneKey, messageText) {
-  const col = document.querySelector(`.col[data-phone-id="${targetPhoneKey}"]`);
-  if (!col) return;
-  const ph = col.querySelector('.ph');
-  if (!ph) return;
+      // Strict in-screen celebration / confetti
+      function celebrateInsidePhone(targetPhoneKey, messageText) {
+        const col = document.querySelector(`.col[data-phone-id="${targetPhoneKey}"]`);
+        if (!col) return;
+        const ph = col.querySelector('.ph');
+        if (!ph) return;
 
-  const wrap = document.createElement('div');
-  wrap.className = 'in-phone-celebrate';
-  const colors = ['#6830F9', '#FF3366', '#FFB300', '#10B981', '#2D7FF9', '#FF6B00'];
+        const wrap = document.createElement('div');
+        wrap.className = 'in-phone-celebrate';
+        const colors = ['#6830F9', '#FF3366', '#FFB300', '#10B981', '#2D7FF9', '#FF6B00'];
 
-  let inner = `<div class="in-phone-hurray-bubble">${messageText}</div>`;
-  for (let k = 0; k < 50; k++) {
-    const leftPct = (Math.random() * 92) + 4;
-    const dur = 1.4 + Math.random() * 1.0;
-    const del = Math.random() * 0.4;
-    const clr = colors[k % colors.length];
-    inner += `<i class="in-phone-confetti-piece" style="left:${leftPct}%;background:${clr};animation-duration:${dur}s;animation-delay:${del}s"></i>`;
-  }
-  wrap.innerHTML = inner;
-  ph.appendChild(wrap);
-  setTimeout(() => wrap.remove(), 2900);
-}
+        let inner = `<div class="in-phone-hurray-bubble">${messageText}</div>`;
+        for (let k = 0; k < 50; k++) {
+          const leftPct = (Math.random() * 92) + 4;
+          const dur = 1.4 + Math.random() * 1.0;
+          const del = Math.random() * 0.4;
+          const clr = colors[k % colors.length];
+          inner += `<i class="in-phone-confetti-piece" style="left:${leftPct}%;background:${clr};animation-duration:${dur}s;animation-delay:${del}s"></i>`;
+        }
+        wrap.innerHTML = inner;
+        ph.appendChild(wrap);
+        setTimeout(() => wrap.remove(), 2900);
+      }
 
-// Prototype Step Definitions
-const STEPS = [
-  {
-    t: 'Start in District App: Discover Doodle',
-    d: 'District by Zomato is the go-to app for going out. Right on the home feed and bottom nav bar, squad planners discover "doodle" — designed to kill group chat indecision.',
-    p: () => {
-      const cur = SC[sc];
-      const homeHtml = `
+      // Prototype Step Definitions
+      const STEPS = [
+        {
+          t: 'Start in District App: Discover Doodle',
+          d: 'District by Zomato is the go-to app for going out. Right on the home feed and bottom nav bar, squad planners discover "doodle" — designed to kill group chat indecision.',
+          p: () => {
+            const cur = SC[sc];
+            const homeHtml = `
         <div class="top">
           <div style="display:flex;align-items:center;gap:6px">
             <span style="font-size:18px">📍</span>
@@ -2229,16 +2565,16 @@ const STEPS = [
           <div class="s">85% tickets booked for Saturday</div>
         </div>
       `;
-      return [phoneShell('R', homeHtml, { showDistrictNav: true, activeTab: 'explore' })];
-    }
-  },
+            return [phoneShell('R', homeHtml, { showDistrictNav: true, activeTab: 'explore' })];
+          }
+        },
 
-  {
-    t: 'Sketch the Squad Vibe',
-    d: 'Ranveer starts a Doodle. He doesn’t fill out 10 boring filters — he just talks to Doodle like he would text a friend. One vegan, flexible budget, T Nagar afternoon to night.',
-    p: () => {
-      const cur = SC[sc];
-      const inputHtml = `
+        {
+          t: 'Sketch the Squad Vibe',
+          d: 'Ranveer starts a Doodle. He doesn’t fill out 10 boring filters — he just talks to Doodle like he would text a friend. One vegan, flexible budget, T Nagar afternoon to night.',
+          p: () => {
+            const cur = SC[sc];
+            const inputHtml = `
         ${distHeader()}
         <span class="loc">📍 ${cur.a}, Chennai ▾</span>
         <div class="h">Sketch your plan</div>
@@ -2259,18 +2595,18 @@ const STEPS = [
           <span>Doodle this plan ✨</span>
         </button>
       `;
-      return [phoneShell('R', inputHtml, { showDistrictNav: true, activeTab: 'doodle' })];
-    }
-  },
+            return [phoneShell('R', inputHtml, { showDistrictNav: true, activeTab: 'doodle' })];
+          }
+        },
 
-  {
-    t: 'Doodle Drafts the Canvas',
-    d: 'AI stitches together real-time availability in Chennai. Ranveer gets a complete multi-stop timeline with dietary safety and hold timers. Nothing is charged yet.',
-    p: () => {
-      const cur = SC[sc];
-      const al = {};
-      al[cur.v] = cur.o[1];
-      const planHtml = `
+        {
+          t: 'Doodle Drafts the Canvas',
+          d: 'AI stitches together real-time availability in Chennai. Ranveer gets a complete multi-stop timeline with dietary safety and hold timers. Nothing is charged yet.',
+          p: () => {
+            const cur = SC[sc];
+            const al = {};
+            al[cur.v] = cur.o[1];
+            const planHtml = `
         ${distHeader('Draft Canvas')}
         <div class="h">Here’s your draft doodle</div>
         <div class="s">Live holds active for 15 mins. Your friends can vote on alternates!</div>
@@ -2286,16 +2622,16 @@ const STEPS = [
           <span>Send Doodle to WhatsApp squad 🚀</span>
         </button>
       `;
-      return [phoneShell('R', planHtml)];
-    }
-  },
+            return [phoneShell('R', planHtml)];
+          }
+        },
 
-  {
-    t: 'One Interactive Link in the Group Chat',
-    d: 'A rich Doodle card drops into the WhatsApp group. Friends don’t need to download anything; tapping it opens a 30-second interactive mini-app in their mobile browser.',
-    p: () => {
-      const cur = SC[sc];
-      const cardHtml = `
+        {
+          t: 'One Interactive Link in the Group Chat',
+          d: 'A rich Doodle card drops into the WhatsApp group. Friends don’t need to download anything; tapping it opens a 30-second interactive mini-app in their mobile browser.',
+          p: () => {
+            const cur = SC[sc];
+            const cardHtml = `
         <div class="lk">
           <div class="lk-head">
             <span class="lk-badge">DOODLE</span>
@@ -2308,7 +2644,7 @@ const STEPS = [
         </div>
       `;
 
-      const ranveerChat = `
+            const ranveerChat = `
         <div class="top">
           <b>${cur.g}</b>
           <span class="s">6 members</span>
@@ -2321,7 +2657,7 @@ const STEPS = [
         <div class="bub">Checking now 🙌</div>
       `;
 
-      const viratChat = `
+            const viratChat = `
         <div class="top">
           <b>${cur.g}</b>
           <span class="s">6 members</span>
@@ -2336,21 +2672,21 @@ const STEPS = [
         </button>
       `;
 
-      return [
-        phoneShell('R', ranveerChat, { isChat: true }),
-        phoneShell('V', viratChat, { isChat: true })
-      ];
-    }
-  },
+            return [
+              phoneShell('R', ranveerChat, { isChat: true }),
+              phoneShell('V', viratChat, { isChat: true })
+            ];
+          }
+        },
 
-  {
-    t: 'The Squad Responds in 30 Seconds',
-    d: 'Three friends on three phones at the same time: Virat flags his vegan requirement, Deepika votes anonymously between dinner spots, and Kartik proposes a wildcard activity.',
-    p: () => {
-      const cur = SC[sc];
+        {
+          t: 'The Squad Responds in 30 Seconds',
+          d: 'Three friends on three phones at the same time: Virat flags his vegan requirement, Deepika votes anonymously between dinner spots, and Kartik proposes a wildcard activity.',
+          p: () => {
+            const cur = SC[sc];
 
-      // Virat's phone: dietary & budget
-      const viratHtml = `
+            // Virat's phone: dietary & budget
+            const viratHtml = `
         ${distHeader()}
         <div class="h">Hi Virat 👋</div>
         <span class="chip ok">+91 98••• ••210 verified</span>
@@ -2387,8 +2723,8 @@ const STEPS = [
         </button>
       `;
 
-      // Deepika's phone: anonymous A/B vote
-      const deepikaHtml = `
+            // Deepika's phone: anonymous A/B vote
+            const deepikaHtml = `
         ${distHeader()}
         <div class="h">Vote: ${sh(cur.st[cur.v])}</div>
         <div class="s">Votes are anonymous. Only the winning venue is shown to the group.</div>
@@ -2413,8 +2749,8 @@ const STEPS = [
         </button>
       `;
 
-      // Kartik's phone: live suggestion
-      const kartikHtml = `
+            // Kartik's phone: live suggestion
+            const kartikHtml = `
         ${distHeader()}
         <div class="h">Suggest a twist?</div>
         <div class="s">Type an idea. Doodle checks real-time slots before pitching to the squad.</div>
@@ -2435,25 +2771,25 @@ const STEPS = [
         </button>
       `;
 
-      return [
-        phoneShell('V', viratHtml),
-        phoneShell('D', deepikaHtml),
-        phoneShell('K', kartikHtml)
-      ];
-    }
-  },
+            return [
+              phoneShell('V', viratHtml),
+              phoneShell('D', deepikaHtml),
+              phoneShell('K', kartikHtml)
+            ];
+          }
+        },
 
-  {
-    t: 'The Organiser’s Radar Comes Together',
-    d: 'Ranveer’s screen updates live as the squad answers. Names appear only for headcounts; dietary needs and budget limits are reconciled smoothly without awkward banter.',
-    p: () => {
-      const cur = SC[sc];
-      const hostHtml = `
+        {
+          t: 'The Organiser’s Radar Comes Together',
+          d: 'Ranveer’s screen updates live as the squad answers. Names appear only for headcounts; dietary needs and budget limits are reconciled smoothly without awkward banter.',
+          p: () => {
+            const cur = SC[sc];
+            const hostHtml = `
         ${distHeader('Consensus Radar')}
         <div class="h">5 of 5 Replied 🎉</div>
 
         <div class="row">
-          <span>${['R','V','D','K','S'].map(avBadge).join(' ')}</span>
+          <span>${['R', 'V', 'D', 'K', 'S'].map(avBadge).join(' ')}</span>
           <span class="chip ok">All 6 Squad in</span>
         </div>
 
@@ -2482,18 +2818,18 @@ const STEPS = [
           <span>Lock Doodle & Book Seats 🔒</span>
         </button>
       `;
-      return [phoneShell('R', hostHtml)];
-    }
-  },
+            return [phoneShell('R', hostHtml)];
+          }
+        },
 
-  {
-    t: 'Instant 1-Tap SplitPay via UPI',
-    d: 'No one has to front ₹4,000 and chase people on GPay for two weeks. Doodle books the movie tickets and dinner table, then splits the bill automatically. Tap "Pay" on Deepika’s phone!',
-    p: () => {
-      const cur = SC[sc];
-      const total = cur.c.reduce((a, b) => a + b[1], 0);
+        {
+          t: 'Instant 1-Tap SplitPay via UPI',
+          d: 'No one has to front ₹4,000 and chase people on GPay for two weeks. Doodle books the movie tickets and dinner table, then splits the bill automatically. Tap "Pay" on Deepika’s phone!',
+          p: () => {
+            const cur = SC[sc];
+            const total = cur.c.reduce((a, b) => a + b[1], 0);
 
-      const hostBookingHtml = `
+            const hostBookingHtml = `
         ${distHeader('Instant Booking')}
         <div class="h">Live Squad SplitPay</div>
 
@@ -2527,7 +2863,7 @@ const STEPS = [
         </div>
       `;
 
-      const deepikaPayHtml = `
+            const deepikaPayHtml = `
         ${distHeader('District SplitPay')}
         <div class="h">Your Equal Share</div>
 
@@ -2553,26 +2889,26 @@ const STEPS = [
         </button>
       `;
 
-      return [
-        phoneShell('R', hostBookingHtml),
-        phoneShell('D', deepikaPayHtml)
-      ];
-    }
-  },
+            return [
+              phoneShell('R', hostBookingHtml),
+              phoneShell('D', deepikaPayHtml)
+            ];
+          }
+        },
 
-  {
-    t: 'When Plans Change, Doodle Self-Heals',
-    d: 'Disaster strikes: Nova Cinemas pushes the show by 45 mins. Rather than the group abandoning the plan, Doodle recalibrates dinner & dessert holds automatically. Ranveer approves with one tap.',
-    p: () => {
-      const cur = SC[sc];
-      const remappedHtml = cur.h.map((idx, n) => `
+        {
+          t: 'When Plans Change, Doodle Self-Heals',
+          d: 'Disaster strikes: Nova Cinemas pushes the show by 45 mins. Rather than the group abandoning the plan, Doodle recalibrates dinner & dessert holds automatically. Ranveer approves with one tap.',
+          p: () => {
+            const cur = SC[sc];
+            const remappedHtml = cur.h.map((idx, n) => `
         <div class="row">
           <span>${cur.st[idx][1]} ${sh(cur.st[idx])}</span>
           <b>${cur.hs[n]}</b>
         </div>
       `).join('');
 
-      const hostHealingHtml = `
+            const hostHealingHtml = `
         ${distHeader()}
         <span class="chip rd" style="align-self:flex-start">⚠️ ${cur.cs}</span>
         <div class="h">Doodle Auto-Heal 🪄</div>
@@ -2593,7 +2929,7 @@ const STEPS = [
         </button>
       `;
 
-      const deepikaNotifHtml = `
+            const deepikaNotifHtml = `
         <div class="top">
           <b>District Notifications</b>
           <span class="s">Just now</span>
@@ -2612,39 +2948,39 @@ const STEPS = [
         </button>
       `;
 
-      return [
-        phoneShell('R', hostHealingHtml),
-        phoneShell('D', deepikaNotifHtml)
+            return [
+              phoneShell('R', hostHealingHtml),
+              phoneShell('D', deepikaNotifHtml)
+            ];
+          }
+        }
       ];
-    }
-  }
-];
 
-const $ = id => document.getElementById(id);
+      const $ = id => document.getElementById(id);
 
-function typePrompt() {
-  const q = $('q');
-  const t = SC[sc].p;
-  if (!q || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let k = 0;
-  const loop = () => {
-    k += 2;
-    q.firstChild.nodeValue = '“' + t.slice(0, k) + (k >= t.length ? '”' : '');
-    if (k < t.length) setTimeout(loop, 16);
-  };
-  loop();
-}
+      function typePrompt() {
+        const q = $('q');
+        const t = SC[sc].p;
+        if (!q || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        let k = 0;
+        const loop = () => {
+          k += 2;
+          q.firstChild.nodeValue = '“' + t.slice(0, k) + (k >= t.length ? '”' : '');
+          if (k < t.length) setTimeout(loop, 16);
+        };
+        loop();
+      }
 
-function render(shouldType = false) {
-  const phoneCards = STEPS[curStep].p();
-  $('stage').innerHTML = phoneCards.join('');
-  $('stage').scrollLeft = 0;
-  $('hint').hidden = phoneCards.length < 2;
+      function render(shouldType = false) {
+        const phoneCards = STEPS[curStep].p();
+        $('stage').innerHTML = phoneCards.join('');
+        $('stage').scrollLeft = 0;
+        $('hint').hidden = phoneCards.length < 2;
 
-  const isLast = curStep === STEPS.length - 1;
-  $('tc').className = 'tc' + (guided ? '' : ' off');
+        const isLast = curStep === STEPS.length - 1;
+        $('tc').className = 'tc' + (guided ? '' : ' off');
 
-  $('tc').innerHTML = `
+        $('tc').innerHTML = `
     <div class="txt">
       <h2>
         <span class="step-pill">STEP ${curStep + 1} OF ${STEPS.length}</span>
@@ -2667,303 +3003,304 @@ function render(shouldType = false) {
     </div>
   `;
 
-  if (shouldType) typePrompt();
-}
+        if (shouldType) typePrompt();
+      }
 
-function goToStep(n) {
-  curStep = n < 0 ? 0 : n >= STEPS.length ? 0 : n;
-  render(curStep === 1);
-  if (window.innerWidth <= 1120) {
-    $('tc').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-}
+      function goToStep(n) {
+        curStep = n < 0 ? 0 : n >= STEPS.length ? 0 : n;
+        render(curStep === 1);
+        if (window.innerWidth <= 1120) {
+          $('tc').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
 
-function handleAction(btn) {
-  const action = btn.dataset.a;
+      function handleAction(btn) {
+        const action = btn.dataset.a;
 
-  if (action === 'launch-doodle') {
-    goToStep(1);
-  } else if (action === 'next') {
-    goToStep(curStep + 1);
-  } else if (action === 'build') {
-    const messages = [
-      'Checking live tables & showtimes in Chennai…',
-      'Factoring traffic buffer between stops…',
-      'Verifying vegan options with restaurant chefs…',
-      'Polishing your Doodle canvas…'
-    ];
-    const ap = btn.closest('.ap');
-    ap.innerHTML = `
+        if (action === 'launch-doodle') {
+          goToStep(1);
+        } else if (action === 'next') {
+          goToStep(curStep + 1);
+        } else if (action === 'build') {
+          const messages = [
+            'Checking live tables & showtimes in Chennai…',
+            'Factoring traffic buffer between stops…',
+            'Verifying vegan options with restaurant chefs…',
+            'Polishing your Doodle canvas…'
+          ];
+          const ap = btn.closest('.ap');
+          ap.innerHTML = `
       <div class="ld">
         <div class="sp"></div>
         <b id="lm">${messages[0]}</b>
         <span class="s">Doodle is doing the heavy lifting</span>
       </div>
     `;
-    let msgIdx = 0;
-    const interval = setInterval(() => {
-      msgIdx++;
-      if ($('lm') && messages[msgIdx]) $('lm').textContent = messages[msgIdx];
-    }, 450);
-    setTimeout(() => {
-      clearInterval(interval);
-      goToStep(2);
-    }, 1900);
-  } else if (action === 'tick') {
-    btn.innerHTML = `<span>${btn.dataset.t || 'Done ✓'}</span>`;
-    btn.classList.add('done');
-    const targetKey = btn.dataset.target;
-    if (targetKey) {
-      celebrateInsidePhone(targetKey, 'Saved! ✨');
-    }
-  } else if (action === 'lock') {
-    btn.innerHTML = `<span>Doodle Locked ✓</span>`;
-    btn.classList.add('done');
-    celebrateInsidePhone('R', 'Plan Locked In! 🔒🎉');
-    setTimeout(() => goToStep(curStep + 1), 1600);
-  } else if (action === 'pay') {
-    btn.innerHTML = `<span>Paid ₹960 with UPI ✓</span>`;
-    btn.classList.add('done');
-    const chip = $('dp-chip');
-    if (chip) {
-      chip.textContent = 'Paid ✓';
-      chip.className = 'chip ok';
-    }
-    celebrateInsidePhone('D', 'Paid! Zero Awkwardness ⚡');
-    setTimeout(() => {
-      celebrateInsidePhone('R', 'Deepika Paid! 🙌');
-    }, 800);
-  } else if (action === 'approve') {
-    btn.innerHTML = `<span>Reshuffle Live ✓ Squad Synced</span>`;
-    btn.classList.add('done');
-    celebrateInsidePhone('R', 'Crisis Averted! Squad Saved 🪄');
-  }
-}
+          let msgIdx = 0;
+          const interval = setInterval(() => {
+            msgIdx++;
+            if ($('lm') && messages[msgIdx]) $('lm').textContent = messages[msgIdx];
+          }, 450);
+          setTimeout(() => {
+            clearInterval(interval);
+            goToStep(2);
+          }, 1900);
+        } else if (action === 'tick') {
+          btn.innerHTML = `<span>${btn.dataset.t || 'Done ✓'}</span>`;
+          btn.classList.add('done');
+          const targetKey = btn.dataset.target;
+          if (targetKey) {
+            celebrateInsidePhone(targetKey, 'Saved! ✨');
+          }
+        } else if (action === 'lock') {
+          btn.innerHTML = `<span>Doodle Locked ✓</span>`;
+          btn.classList.add('done');
+          celebrateInsidePhone('R', 'Plan Locked In! 🔒🎉');
+          setTimeout(() => goToStep(curStep + 1), 1600);
+        } else if (action === 'pay') {
+          btn.innerHTML = `<span>Paid ₹960 with UPI ✓</span>`;
+          btn.classList.add('done');
+          const chip = $('dp-chip');
+          if (chip) {
+            chip.textContent = 'Paid ✓';
+            chip.className = 'chip ok';
+          }
+          celebrateInsidePhone('D', 'Paid! Zero Awkwardness ⚡');
+          setTimeout(() => {
+            celebrateInsidePhone('R', 'Deepika Paid! 🙌');
+          }, 800);
+        } else if (action === 'approve') {
+          btn.innerHTML = `<span>Reshuffle Live ✓ Squad Synced</span>`;
+          btn.classList.add('done');
+          celebrateInsidePhone('R', 'Crisis Averted! Squad Saved 🪄');
+        }
+      }
 
-// Global click delegation
-document.addEventListener('click', e => {
-  const t = e.target;
-  let c;
+      // Global click delegation
+      document.addEventListener('click', e => {
+        const t = e.target;
+        let c;
 
-  if (c = t.closest('[data-sc]')) {
-    sc = +c.dataset.sc;
-    render(true);
-    return;
-  }
-  if (c = t.closest('.opt')) {
-    const parent = c.parentNode;
-    const opts = [...parent.querySelectorAll('.opt')];
-    if (opts.length > 1) {
-      opts.forEach(x => {
-        x.classList.remove('on');
-        const bullet = x.querySelector('span:last-child');
-        if (bullet) bullet.textContent = '○';
+        if (c = t.closest('[data-sc]')) {
+          sc = +c.dataset.sc;
+          render(true);
+          return;
+        }
+        if (c = t.closest('.opt')) {
+          const parent = c.parentNode;
+          const opts = [...parent.querySelectorAll('.opt')];
+          if (opts.length > 1) {
+            opts.forEach(x => {
+              x.classList.remove('on');
+              const bullet = x.querySelector('span:last-child');
+              if (bullet) bullet.textContent = '○';
+            });
+            c.classList.add('on');
+            const activeBullet = c.querySelector('span:last-child');
+            if (activeBullet) activeBullet.textContent = '●';
+          }
+          return;
+        }
+        if (c = t.closest('[data-a]')) {
+          handleAction(c);
+          return;
+        }
+        if (c = t.closest('[data-n]')) {
+          goToStep(+c.dataset.n);
+          return;
+        }
+        if (t.closest('.bk')) {
+          goToStep(curStep - 1);
+          return;
+        }
+        if (t.closest('.nx')) {
+          goToStep(curStep + 1);
+        }
       });
-      c.classList.add('on');
-      const activeBullet = c.querySelector('span:last-child');
-      if (activeBullet) activeBullet.textContent = '●';
-    }
-    return;
-  }
-  if (c = t.closest('[data-a]')) {
-    handleAction(c);
-    return;
-  }
-  if (c = t.closest('[data-n]')) {
-    goToStep(+c.dataset.n);
-    return;
-  }
-  if (t.closest('.bk')) {
-    goToStep(curStep - 1);
-    return;
-  }
-  if (t.closest('.nx')) {
-    goToStep(curStep + 1);
-  }
-});
 
-// Accessible keyboard selection for options and prompts
-document.addEventListener('keydown', e => {
-  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.pr, .opt, .dist-hero-btn')) {
-    e.preventDefault();
-    e.target.click();
-  }
-});
+      // Accessible keyboard selection for options and prompts
+      document.addEventListener('keydown', e => {
+        if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.pr, .opt, .dist-hero-btn')) {
+          e.preventDefault();
+          e.target.click();
+        }
+      });
 
-// Guided Tour switch toggle
-const sw = $('sw');
-const toggleTour = () => {
-  guided = !guided;
-  sw.classList.toggle('on', guided);
-  sw.setAttribute('aria-checked', guided);
-  render();
-};
-sw.addEventListener('click', toggleTour);
-sw.addEventListener('keydown', e => {
-  if (e.key === ' ' || e.key === 'Enter') {
-    e.preventDefault();
-    toggleTour();
-  }
-});
+      // Guided Tour switch toggle
+      const sw = $('sw');
+      const toggleTour = () => {
+        guided = !guided;
+        sw.classList.toggle('on', guided);
+        sw.setAttribute('aria-checked', guided);
+        render();
+      };
+      sw.addEventListener('click', toggleTour);
+      sw.addEventListener('keydown', e => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          toggleTour();
+        }
+      });
 
-// Product Brief / Feature Overview Modal
-const modalOverlay = $('featureModal');
-const openModalBtn = $('openFeatureModalBtn');
-const closeModalBtn = $('closeFeatureModalBtn');
-const modalExploreBtn = $('modalExploreBtn');
-const modalCloseFooterBtn = $('modalCloseFooterBtn');
+      // Product Brief / Feature Overview Modal
+      const modalOverlay = $('featureModal');
+      const openModalBtn = $('openFeatureModalBtn');
+      const closeModalBtn = $('closeFeatureModalBtn');
+      const modalExploreBtn = $('modalExploreBtn');
+      const modalCloseFooterBtn = $('modalCloseFooterBtn');
 
-function openProductModal() {
-  if (!modalOverlay) return;
-  modalOverlay.classList.add('open');
-  modalOverlay.setAttribute('aria-hidden', 'false');
-  if (openModalBtn) openModalBtn.setAttribute('aria-expanded', 'true');
-  document.body.style.overflow = 'hidden';
-  if (closeModalBtn) closeModalBtn.focus();
-}
+      function openProductModal() {
+        if (!modalOverlay) return;
+        modalOverlay.classList.add('open');
+        modalOverlay.setAttribute('aria-hidden', 'false');
+        if (openModalBtn) openModalBtn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        if (closeModalBtn) closeModalBtn.focus();
+      }
 
-function closeProductModal() {
-  if (!modalOverlay) return;
-  modalOverlay.classList.remove('open');
-  modalOverlay.setAttribute('aria-hidden', 'true');
-  if (openModalBtn) {
-    openModalBtn.setAttribute('aria-expanded', 'false');
-    openModalBtn.focus();
-  }
-  document.body.style.overflow = '';
-}
+      function closeProductModal() {
+        if (!modalOverlay) return;
+        modalOverlay.classList.remove('open');
+        modalOverlay.setAttribute('aria-hidden', 'true');
+        if (openModalBtn) {
+          openModalBtn.setAttribute('aria-expanded', 'false');
+          openModalBtn.focus();
+        }
+        document.body.style.overflow = '';
+      }
 
-window.openProductModal = openProductModal;
-window.closeProductModal = closeProductModal;
+      window.openProductModal = openProductModal;
+      window.closeProductModal = closeProductModal;
 
-if (openModalBtn) openModalBtn.addEventListener('click', openProductModal);
-if (closeModalBtn) closeModalBtn.addEventListener('click', closeProductModal);
-if (modalCloseFooterBtn) modalCloseFooterBtn.addEventListener('click', closeProductModal);
-if (modalExploreBtn) {
-  modalExploreBtn.addEventListener('click', () => {
-    closeProductModal();
-    window.switchView('prototype');
-    const stage = $('stage');
-    if (stage) stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
-}
+      if (openModalBtn) openModalBtn.addEventListener('click', openProductModal);
+      if (closeModalBtn) closeModalBtn.addEventListener('click', closeProductModal);
+      if (modalCloseFooterBtn) modalCloseFooterBtn.addEventListener('click', closeProductModal);
+      if (modalExploreBtn) {
+        modalExploreBtn.addEventListener('click', () => {
+          closeProductModal();
+          window.switchView('prototype');
+          const stage = $('stage');
+          if (stage) stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      }
 
-// Close when clicking modal backdrop
-if (modalOverlay) {
-  modalOverlay.addEventListener('click', e => {
-    if (e.target === modalOverlay) closeProductModal();
-  });
-}
+      // Close when clicking modal backdrop
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', e => {
+          if (e.target === modalOverlay) closeProductModal();
+        });
+      }
 
-// Close on Escape key
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('open')) {
-    closeProductModal();
-  }
-});
+      // Close on Escape key
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('open')) {
+          closeProductModal();
+        }
+      });
 
-// View Switching Logic (Executive Deck vs Live Prototype)
-const deckViewEl = $('deckView');
-const protoViewEl = $('prototypeView');
-const btnDeckTab = $('viewSwitchDeck');
-const btnProtoTab = $('viewSwitchProto');
-const deckHdrActions = $('deckHeaderActions');
-const protoHdrActions = $('protoHeaderActions');
+      // View Switching Logic (Executive Deck vs Live Prototype)
+      const deckViewEl = $('deckView');
+      const protoViewEl = $('prototypeView');
+      const btnDeckTab = $('viewSwitchDeck');
+      const btnProtoTab = $('viewSwitchProto');
+      const deckHdrActions = $('deckHeaderActions');
+      const protoHdrActions = $('protoHeaderActions');
 
-let activeView = 'deck';
-let doodleRevealed = false;
-const headerDoodleTag = $('headerDoodleTag');
+      let activeView = 'deck';
+      let doodleRevealed = false;
+      const headerDoodleTag = $('headerDoodleTag');
 
-window.revealDoodle = function() {
-  doodleRevealed = true;
-  if (headerDoodleTag) headerDoodleTag.style.display = 'inline-flex';
-};
+      window.revealDoodle = function () {
+        doodleRevealed = true;
+        if (headerDoodleTag) headerDoodleTag.style.display = 'inline-flex';
+      };
 
-window.switchView = function(viewName, syncHash = true) {
-  if (viewName === 'prototype' || viewName === 'proto') {
-    activeView = 'prototype';
-    window.revealDoodle();
-    if (deckViewEl) deckViewEl.style.display = 'none';
-    if (protoViewEl) protoViewEl.style.display = 'flex';
+      window.switchView = function (viewName, syncHash = true) {
+        if (viewName === 'prototype' || viewName === 'proto') {
+          activeView = 'prototype';
+          window.revealDoodle();
+          if (deckViewEl) deckViewEl.style.display = 'none';
+          if (protoViewEl) protoViewEl.style.display = 'flex';
 
-    if (btnDeckTab) {
-      btnDeckTab.classList.remove('active');
-      btnDeckTab.setAttribute('aria-selected', 'false');
-    }
-    if (btnProtoTab) {
-      btnProtoTab.classList.add('active');
-      btnProtoTab.setAttribute('aria-selected', 'true');
-    }
+          if (btnDeckTab) {
+            btnDeckTab.classList.remove('active');
+            btnDeckTab.setAttribute('aria-selected', 'false');
+          }
+          if (btnProtoTab) {
+            btnProtoTab.classList.add('active');
+            btnProtoTab.setAttribute('aria-selected', 'true');
+          }
 
-    if (deckHdrActions) deckHdrActions.style.display = 'none';
-    if (protoHdrActions) protoHdrActions.style.display = 'flex';
+          if (deckHdrActions) deckHdrActions.style.display = 'none';
+          if (protoHdrActions) protoHdrActions.style.display = 'flex';
 
-    if (syncHash && window.location.hash !== '#prototype') {
-      history.replaceState(null, '', '#prototype');
-    }
-    document.title = 'doodle by district · Live Interactive Prototype';
-    render(false);
-  } else {
-    activeView = 'deck';
-    if (deckViewEl) deckViewEl.style.display = 'block';
-    if (protoViewEl) protoViewEl.style.display = 'none';
+          if (syncHash && window.location.hash !== '#prototype') {
+            history.replaceState(null, '', '#prototype');
+          }
+          document.title = 'doodle by district · Live Interactive Prototype';
+          render(false);
+        } else {
+          activeView = 'deck';
+          if (deckViewEl) deckViewEl.style.display = 'block';
+          if (protoViewEl) protoViewEl.style.display = 'none';
 
-    if (btnDeckTab) {
-      btnDeckTab.classList.add('active');
-      btnDeckTab.setAttribute('aria-selected', 'true');
-    }
-    if (btnProtoTab) {
-      btnProtoTab.classList.remove('active');
-      btnProtoTab.setAttribute('aria-selected', 'false');
-    }
+          if (btnDeckTab) {
+            btnDeckTab.classList.add('active');
+            btnDeckTab.setAttribute('aria-selected', 'true');
+          }
+          if (btnProtoTab) {
+            btnProtoTab.classList.remove('active');
+            btnProtoTab.setAttribute('aria-selected', 'false');
+          }
 
-    if (deckHdrActions) deckHdrActions.style.display = 'flex';
-    if (protoHdrActions) protoHdrActions.style.display = 'none';
+          if (deckHdrActions) deckHdrActions.style.display = 'flex';
+          if (protoHdrActions) protoHdrActions.style.display = 'none';
 
-    if (syncHash && window.location.hash !== '#deck' && window.location.hash !== '') {
-      history.replaceState(null, '', '#deck');
-    }
-    if (doodleRevealed) {
-      if (headerDoodleTag) headerDoodleTag.style.display = 'inline-flex';
-      document.title = 'doodle by district · Executive Product Deck';
-    } else {
-      if (headerDoodleTag) headerDoodleTag.style.display = 'none';
-      document.title = 'District by Zomato · Executive Product Deck';
-    }
-  }
-};
+          if (syncHash && window.location.hash !== '#deck' && window.location.hash !== '') {
+            history.replaceState(null, '', '#deck');
+          }
+          if (doodleRevealed) {
+            if (headerDoodleTag) headerDoodleTag.style.display = 'inline-flex';
+            document.title = 'doodle by district · Executive Product Deck';
+          } else {
+            if (headerDoodleTag) headerDoodleTag.style.display = 'none';
+            document.title = 'District by Zomato · Executive Product Deck';
+          }
+        }
+      };
 
-// Listen for messages from embedded iframe (e.g., from presentation slide links or reveal)
-window.addEventListener('message', e => {
-  if (!e.data) return;
-  if (e.data === 'openPrototype' || (typeof e.data === 'object' && e.data.action === 'openPrototype')) {
-    window.switchView('prototype');
-  } else if (e.data === 'openDeck' || (typeof e.data === 'object' && e.data.action === 'openDeck')) {
-    window.switchView('deck');
-  } else if (e.data === 'doodleRevealed' || (typeof e.data === 'object' && e.data.action === 'doodleRevealed')) {
-    window.revealDoodle();
-  }
-});
+      // Listen for messages from embedded iframe (e.g., from presentation slide links or reveal)
+      window.addEventListener('message', e => {
+        if (!e.data) return;
+        if (e.data === 'openPrototype' || (typeof e.data === 'object' && e.data.action === 'openPrototype')) {
+          window.switchView('prototype');
+        } else if (e.data === 'openDeck' || (typeof e.data === 'object' && e.data.action === 'openDeck')) {
+          window.switchView('deck');
+        } else if (e.data === 'doodleRevealed' || (typeof e.data === 'object' && e.data.action === 'doodleRevealed')) {
+          window.revealDoodle();
+        }
+      });
 
-// Hash navigation support (#deck or #prototype)
-window.addEventListener('hashchange', () => {
-  const hash = window.location.hash.toLowerCase();
-  if (hash === '#prototype' || hash === '#proto' || hash === '#sandbox') {
-    window.switchView('prototype', false);
-  } else {
-    window.switchView('deck', false);
-  }
-});
+      // Hash navigation support (#deck or #prototype)
+      window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.toLowerCase();
+        if (hash === '#prototype' || hash === '#proto' || hash === '#sandbox') {
+          window.switchView('prototype', false);
+        } else {
+          window.switchView('deck', false);
+        }
+      });
 
-// Initial boot view: start with executive deck by default unless URL specifies prototype
-const initialHash = window.location.hash.toLowerCase();
-if (initialHash === '#prototype' || initialHash === '#proto' || initialHash === '#sandbox') {
-  window.switchView('prototype', false);
-} else {
-  window.switchView('deck', false);
-}
+      // Initial boot view: start with executive deck by default unless URL specifies prototype
+      const initialHash = window.location.hash.toLowerCase();
+      if (initialHash === '#prototype' || initialHash === '#proto' || initialHash === '#sandbox') {
+        window.switchView('prototype', false);
+      } else {
+        window.switchView('deck', false);
+      }
 
-})();
-</script>
+    })();
+  </script>
 </body>
+
 </html>
