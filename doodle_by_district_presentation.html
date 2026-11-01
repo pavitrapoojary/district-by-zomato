@@ -34,14 +34,19 @@
       --accent-coral: #FF3366;
       --accent-mint: #10B981;
       --accent-amber: #F59E0B;
-      --font-ui: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-ui: Cambria, 'Hoefler Text', Georgia, serif;
       --font-editorial: Cambria, 'Hoefler Text', Georgia, serif;
     }
 
-    * {
+    *,
+    button,
+    input,
+    select,
+    textarea {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: inherit;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -51,11 +56,17 @@
       max-height: 100vh;
       width: 100vw;
       overflow: hidden;
-      background: var(--bg);
+      margin: 0;
+      padding: 0;
+      background: #0D081D;
       color: var(--ink);
       font-family: var(--font-ui);
       user-select: text;
       -webkit-user-select: text;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
     }
 
     ::selection {
@@ -63,25 +74,33 @@
       color: #3810A6;
     }
 
-    /* Deck Master Outer Container */
+    /* Deck Master Outer Container - Fixed 1920x1080 (16:9) */
     .deck-viewport {
       display: flex;
       flex-direction: column;
-      height: 100vh;
-      width: 100vw;
+      width: 1920px;
+      height: 1080px;
+      min-width: 1920px;
+      min-height: 1080px;
+      max-width: 1920px;
+      max-height: 1080px;
+      flex-shrink: 0;
+      transform-origin: center center;
       background: radial-gradient(circle at 10% 10%, #FFFFFF 0%, #F5F0FE 45%, #EFE8FC 100%);
       position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
     }
 
     /* Top Master Header */
     .master-header {
-      height: 54px;
-      padding: 0 24px;
+      height: 60px;
+      padding: 0 36px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1.5px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
       z-index: 50;
       flex-shrink: 0;
@@ -90,11 +109,11 @@
     .brand-corp-tag {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .brand-corp-tag .corp {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 900;
       color: var(--ink);
       letter-spacing: -0.4px;
@@ -106,32 +125,32 @@
     }
 
     .brand-corp-tag .sub {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 800;
       color: var(--pri);
       background: var(--pri-light);
-      padding: 3px 8px;
+      padding: 4px 10px;
       border-radius: 99px;
     }
 
     .header-links-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .proto-badge-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       background: var(--pri-light);
       color: var(--pri);
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 800;
       text-decoration: none;
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 99px;
-      border: 1px solid rgba(104, 48, 249, 0.2);
+      border: 1.5px solid rgba(104, 48, 249, 0.2);
       transition: all 0.2s ease;
     }
 
@@ -143,7 +162,7 @@
 
     .gh-round-btn {
       color: var(--ink);
-      font-size: 17px;
+      font-size: 20px;
       display: grid;
       place-items: center;
       text-decoration: none;
@@ -157,22 +176,25 @@
     /* Slide Stage Canvas */
     .deck-stage {
       flex: 1;
+      height: calc(1080px - 64px);
+      min-height: calc(1080px - 64px);
+      max-height: calc(1080px - 64px);
       position: relative;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px 24px;
+      padding: 22px 36px;
     }
 
     .slide-scene {
       position: absolute;
-      inset: 16px 24px;
+      inset: 22px 36px;
       background: #FFFFFF;
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      box-shadow: 0 16px 44px -16px rgba(104, 48, 249, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.7);
-      padding: 24px 32px;
+      border-radius: 28px;
+      border: 1.5px solid var(--line);
+      box-shadow: 0 18px 48px -16px rgba(104, 48, 249, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.7);
+      padding: 32px 42px;
       display: flex;
       flex-direction: column;
       opacity: 0;
@@ -194,61 +216,61 @@
       transform: translateX(-40px) scale(0.98);
     }
 
-    /* Common Slide Typography */
+    /* Common Slide Typography - Scaled for E-Board Viewing Distance */
     .slide-topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       flex-shrink: 0;
     }
 
     .slide-eyebrow {
-      font-size: 11px;
+      font-size: 14.5px;
       font-weight: 800;
       color: var(--pri);
-      letter-spacing: 1.2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .slide-eyebrow .dot {
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--pri);
     }
 
     .slide-heading {
       font-family: var(--font-editorial);
-      font-size: 26px;
+      font-size: 36px;
       font-weight: 700;
       color: var(--ink);
       line-height: 1.25;
-      letter-spacing: -0.5px;
-      margin-bottom: 14px;
+      letter-spacing: -0.6px;
+      margin-bottom: 16px;
       flex-shrink: 0;
     }
 
     .slide-subheading {
-      font-size: 13px;
+      font-size: 18px;
       color: var(--ink-sub);
-      line-height: 1.45;
+      line-height: 1.5;
       margin-top: -8px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     /* Footnotes and Citations */
     .footnote-bar {
       margin-top: auto;
-      padding-top: 10px;
+      padding-top: 12px;
       border-top: 1px dashed var(--line);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 10.5px;
+      font-size: 14.5px;
       color: var(--ink-muted);
       flex-shrink: 0;
     }
@@ -266,15 +288,15 @@
     /* Cards, Grids & UI Tokens */
     .card {
       background: var(--card-bg);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 6px 20px -8px rgba(104, 48, 249, 0.06);
+      border: 1.5px solid var(--line);
+      border-radius: 20px;
+      padding: 22px 26px;
+      box-shadow: 0 8px 24px -8px rgba(104, 48, 249, 0.08);
       transition: all 0.2s ease;
     }
 
     .card:hover {
-      box-shadow: 0 10px 28px -10px rgba(104, 48, 249, 0.14);
+      box-shadow: 0 12px 32px -10px rgba(104, 48, 249, 0.16);
       transform: translateY(-2px);
     }
 
@@ -285,14 +307,14 @@
 
     .block-visual-box {
       background: #FAF8FF;
-      border: 1px solid var(--line-subtle);
-      border-radius: 12px;
-      padding: 7px 10px;
-      margin: 8px 0;
+      border: 1.5px solid var(--line-subtle);
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin: 10px 0;
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      font-size: 11px;
+      gap: 6px;
+      font-size: 15px;
     }
 
     /* Granular Dashboard Callout Badges & Pulse Animations */
@@ -371,11 +393,11 @@
     .mini-status-chip {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      font-size: 9.5px;
+      gap: 6px;
+      font-size: 14px;
       font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 6px;
+      padding: 4px 10px;
+      border-radius: 8px;
     }
 
     .mini-status-chip.ok {
@@ -401,7 +423,7 @@
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 26px;
       flex: 1;
       align-items: stretch;
     }
@@ -409,7 +431,7 @@
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 24px;
       flex: 1;
       align-items: stretch;
     }
@@ -417,7 +439,7 @@
     .grid-4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 20px;
       flex: 1;
       align-items: stretch;
     }
@@ -451,19 +473,19 @@
 
     .avatar-pill-badge {
       position: absolute;
-      bottom: 6px;
-      left: 8px;
-      background: rgba(20, 14, 38, 0.85);
+      bottom: 8px;
+      left: 10px;
+      background: rgba(20, 14, 38, 0.88);
       backdrop-filter: blur(6px);
       color: #FFF;
-      font-size: 8.5px;
+      font-size: 14px;
       font-weight: 800;
-      padding: 2.5px 8px;
+      padding: 4px 12px;
       border-radius: 99px;
       letter-spacing: 0.2px;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
       pointer-events: none;
     }
@@ -650,80 +672,80 @@
        ========================================================== */
     .wa-chat-mockup {
       background: #EFE7DD;
-      border-radius: 18px;
+      border-radius: 20px;
       border: 2px solid #D1C7BA;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 14px 34px -10px rgba(0, 0, 0, 0.16);
       position: relative;
     }
 
     .wa-header {
       background: #075E54;
       color: #FFFFFF;
-      padding: 9px 12px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 12px;
+      font-size: 15px;
       font-weight: 700;
     }
 
     .wa-body {
-      padding: 10px 12px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
-      max-height: 380px;
+      gap: 10px;
+      max-height: 460px;
       overflow-y: auto;
       scrollbar-width: none;
     }
 
     .wa-msg {
-      max-width: 82%;
-      padding: 7px 10px;
-      border-radius: 10px;
-      font-size: 11.5px;
-      line-height: 1.35;
+      max-width: 84%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 16px;
+      line-height: 1.4;
       position: relative;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
     }
 
     .wa-msg.in {
       align-self: flex-start;
       background: #FFFFFF;
       color: #111;
-      border-top-left-radius: 2px;
+      border-top-left-radius: 3px;
     }
 
     .wa-sender {
-      font-size: 10px;
+      font-size: 14.5px;
       font-weight: 800;
       color: var(--pri);
       display: block;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .wa-time {
-      font-size: 9px;
-      color: #888;
+      font-size: 14px;
+      color: #777;
       float: right;
-      margin-left: 6px;
+      margin-left: 8px;
       margin-top: 3px;
     }
 
     .wa-pain-badge {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       background: #FF3366;
       color: #FFFFFF;
-      font-size: 9px;
+      font-size: 14px;
       font-weight: 800;
-      padding: 2px 7px;
+      padding: 4px 10px;
       border-radius: 99px;
-      margin-top: 4px;
+      margin-top: 6px;
       animation: pulseAlert 2s infinite ease-in-out;
     }
 
@@ -741,17 +763,18 @@
       }
     }
 
-    /* Metric Pills & Badges */
+    /* Metric Pills & Badges - Minimum 14px */
     .metric-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       background: var(--pri-light);
       color: var(--pri);
-      padding: 4px 10px;
+      padding: 6px 14px;
       border-radius: 99px;
-      font-size: 11px;
+      font-size: 14.5px;
       font-weight: 800;
+      letter-spacing: 0.3px;
     }
 
     .metric-pill.mint {
@@ -787,21 +810,21 @@
       }
     }
 
-    /* CTA Buttons */
+    /* CTA Buttons - Bold & Sized for 1080p */
     .cta-btn {
       background: var(--pri);
       color: #FFFFFF;
       border: 0;
-      border-radius: 14px;
-      padding: 10px 20px;
-      font-size: 13.5px;
+      border-radius: 16px;
+      padding: 13px 26px;
+      font-size: 16.5px;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       text-decoration: none;
-      box-shadow: 0 8px 20px -6px rgba(104, 48, 249, 0.45);
+      box-shadow: 0 10px 24px -6px rgba(104, 48, 249, 0.45);
       transition: all 0.2s ease;
     }
 
@@ -911,12 +934,12 @@
 
     /* Bottom Controller & Progress Bar */
     .master-footer {
-      height: 52px;
-      padding: 0 24px;
+      height: 64px;
+      padding: 0 36px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid var(--line);
+      border-top: 1.5px solid var(--line);
       background: rgba(255, 255, 255, 0.95);
       z-index: 50;
       flex-shrink: 0;
@@ -924,12 +947,12 @@
 
     .progress-bar-wrap {
       flex: 1;
-      max-width: 380px;
-      height: 6px;
+      max-width: 480px;
+      height: 8px;
       background: #EDE6FA;
       border-radius: 99px;
       overflow: hidden;
-      margin: 0 20px;
+      margin: 0 28px;
     }
 
     .progress-bar-fill {
@@ -944,14 +967,14 @@
       background: var(--pri-light);
       border: 0;
       color: var(--pri);
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-size: 12.5px;
+      padding: 10px 22px;
+      border-radius: 14px;
+      font-size: 16px;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       transition: all 0.15s ease;
     }
 
@@ -972,7 +995,7 @@
     }
 
     .slide-counter-badge {
-      font-size: 12.5px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--ink-sub);
     }
@@ -980,15 +1003,15 @@
     /* Quick Jump Drawer */
     .slide-drawer {
       position: absolute;
-      bottom: 56px;
+      bottom: 74px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
       background: #FFFFFF;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 10px 14px;
+      border: 1.5px solid var(--line);
+      border-radius: 20px;
+      padding: 12px 18px;
       display: flex;
-      gap: 6px;
+      gap: 8px;
       box-shadow: 0 16px 40px -12px rgba(104, 48, 249, 0.25);
       z-index: 60;
       opacity: 0;
@@ -1003,13 +1026,13 @@
     }
 
     .drawer-dot {
-      width: 28px;
-      height: 28px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       border: 1.5px solid var(--line);
       background: #FAF8FF;
       color: var(--ink-sub);
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 800;
       cursor: pointer;
       display: grid;
@@ -1184,28 +1207,6 @@
 <body>
 
   <div class="deck-viewport">
-    <!-- Top Master Bar -->
-    <header class="master-header">
-      <div class="brand-corp-tag">
-        <span class="corp">district</span>
-        <span style="font-size:10px; font-weight:800; color:var(--pri)">by zomato</span>
-        <span class="sep">/</span>
-        <span class="sub">Product Strategy Deck · Launch 2026</span>
-      </div>
-
-      <div class="header-links-group">
-        <a href="index.html#prototype" target="_top"
-          onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}"
-          class="proto-badge-link" title="Open Interactive Prototype">
-          <i class="fa-solid fa-play" style="font-size:10px"></i>
-          <span>Live App Sandbox</span>
-        </a>
-        <a href="https://github.com/pavitrapoojary/district-by-zomato" target="_blank" rel="noopener"
-          class="gh-round-btn" title="GitHub Repository">
-          <i class="fa-brands fa-github"></i>
-        </a>
-      </div>
-    </header>
 
     <!-- Slide Canvas Container -->
     <main class="deck-stage" id="deckStage">
@@ -1243,162 +1244,162 @@
       <section class="slide-scene" id="slide-2">
         <div class="slide-topbar">
           <span class="slide-eyebrow"><span class="dot"></span>02 · CONTEXT &amp; BUSINESS PILLAR</span>
-          <span style="font-size: 12px; font-weight: 700; color: var(--ink-sub);">Zomato Ltd / Eternal Ecosystem</span>
+          <span style="font-size: 15px; font-weight: 700; color: var(--ink-sub);">Zomato Ltd / Eternal Ecosystem</span>
         </div>
 
         <h2 class="slide-heading">What is District? The 3rd Giant Pillar of Eternal</h2>
 
         <!-- Top Half: Three equal cards in a row with icons, headings, and formatted descriptions -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 2px;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 4px;">
           <!-- Card 1: Dining -->
           <div class="card"
-            style="padding: 16px 18px; border-top: 4px solid var(--accent-coral); background: linear-gradient(180deg, #FFFFFF 0%, #FFF9FA 100%); border-color: #FCE4EC; display: flex; flex-direction: column; justify-content: space-between;">
+            style="padding: 22px 24px; border-top: 5px solid var(--accent-coral); background: linear-gradient(180deg, #FFFFFF 0%, #FFF9FA 100%); border-color: #FCE4EC; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
                 <div
-                  style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #FFEBEF 0%, #FFD6DE 100%); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 4px 12px rgba(255, 51, 102, 0.15); border: 1px solid #FFCCD5;">
+                  style="width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, #FFEBEF 0%, #FFD6DE 100%); display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 4px 12px rgba(255, 51, 102, 0.15); border: 1px solid #FFCCD5;">
                   🍽️
                 </div>
-                <span class="mini-status-chip bad" style="font-size: 9.5px; font-weight: 800;">RESTAURANTS</span>
+                <span class="mini-status-chip bad">RESTAURANTS</span>
               </div>
               <h3
-                style="font-size: 17px; font-weight: 800; color: var(--ink); margin: 0 0 5px; letter-spacing: -0.3px;">
+                style="font-size: 22px; font-weight: 800; color: var(--ink); margin: 0 0 6px; letter-spacing: -0.3px;">
                 Dining</h3>
-              <p style="font-size: 12.5px; color: var(--ink-sub); line-height: 1.45; margin: 0 0 10px;">
+              <p style="font-size: 16.5px; color: var(--ink-sub); line-height: 1.45; margin: 0 0 12px;">
                 table booking, offers, pay at the restaurant
               </p>
             </div>
-            <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
               <span
-                style="font-size: 9px; font-weight: 700; background: #FFF0F3; color: var(--accent-coral); padding: 2px 7px; border-radius: 6px; border: 1px solid #FFD4DC;">Table
+                style="font-size: 14px; font-weight: 700; background: #FFF0F3; color: var(--accent-coral); padding: 4px 10px; border-radius: 8px; border: 1px solid #FFD4DC;">Table
                 Booking</span>
               <span
-                style="font-size: 9px; font-weight: 700; background: #FFF0F3; color: var(--accent-coral); padding: 2px 7px; border-radius: 6px; border: 1px solid #FFD4DC;">Offers</span>
+                style="font-size: 14px; font-weight: 700; background: #FFF0F3; color: var(--accent-coral); padding: 4px 10px; border-radius: 8px; border: 1px solid #FFD4DC;">Offers</span>
               <span
-                style="font-size: 9px; font-weight: 700; background: #FFF0F3; color: var(--accent-coral); padding: 2px 7px; border-radius: 6px; border: 1px solid #FFD4DC;">Pay
+                style="font-size: 14px; font-weight: 700; background: #FFF0F3; color: var(--accent-coral); padding: 4px 10px; border-radius: 8px; border: 1px solid #FFD4DC;">Pay
                 at Venue</span>
             </div>
           </div>
 
           <!-- Card 2: Movies and events -->
           <div class="card"
-            style="padding: 16px 18px; border-top: 4px solid var(--pri); background: linear-gradient(180deg, #FFFFFF 0%, #FAF8FF 100%); border-color: #ECE7FA; display: flex; flex-direction: column; justify-content: space-between;">
+            style="padding: 22px 24px; border-top: 5px solid var(--pri); background: linear-gradient(180deg, #FFFFFF 0%, #FAF8FF 100%); border-color: #ECE7FA; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
                 <div
-                  style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #F0EBFF 0%, #E2D7FC 100%); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 4px 12px rgba(104, 48, 249, 0.15); border: 1px solid #DED4F9;">
+                  style="width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, #F0EBFF 0%, #E2D7FC 100%); display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 4px 12px rgba(104, 48, 249, 0.15); border: 1px solid #DED4F9;">
                   🎟️
                 </div>
-                <span class="mini-status-chip pri" style="font-size: 9.5px; font-weight: 800;">ENTERTAINMENT</span>
+                <span class="mini-status-chip pri">ENTERTAINMENT</span>
               </div>
               <h3
-                style="font-size: 17px; font-weight: 800; color: var(--ink); margin: 0 0 5px; letter-spacing: -0.3px;">
+                style="font-size: 22px; font-weight: 800; color: var(--ink); margin: 0 0 6px; letter-spacing: -0.3px;">
                 Movies and events</h3>
-              <p style="font-size: 12.5px; color: var(--ink-sub); line-height: 1.45; margin: 0 0 10px;">
+              <p style="font-size: 16.5px; color: var(--ink-sub); line-height: 1.45; margin: 0 0 12px;">
                 cinema, concert and sports tickets
               </p>
             </div>
-            <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
               <span
-                style="font-size: 9px; font-weight: 700; background: #F3EDFF; color: var(--pri); padding: 2px 7px; border-radius: 6px; border: 1px solid #E2D7FC;">Cinema</span>
+                style="font-size: 14px; font-weight: 700; background: #F3EDFF; color: var(--pri); padding: 4px 10px; border-radius: 8px; border: 1px solid #E2D7FC;">Cinema</span>
               <span
-                style="font-size: 9px; font-weight: 700; background: #F3EDFF; color: var(--pri); padding: 2px 7px; border-radius: 6px; border: 1px solid #E2D7FC;">Concerts</span>
+                style="font-size: 14px; font-weight: 700; background: #F3EDFF; color: var(--pri); padding: 4px 10px; border-radius: 8px; border: 1px solid #E2D7FC;">Concerts</span>
               <span
-                style="font-size: 9px; font-weight: 700; background: #F3EDFF; color: var(--pri); padding: 2px 7px; border-radius: 6px; border: 1px solid #E2D7FC;">Live
+                style="font-size: 14px; font-weight: 700; background: #F3EDFF; color: var(--pri); padding: 4px 10px; border-radius: 8px; border: 1px solid #E2D7FC;">Live
                 Sports</span>
             </div>
           </div>
 
           <!-- Card 3: Sports and activities -->
           <div class="card"
-            style="padding: 16px 18px; border-top: 4px solid var(--accent-mint); background: linear-gradient(180deg, #FFFFFF 0%, #F5FBF8 100%); border-color: #D1F4E4; display: flex; flex-direction: column; justify-content: space-between;">
+            style="padding: 22px 24px; border-top: 5px solid var(--accent-mint); background: linear-gradient(180deg, #FFFFFF 0%, #F5FBF8 100%); border-color: #D1F4E4; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
                 <div
-                  style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, #E6FBF2 0%, #C7F7E0 100%); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); border: 1px solid #B8F3D8;">
+                  style="width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, #E6FBF2 0%, #C7F7E0 100%); display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); border: 1px solid #B8F3D8;">
                   ⚽
                 </div>
-                <span class="mini-status-chip ok" style="font-size: 9.5px; font-weight: 800;">ACTIVE EXPERIENCES</span>
+                <span class="mini-status-chip ok">ACTIVE EXPERIENCES</span>
               </div>
               <h3
-                style="font-size: 17px; font-weight: 800; color: var(--ink); margin: 0 0 5px; letter-spacing: -0.3px;">
+                style="font-size: 22px; font-weight: 800; color: var(--ink); margin: 0 0 6px; letter-spacing: -0.3px;">
                 Sports and activities</h3>
-              <p style="font-size: 12.5px; color: var(--ink-sub); line-height: 1.45; margin: 0 0 10px;">
+              <p style="font-size: 16.5px; color: var(--ink-sub); line-height: 1.45; margin: 0 0 12px;">
                 turfs, games, experiences
               </p>
             </div>
-            <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
               <span
-                style="font-size: 9px; font-weight: 700; background: #E6FBF2; color: var(--accent-mint); padding: 2px 7px; border-radius: 6px; border: 1px solid #B8F3D8;">Box
+                style="font-size: 14px; font-weight: 700; background: #E6FBF2; color: var(--accent-mint); padding: 4px 10px; border-radius: 8px; border: 1px solid #B8F3D8;">Box
                 Turfs</span>
               <span
-                style="font-size: 9px; font-weight: 700; background: #E6FBF2; color: var(--accent-mint); padding: 2px 7px; border-radius: 6px; border: 1px solid #B8F3D8;">Arcades</span>
+                style="font-size: 14px; font-weight: 700; background: #E6FBF2; color: var(--accent-mint); padding: 4px 10px; border-radius: 8px; border: 1px solid #B8F3D8;">Arcades</span>
               <span
-                style="font-size: 9px; font-weight: 700; background: #E6FBF2; color: var(--accent-mint); padding: 2px 7px; border-radius: 6px; border: 1px solid #B8F3D8;">Experiences</span>
+                style="font-size: 14px; font-weight: 700; background: #E6FBF2; color: var(--accent-mint); padding: 4px 10px; border-radius: 8px; border: 1px solid #B8F3D8;">Experiences</span>
             </div>
           </div>
         </div>
 
         <!-- Visual Connecting Bridge: Links the 3 Pillars to The Gap -->
-        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 6px 0 8px;">
-          <div style="flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, #E2D7FC 50%, #FFCCD5);">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin: 8px 0 10px;">
+          <div style="flex: 1; height: 2px; background: linear-gradient(90deg, transparent, #E2D7FC 50%, #FFCCD5);">
           </div>
           <div
-            style="background: #FFFFFF; border: 1px solid #E2D7FC; border-radius: 99px; padding: 3px 14px; display: inline-flex; align-items: center; gap: 7px; box-shadow: 0 2px 8px rgba(104, 48, 249, 0.08);">
-            <span style="display: inline-flex; align-items: center; gap: 2px; font-size: 11px;">
+            style="background: #FFFFFF; border: 1.5px solid #E2D7FC; border-radius: 99px; padding: 6px 18px; display: inline-flex; align-items: center; gap: 9px; box-shadow: 0 2px 10px rgba(104, 48, 249, 0.08);">
+            <span style="display: inline-flex; align-items: center; gap: 3px; font-size: 15px;">
               <span>🍽️</span><span>🎟️</span><span>⚽</span>
             </span>
-            <span style="font-size: 11px; font-weight: 800; color: var(--ink);">All 3 are 100% group activities</span>
-            <span style="color: var(--accent-coral); font-weight: 900; font-size: 11px;">— yet broken by:</span>
-            <span style="color: var(--accent-coral); font-size: 12px; font-weight: 900;">↓</span>
+            <span style="font-size: 15px; font-weight: 800; color: var(--ink);">All 3 are 100% group activities</span>
+            <span style="color: var(--accent-coral); font-weight: 900; font-size: 15px;">— yet broken by:</span>
+            <span style="color: var(--accent-coral); font-size: 16px; font-weight: 900;">↓</span>
           </div>
-          <div style="flex: 1; height: 1.5px; background: linear-gradient(90deg, #FFCCD5, #E2D7FC 50%, transparent);">
+          <div style="flex: 1; height: 2px; background: linear-gradient(90deg, #FFCCD5, #E2D7FC 50%, transparent);">
           </div>
         </div>
 
         <!-- Bottom Half: Wide Highlighted Box with Red 'The gap' tag, Largest Text, Friction Blocks & Bold Our Bet -->
         <div class="card"
-          style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 16px 22px; background: linear-gradient(135deg, #FFF6F8 0%, #FFFFFF 40%, #FAF7FF 100%); border: 1.5px solid #FFCCD5; border-left: 6px solid var(--accent-coral); box-shadow: 0 10px 30px -10px rgba(255, 51, 102, 0.14); border-radius: 18px;">
+          style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 22px 28px; background: linear-gradient(135deg, #FFF6F8 0%, #FFFFFF 40%, #FAF7FF 100%); border: 1.5px solid #FFCCD5; border-left: 8px solid var(--accent-coral); box-shadow: 0 10px 30px -10px rgba(255, 51, 102, 0.14); border-radius: 20px;">
           <div>
             <!-- Red "The gap" tag row -->
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
               <div
-                style="display: inline-flex; align-items: center; gap: 7px; background: #FFEBEF; color: #FF3366; font-size: 10.5px; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 12px; border-radius: 99px; border: 1.5px solid #FFB8C6; box-shadow: 0 2px 8px rgba(255, 51, 102, 0.15);">
+                style="display: inline-flex; align-items: center; gap: 8px; background: #FFEBEF; color: #FF3366; font-size: 14.5px; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; padding: 5px 14px; border-radius: 99px; border: 1.5px solid #FFB8C6; box-shadow: 0 2px 8px rgba(255, 51, 102, 0.15);">
                 <span
-                  style="width: 7px; height: 7px; border-radius: 50%; background: #FF3366; display: inline-block;"></span>
+                  style="width: 8px; height: 8px; border-radius: 50%; background: #FF3366; display: inline-block;"></span>
                 The gap
               </div>
               <span
-                style="font-size: 10.5px; font-weight: 800; color: var(--accent-coral); background: rgba(255, 51, 102, 0.08); padding: 3px 10px; border-radius: 99px; letter-spacing: 0.4px;">
+                style="font-size: 14px; font-weight: 800; color: var(--accent-coral); background: rgba(255, 51, 102, 0.08); padding: 4px 12px; border-radius: 99px; letter-spacing: 0.4px;">
                 CRITICAL FUNNEL DROP-OFF
               </span>
             </div>
 
             <!-- Gap Sentence: Largest text in the box -->
             <h3
-              style="font-size: 23px; font-weight: 900; color: var(--ink); line-height: 1.32; margin: 4px 0 12px; letter-spacing: -0.5px;">
+              style="font-size: 28px; font-weight: 900; color: var(--ink); line-height: 1.3; margin: 6px 0 14px; letter-spacing: -0.5px;">
               People go out in <span
-                style="color: var(--pri); background: #EFEAFE; padding: 2px 10px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(104, 48, 249, 0.25);">groups</span>,
+                style="color: var(--pri); background: #EFEAFE; padding: 2px 12px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(104, 48, 249, 0.25);">groups</span>,
               but booking is built for <span
-                style="color: var(--accent-coral); background: #FFEBEF; padding: 2px 10px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(255, 51, 102, 0.25);">one
+                style="color: var(--accent-coral); background: #FFEBEF; padding: 2px 12px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(255, 51, 102, 0.25);">one
                 person</span>.
             </h3>
 
             <!-- Friction Realities: Structured Dual Callouts -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 12px;">
               <!-- Friction 1 -->
               <div
-                style="background: #FFFFFF; border: 1px solid #F0E8F8; border-radius: 12px; padding: 11px 14px; display: flex; align-items: flex-start; gap: 11px; box-shadow: 0 2px 8px rgba(20, 14, 38, 0.03);">
+                style="background: #FFFFFF; border: 1.5px solid #F0E8F8; border-radius: 14px; padding: 14px 18px; display: flex; align-items: flex-start; gap: 14px; box-shadow: 0 2px 8px rgba(20, 14, 38, 0.03);">
                 <div
-                  style="width: 34px; height: 34px; border-radius: 10px; background: #FEF3C7; color: #B45309; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; border: 1px solid #FDE68A;">
+                  style="width: 44px; height: 44px; border-radius: 12px; background: #FEF3C7; color: #B45309; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; border: 1px solid #FDE68A;">
                   💸
                 </div>
                 <div>
                   <div
-                    style="font-size: 9.5px; font-weight: 900; color: #B45309; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 2px;">
+                    style="font-size: 14px; font-weight: 900; color: #B45309; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 3px;">
                     The Host Burden
                   </div>
-                  <div style="font-size: 12.5px; font-weight: 700; color: var(--ink); line-height: 1.4;">
+                  <div style="font-size: 16.5px; font-weight: 700; color: var(--ink); line-height: 1.4;">
                     One person decides, pays upfront and chases friends on WhatsApp
                   </div>
                 </div>
@@ -1406,17 +1407,17 @@
 
               <!-- Friction 2 -->
               <div
-                style="background: #FFFFFF; border: 1px solid #F0E8F8; border-radius: 12px; padding: 11px 14px; display: flex; align-items: flex-start; gap: 11px; box-shadow: 0 2px 8px rgba(20, 14, 38, 0.03);">
+                style="background: #FFFFFF; border: 1.5px solid #F0E8F8; border-radius: 14px; padding: 14px 18px; display: flex; align-items: flex-start; gap: 14px; box-shadow: 0 2px 8px rgba(20, 14, 38, 0.03);">
                 <div
-                  style="width: 34px; height: 34px; border-radius: 10px; background: #FFEBEF; color: var(--accent-coral); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; border: 1px solid #FFCCD5;">
+                  style="width: 44px; height: 44px; border-radius: 12px; background: #FFEBEF; color: var(--accent-coral); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; border: 1px solid #FFCCD5;">
                   📉
                 </div>
                 <div>
                   <div
-                    style="font-size: 9.5px; font-weight: 900; color: var(--accent-coral); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 2px;">
+                    style="font-size: 14px; font-weight: 900; color: var(--accent-coral); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 3px;">
                     The Commercial Leak
                   </div>
-                  <div style="font-size: 12.5px; font-weight: 700; color: var(--ink); line-height: 1.4;">
+                  <div style="font-size: 16.5px; font-weight: 700; color: var(--ink); line-height: 1.4;">
                     District only sees the booking if the plan survives
                   </div>
                 </div>
@@ -1426,17 +1427,17 @@
 
           <!-- "Our bet" line in bold at the bottom -->
           <div
-            style="background: linear-gradient(90deg, #501CD9 0%, #6830F9 100%); color: #FFFFFF; border-radius: 12px; padding: 11px 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 5px 18px rgba(104, 48, 249, 0.28); margin-top: auto;">
-            <div style="display: flex; align-items: center; gap: 10px;">
+            style="background: linear-gradient(90deg, #501CD9 0%, #6830F9 100%); color: #FFFFFF; border-radius: 14px; padding: 14px 22px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 5px 18px rgba(104, 48, 249, 0.28); margin-top: auto;">
+            <div style="display: flex; align-items: center; gap: 12px;">
               <div
-                style="width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.22); display: flex; align-items: center; justify-content: center; font-size: 14px;">
+                style="width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.22); display: flex; align-items: center; justify-content: center; font-size: 17px;">
                 🎯
               </div>
-              <b style="font-size: 14px; font-weight: 800; letter-spacing: -0.2px;">Our bet: fix the planning step, and
+              <b style="font-size: 18px; font-weight: 800; letter-spacing: -0.2px;">Our bet: fix the planning step, and
                 group bookings go up</b>
             </div>
             <div
-              style="display: flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 800; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 99px; letter-spacing: 0.3px; border: 1px solid rgba(255,255,255,0.3);">
+              style="display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 800; background: rgba(255,255,255,0.2); padding: 5px 14px; border-radius: 99px; letter-spacing: 0.3px; border: 1px solid rgba(255,255,255,0.3);">
               <span>Why Doodle Exists</span>
               <span>→</span>
             </div>
@@ -1457,23 +1458,23 @@
       <section class="slide-scene" id="slide-3">
         <div class="slide-topbar">
           <span class="slide-eyebrow"><span class="dot"></span>03 · STRATEGIC COMPASS</span>
-          <span style="font-size: 12px; font-weight: 700; color: var(--ink-sub);">Aligned with eternal.com</span>
+          <span style="font-size: 15px; font-weight: 700; color: var(--ink-sub);">Aligned with eternal.com</span>
         </div>
 
         <h2 class="slide-heading">Vision, Mission &amp; The PM North Star Metric</h2>
 
         <div class="grid-2">
-          <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; gap: 8px;">
+          <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; gap: 12px;">
             <!-- Official District Vision -->
-            <div class="card purple-tint" style="padding: 10px 14px; border-left: 4px solid var(--pri);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <div class="card purple-tint" style="padding: 16px 20px; border-left: 5px solid var(--pri);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                 <span class="metric-pill">VISION</span>
-                <span style="font-size:9.5px; font-weight:800; color:var(--pri);">ETERNAL Q2 FY25</span>
+                <span style="font-size:14px; font-weight:800; color:var(--pri);">ETERNAL Q2 FY25</span>
               </div>
-              <h3 style="font-size: 15.5px; margin: 2px 0 4px; color: var(--ink); font-family: var(--font-editorial);">
+              <h3 style="font-size: 22px; margin: 4px 0 6px; color: var(--ink); font-family: var(--font-editorial);">
                 &#34;World-Class Going-Out Experiences&#34;
               </h3>
-              <p style="font-size: 11.5px; color: var(--ink-sub); line-height: 1.35; margin: 0;">
+              <p style="font-size: 16.5px; color: var(--ink-sub); line-height: 1.45; margin: 0;">
                 <i>District by Zomato</i> is a unified engine for cultural discovery across <b>dining, movies, live
                   events, sports turfs, and shopping</b>.
               </p>
@@ -1481,32 +1482,32 @@
 
             <!-- Official District Mission -->
             <div class="card"
-              style="padding: 10px 14px; border-left: 4px solid var(--accent-coral); background: linear-gradient(135deg, #FFF9FA 0%, #FFFFFF 100%);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-                <span class="metric-pill coral" style="font-size: 9.5px; font-weight: 800;">MISSION</span>
-                <span style="font-size:9.5px; font-weight:800; color:var(--accent-coral);">EXECUTION FOCUS</span>
+              style="padding: 16px 20px; border-left: 5px solid var(--accent-coral); background: linear-gradient(135deg, #FFF9FA 0%, #FFFFFF 100%);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <span class="metric-pill coral">MISSION</span>
+                <span style="font-size:14px; font-weight:800; color:var(--accent-coral);">EXECUTION FOCUS</span>
               </div>
               <h3
-                style="font-size: 14.5px; margin: 2px 0 4px; color: var(--ink); font-family: var(--font-editorial); line-height: 1.3;">
+                style="font-size: 21px; margin: 4px 0 6px; color: var(--ink); font-family: var(--font-editorial); line-height: 1.35;">
                 &#34;Make going out easy, from finding a place to booking it, whether you go alone or with friends.&#34;
               </h3>
-              <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 0;">
+              <p style="font-size: 16px; color: var(--ink-sub); line-height: 1.45; margin: 0;">
                 Eliminating coordination overhead and upfront payment drag for social outings in Indian cities.
               </p>
             </div>
 
             <!-- Eternal Culture Alignment -->
-            <div class="card" style="padding: 10px 14px; border-left: 4px solid var(--accent-mint);">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <div class="card" style="padding: 16px 20px; border-left: 5px solid var(--accent-mint);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                 <span class="metric-pill mint">CULTURE &amp; PHILOSOPHY</span>
                 <a href="https://www.eternal.com/culture/" target="_blank" rel="noopener"
-                  style="font-size:9.5px; font-weight:800; color:var(--accent-mint); text-decoration:none;">eternal.com/culture
+                  style="font-size:14px; font-weight:800; color:var(--accent-mint); text-decoration:none;">eternal.com/culture
                   ↗</a>
               </div>
-              <h3 style="font-size: 13.5px; margin: 2px 0 3px; color: var(--ink);">
+              <h3 style="font-size: 20px; margin: 4px 0 5px; color: var(--ink);">
                 Accountability for Outcomes &amp; Ruthless Prioritisation
               </h3>
-              <p style="font-size: 11px; color: var(--ink-sub); line-height: 1.35; margin: 0;">
+              <p style="font-size: 16px; color: var(--ink-sub); line-height: 1.45; margin: 0;">
                 We operate with high intellectual honesty, zero bureaucracy, and obsessive on-ground empathy. If a
                 feature does not tangibly remove friction from a user’s real weekend, it does not get built.
               </p>
@@ -1518,48 +1519,47 @@
 
             <!-- Large Bordered Box: North Star Metric -->
             <div class="card"
-              style="padding: 12px 16px; border: 2px solid var(--pri); background: linear-gradient(135deg, #FAF8FF 0%, #FFFFFF 100%); box-shadow: 0 4px 16px rgba(104, 48, 249, 0.08); border-radius: 14px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
-                <div style="display: flex; align-items: center; gap: 7px;">
-                  <span style="font-size: 15px;">⭐</span>
+              style="padding: 18px 24px; border: 2.5px solid var(--pri); background: linear-gradient(135deg, #FAF8FF 0%, #FFFFFF 100%); box-shadow: 0 4px 16px rgba(104, 48, 249, 0.08); border-radius: 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 18px;">⭐</span>
                   <span
-                    style="font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; color: var(--pri); background: var(--pri-light); padding: 2.5px 8px; border-radius: 6px;">
+                    style="font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; color: var(--pri); background: var(--pri-light); padding: 4px 12px; border-radius: 8px;">
                     NORTH STAR METRIC
                   </span>
                 </div>
-                <span class="mini-status-chip pri" style="font-size: 9px; font-weight: 800;">Primary Product
-                  Gauge</span>
+                <span class="mini-status-chip pri">Primary Product Gauge</span>
               </div>
               <div
-                style="font-size: 20px; font-weight: 900; color: var(--ink); letter-spacing: -0.4px; margin: 3px 0 2px;">
+                style="font-size: 26px; font-weight: 900; color: var(--ink); letter-spacing: -0.4px; margin: 6px 0 4px;">
                 Weekly Confirmed Group Outings (CGO)
               </div>
-              <p style="font-size: 11.5px; color: var(--ink-sub); line-height: 1.4; margin: 0; font-weight: 500;">
+              <p style="font-size: 17px; color: var(--ink-sub); line-height: 1.45; margin: 0; font-weight: 500;">
                 A plan with 3+ people where at least one booking is paid and settled on District.
               </p>
             </div>
 
             <!-- Downward Arrow connecting North Star to Input Metrics Grid -->
             <div
-              style="display: flex; align-items: center; justify-content: center; height: 16px; color: var(--pri); font-size: 13px; opacity: 0.75; margin: 2px 0;">
+              style="display: flex; align-items: center; justify-content: center; height: 20px; color: var(--pri); font-size: 18px; opacity: 0.75; margin: 3px 0;">
               <i class="fa-solid fa-arrow-down"></i>
             </div>
 
             <!-- 2x2 Grid of Input Metrics -->
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
               <!-- Metric 1: search to booking conversion -->
               <div class="card"
-                style="padding: 9px 12px; border-top: 3px solid var(--pri); background: #FFFFFF; box-shadow: 0 2px 8px rgba(104, 48, 249, 0.04); display: flex; flex-direction: column; justify-content: space-between;">
+                style="padding: 12px 16px; border-top: 4px solid var(--pri); background: #FFFFFF; box-shadow: 0 2px 8px rgba(104, 48, 249, 0.04); display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-                    <span style="font-size: 9px; font-weight: 800; color: var(--pri);">01 · FUNNEL</span>
-                    <span class="mini-status-chip pri" style="font-size: 8px;">Conversion</span>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <span style="font-size: 14px; font-weight: 800; color: var(--pri);">01 · FUNNEL</span>
+                    <span class="mini-status-chip pri">Conversion</span>
                   </div>
                   <h3
-                    style="font-size: 12.5px; font-weight: 800; color: var(--ink); margin: 0 0 2px; line-height: 1.25;">
+                    style="font-size: 17.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px; line-height: 1.3;">
                     Search to booking conversion
                   </h3>
-                  <p style="font-size: 10.5px; color: var(--ink-sub); line-height: 1.35; margin: 0;">
+                  <p style="font-size: 16px; color: var(--ink-sub); line-height: 1.4; margin: 0;">
                     Share of squad discovery sessions that convert into locked venue reservations.
                   </p>
                 </div>
@@ -1567,17 +1567,17 @@
 
               <!-- Metric 2: repeat booking rate -->
               <div class="card"
-                style="padding: 9px 12px; border-top: 3px solid var(--accent-mint); background: #FFFFFF; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.04); display: flex; flex-direction: column; justify-content: space-between;">
+                style="padding: 12px 16px; border-top: 4px solid var(--accent-mint); background: #FFFFFF; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.04); display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-                    <span style="font-size: 9px; font-weight: 800; color: var(--accent-mint);">02 · RETENTION</span>
-                    <span class="mini-status-chip ok" style="font-size: 8px;">Habit Loop</span>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <span style="font-size: 14px; font-weight: 800; color: var(--accent-mint);">02 · RETENTION</span>
+                    <span class="mini-status-chip ok">Habit Loop</span>
                   </div>
                   <h3
-                    style="font-size: 12.5px; font-weight: 800; color: var(--ink); margin: 0 0 2px; line-height: 1.25;">
+                    style="font-size: 17.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px; line-height: 1.3;">
                     Repeat booking rate
                   </h3>
-                  <p style="font-size: 10.5px; color: var(--ink-sub); line-height: 1.35; margin: 0;">
+                  <p style="font-size: 16px; color: var(--ink-sub); line-height: 1.4; margin: 0;">
                     30-day cohort retention of hosts and invited friends booking subsequent outings.
                   </p>
                 </div>
@@ -1585,17 +1585,17 @@
 
               <!-- Metric 3: venue fill rate -->
               <div class="card"
-                style="padding: 9px 12px; border-top: 3px solid var(--accent-amber); background: #FFFFFF; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.04); display: flex; flex-direction: column; justify-content: space-between;">
+                style="padding: 12px 16px; border-top: 4px solid var(--accent-amber); background: #FFFFFF; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.04); display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-                    <span style="font-size: 9px; font-weight: 800; color: #B45309;">03 · MERCHANTS</span>
-                    <span class="mini-status-chip warn" style="font-size: 8px;">Fill Rate</span>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <span style="font-size: 14px; font-weight: 800; color: #B45309;">03 · MERCHANTS</span>
+                    <span class="mini-status-chip warn">Fill Rate</span>
                   </div>
                   <h3
-                    style="font-size: 12.5px; font-weight: 800; color: var(--ink); margin: 0 0 2px; line-height: 1.25;">
+                    style="font-size: 17.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px; line-height: 1.3;">
                     Venue fill rate
                   </h3>
-                  <p style="font-size: 10.5px; color: var(--ink-sub); line-height: 1.35; margin: 0;">
+                  <p style="font-size: 16px; color: var(--ink-sub); line-height: 1.4; margin: 0;">
                     Partner restaurant table, box turf, and theater seat occupancy during peak squad hours.
                   </p>
                 </div>
@@ -1603,18 +1603,18 @@
 
               <!-- Metric 4: share of bookings for groups of 3+ -->
               <div class="card"
-                style="padding: 9px 12px; border-top: 3px solid var(--accent-coral); background: #FFFFFF; box-shadow: 0 2px 8px rgba(255, 51, 102, 0.04); display: flex; flex-direction: column; justify-content: space-between;">
+                style="padding: 12px 16px; border-top: 4px solid var(--accent-coral); background: #FFFFFF; box-shadow: 0 2px 8px rgba(255, 51, 102, 0.04); display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-                    <span style="font-size: 9px; font-weight: 800; color: var(--accent-coral);">04 · SQUAD
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <span style="font-size: 14px; font-weight: 800; color: var(--accent-coral);">04 · SQUAD
                       DENSITY</span>
-                    <span class="mini-status-chip bad" style="font-size: 8px;">Groups 3+</span>
+                    <span class="mini-status-chip bad">Groups 3+</span>
                   </div>
                   <h3
-                    style="font-size: 12.5px; font-weight: 800; color: var(--ink); margin: 0 0 2px; line-height: 1.25;">
+                    style="font-size: 17.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px; line-height: 1.3;">
                     Share of bookings for groups of 3+
                   </h3>
-                  <p style="font-size: 10.5px; color: var(--ink-sub); line-height: 1.35; margin: 0;">
+                  <p style="font-size: 16px; color: var(--ink-sub); line-height: 1.4; margin: 0;">
                     Proportion of total GMV transactions driven by multi-player squads vs solo bookings.
                   </p>
                 </div>
@@ -1623,9 +1623,9 @@
 
             <!-- One line at the bottom: Guardrails -->
             <div
-              style="margin-top: 6px; padding: 7px 12px; background: #FFF9F0; border: 1px solid #FDE68A; border-left: 3.5px solid var(--accent-amber); border-radius: 9px; display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--ink);">
-              <span style="font-size: 13px;">🛡️</span>
-              <span style="line-height: 1.35;">
+              style="margin-top: 8px; padding: 10px 16px; background: #FFF9F0; border: 1.5px solid #FDE68A; border-left: 4px solid var(--accent-amber); border-radius: 12px; display: flex; align-items: center; gap: 10px; font-size: 15.5px; color: var(--ink);">
+              <span style="font-size: 17px;">🛡️</span>
+              <span style="line-height: 1.4;">
                 <b>Guardrails:</b> refund rate, venue complaints, support tickets per 1,000 bookings
               </span>
             </div>
@@ -1646,59 +1646,57 @@
       <section class="slide-scene" id="slide-4">
         <div class="slide-topbar">
           <span class="slide-eyebrow"><span class="dot"></span>04 · AUDIENCE SEGMENTATION</span>
-          <span style="font-size: 12px; font-weight: 700; color: var(--ink-sub);">Urban Outing Ecosystem</span>
+          <span style="font-size: 15px; font-weight: 700; color: var(--ink-sub);">Urban Outing Ecosystem</span>
         </div>
 
-        <h2 class="slide-heading" style="margin-bottom: 14px;">Who Makes District Work? Target Audience</h2>
+        <h2 class="slide-heading" style="margin-bottom: 16px;">Who Makes District Work? Target Audience</h2>
 
         <!-- Three persona cards side by side with coloured top borders (purple, green, amber) -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; flex: 1; align-items: stretch;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1; align-items: stretch;">
           <!-- Card 1: Individual bookers (Purple border) -->
           <div class="card"
-            style="padding: 14px 16px; border-top: 4px solid var(--pri); display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(180deg, #FFFFFF 0%, #FAF8FF 100%); border-color: #ECE7FA;">
+            style="padding: 22px 24px; border-top: 5px solid var(--pri); display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(180deg, #FFFFFF 0%, #FAF8FF 100%); border-color: #ECE7FA; border-radius: 20px;">
             <div>
               <!-- Role Tag & Number -->
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                <span class="mini-status-chip pri"
-                  style="font-size: 9.5px; font-weight: 800; text-transform: uppercase; padding: 2.5px 8px;">Role: Solo
-                  &amp; Small Group</span>
-                <span style="font-size: 11px; font-weight: 800; color: var(--ink-muted);">01</span>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span class="mini-status-chip pri">Role: Solo &amp; Small Group</span>
+                <span style="font-size: 16px; font-weight: 800; color: var(--ink-muted);">01</span>
               </div>
 
               <!-- Avatar Created with Gemini -->
               <div
-                style="position: relative; border-radius: 12px; overflow: hidden; height: clamp(125px, 17vh, 150px); margin: 6px 0 10px; border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(104, 48, 249, 0.08); background: linear-gradient(180deg, #EDE6FA 0%, #FAF7FF 100%); display: flex; align-items: center; justify-content: center;">
+                style="position: relative; border-radius: 16px; overflow: hidden; height: 230px; margin: 8px 0 14px; border: 1.5px solid var(--line); box-shadow: 0 4px 12px rgba(104, 48, 249, 0.08); background: linear-gradient(180deg, #EDE6FA 0%, #FAF7FF 100%); display: flex; align-items: center; justify-content: center;">
                 <img src="assets/avatar_individual_booker.jpg" alt="Individual bookers"
                   style="width: 100%; height: 100%; object-fit: contain; display: block;">
-                <div class="avatar-pill-badge" style="bottom: 5px; left: 6px; font-size: 8px; padding: 2px 7px;">
+                <div class="avatar-pill-badge">
                   <span>👤</span> Solo &amp; Duo Bookers
                 </div>
               </div>
 
               <!-- Title -->
               <h3
-                style="font-size: 17px; font-weight: 800; color: var(--ink); margin: 0 0 10px; letter-spacing: -0.3px;">
+                style="font-size: 24px; font-weight: 900; color: var(--ink); margin: 0 0 12px; letter-spacing: -0.3px;">
                 Individual bookers
               </h3>
 
               <!-- Who & Needs Lines -->
-              <div style="display: flex; flex-direction: column; gap: 7px;">
-                <div style="background: #FAF7FF; border: 1px solid #ECE7FA; border-radius: 10px; padding: 7px 10px;">
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="background: #FAF7FF; border: 1px solid #ECE7FA; border-radius: 12px; padding: 10px 14px;">
                   <span
-                    style="font-size: 9.5px; font-weight: 900; color: var(--pri); text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 2px;">
+                    style="font-size: 14px; font-weight: 900; color: var(--pri); text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 3px;">
                     Who
                   </span>
-                  <p style="font-size: 11.5px; color: var(--ink); line-height: 1.4; margin: 0; font-weight: 600;">
+                  <p style="font-size: 16.5px; color: var(--ink); line-height: 1.45; margin: 0; font-weight: 600;">
                     book a table, a movie or an event for themselves or a small group
                   </p>
                 </div>
 
-                <div style="background: #F0EBFF; border: 1px solid #DED4F9; border-radius: 10px; padding: 7px 10px;">
+                <div style="background: #F0EBFF; border: 1px solid #DED4F9; border-radius: 12px; padding: 10px 14px;">
                   <span
-                    style="font-size: 9.5px; font-weight: 900; color: var(--pri-hover); text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 2px;">
+                    style="font-size: 14px; font-weight: 900; color: var(--pri-hover); text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 3px;">
                     Needs
                   </span>
-                  <p style="font-size: 11.5px; color: var(--ink); line-height: 1.4; margin: 0; font-weight: 600;">
+                  <p style="font-size: 16.5px; color: var(--ink); line-height: 1.45; margin: 0; font-weight: 600;">
                     find something good, book fast, pay easily
                   </p>
                 </div>
@@ -1706,64 +1704,61 @@
             </div>
 
             <div
-              style="margin-top: 8px; background: rgba(104, 48, 249, 0.08); border: 1px dashed rgba(104, 48, 249, 0.3); border-radius: 8px; padding: 4px 8px; font-size: 10px; font-weight: 700; color: var(--pri);">
+              style="margin-top: 10px; background: rgba(104, 48, 249, 0.08); border: 1.5px dashed rgba(104, 48, 249, 0.3); border-radius: 10px; padding: 7px 12px; font-size: 14px; font-weight: 800; color: var(--pri);">
               <span>📱</span> Single-player checkout flow
             </div>
           </div>
 
-          <!-- Card 2: Organisers of group outings (HIGHLIGHTED with thicker border - Later slides build on it) -->
+          <!-- Card 2: Organisers of group outings (HIGHLIGHTED with thicker border) -->
           <div class="card"
-            style="padding: 14px 16px; border: 2.5px solid var(--accent-mint); border-top: 6px solid var(--accent-mint); display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(180deg, #FFFFFF 0%, #F0FDF6 100%); box-shadow: 0 16px 38px -10px rgba(16, 185, 129, 0.28), 0 0 0 1.5px rgba(16, 185, 129, 0.3); transform: scale(1.02); position: relative; z-index: 5;">
+            style="padding: 22px 24px; border: 3px solid var(--accent-mint); border-top: 6px solid var(--accent-mint); display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(180deg, #FFFFFF 0%, #F0FDF6 100%); box-shadow: 0 16px 38px -10px rgba(16, 185, 129, 0.28), 0 0 0 1.5px rgba(16, 185, 129, 0.3); position: relative; z-index: 5; border-radius: 20px;">
             <!-- Highlight Pill Banner -->
             <div
-              style="position: absolute; top: -11px; right: 14px; background: linear-gradient(90deg, #059669, #10B981); color: #FFF; font-size: 9px; font-weight: 900; letter-spacing: 0.6px; text-transform: uppercase; padding: 2px 10px; border-radius: 99px; box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35); border: 1.5px solid #FFF;">
+              style="position: absolute; top: -14px; right: 18px; background: linear-gradient(90deg, #059669, #10B981); color: #FFF; font-size: 13px; font-weight: 900; letter-spacing: 0.6px; text-transform: uppercase; padding: 4px 14px; border-radius: 99px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35); border: 2px solid #FFF;">
               ⭐ KEY DOODLE FOCUS
             </div>
 
             <div>
               <!-- Role Tag & Number -->
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                <span class="mini-status-chip ok"
-                  style="font-size: 9.5px; font-weight: 900; text-transform: uppercase; padding: 2.5px 8px; background: #D1FAE5; color: #065F46;">Role:
-                  Core Host &amp; Organiser</span>
-                <span style="font-size: 11px; font-weight: 800; color: var(--accent-mint);">02</span>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span class="mini-status-chip ok" style="background: #D1FAE5; color: #065F46;">Role: Core Host &amp; Organiser</span>
+                <span style="font-size: 16px; font-weight: 800; color: var(--accent-mint);">02</span>
               </div>
 
               <!-- Avatar Created with Gemini -->
               <div
-                style="position: relative; border-radius: 12px; overflow: hidden; height: clamp(125px, 17vh, 150px); margin: 6px 0 10px; border: 1.5px solid #A7F3D0; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12); background: linear-gradient(180deg, #DDF5EA 0%, #F4FBF8 100%); display: flex; align-items: center; justify-content: center;">
+                style="position: relative; border-radius: 16px; overflow: hidden; height: 230px; margin: 8px 0 14px; border: 2px solid #A7F3D0; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12); background: linear-gradient(180deg, #DDF5EA 0%, #F4FBF8 100%); display: flex; align-items: center; justify-content: center;">
                 <img src="assets/avatar_group_organiser.jpg" alt="Organisers of group outings"
                   style="width: 100%; height: 100%; object-fit: contain; display: block;">
-                <div class="avatar-pill-badge"
-                  style="bottom: 5px; left: 6px; font-size: 8px; padding: 2px 7px; background: rgba(5, 150, 105, 0.9);">
+                <div class="avatar-pill-badge" style="background: rgba(5, 150, 105, 0.9);">
                   <span>👥</span> 4–8 People Squad Anchor
                 </div>
               </div>
 
               <!-- Title -->
               <h3
-                style="font-size: 17.5px; font-weight: 900; color: var(--ink); margin: 0 0 10px; letter-spacing: -0.3px;">
+                style="font-size: 24px; font-weight: 900; color: var(--ink); margin: 0 0 12px; letter-spacing: -0.3px;">
                 Organisers of group outings
               </h3>
 
               <!-- Who & Needs Lines -->
-              <div style="display: flex; flex-direction: column; gap: 7px;">
-                <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 10px; padding: 7px 10px;">
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 12px; padding: 10px 14px;">
                   <span
-                    style="font-size: 9.5px; font-weight: 900; color: #059669; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 2px;">
+                    style="font-size: 14px; font-weight: 900; color: #059669; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 3px;">
                     Who
                   </span>
-                  <p style="font-size: 11.5px; color: var(--ink); line-height: 1.4; margin: 0; font-weight: 700;">
+                  <p style="font-size: 16.5px; color: var(--ink); line-height: 1.45; margin: 0; font-weight: 700;">
                     book for 4–8 people
                   </p>
                 </div>
 
-                <div style="background: #DCFCE7; border: 1px solid #86EFAC; border-radius: 10px; padding: 7px 10px;">
+                <div style="background: #DCFCE7; border: 1px solid #86EFAC; border-radius: 12px; padding: 10px 14px;">
                   <span
-                    style="font-size: 9.5px; font-weight: 900; color: #047857; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 2px;">
+                    style="font-size: 14px; font-weight: 900; color: #047857; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 3px;">
                     Needs
                   </span>
-                  <p style="font-size: 11.5px; color: var(--ink); line-height: 1.4; margin: 0; font-weight: 700;">
+                  <p style="font-size: 16.5px; color: var(--ink); line-height: 1.45; margin: 0; font-weight: 700;">
                     get everyone’s agreement, then book and collect money
                   </p>
                 </div>
@@ -1771,7 +1766,7 @@
             </div>
 
             <div
-              style="margin-top: 8px; background: #ECFDF5; border: 1.5px solid #A7F3D0; border-radius: 8px; padding: 4px 8px; font-size: 10px; font-weight: 800; color: #065F46; display: flex; align-items: center; justify-content: space-between;">
+              style="margin-top: 10px; background: #ECFDF5; border: 1.5px solid #A7F3D0; border-radius: 10px; padding: 7px 12px; font-size: 14px; font-weight: 800; color: #065F46; display: flex; align-items: center; justify-content: space-between;">
               <span>Target persona for Doodle feature</span>
               <span>Later slides build on this ➔</span>
             </div>
@@ -1779,51 +1774,48 @@
 
           <!-- Card 3: Venues and event partners (Amber border) -->
           <div class="card"
-            style="padding: 14px 16px; border-top: 4px solid var(--accent-amber); display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF8 100%); border-color: #FDE68A;">
+            style="padding: 22px 24px; border-top: 5px solid var(--accent-amber); display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF8 100%); border-color: #FDE68A; border-radius: 20px;">
             <div>
               <!-- Role Tag & Number -->
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                <span class="mini-status-chip warn"
-                  style="font-size: 9.5px; font-weight: 800; text-transform: uppercase; padding: 2.5px 8px;">Role:
-                  Supply &amp; Venues</span>
-                <span style="font-size: 11px; font-weight: 800; color: var(--ink-muted);">03</span>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span class="mini-status-chip warn">Role: Supply &amp; Venues</span>
+                <span style="font-size: 16px; font-weight: 800; color: var(--ink-muted);">03</span>
               </div>
 
               <!-- Avatar Created with Gemini -->
               <div
-                style="position: relative; border-radius: 12px; overflow: hidden; height: clamp(125px, 17vh, 150px); margin: 6px 0 10px; border: 1px solid #FDE68A; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.1); background: linear-gradient(180deg, #FEF3C7 0%, #FFFDF8 100%); display: flex; align-items: center; justify-content: center;">
+                style="position: relative; border-radius: 16px; overflow: hidden; height: 230px; margin: 8px 0 14px; border: 1.5px solid #FDE68A; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.1); background: linear-gradient(180deg, #FEF3C7 0%, #FFFDF8 100%); display: flex; align-items: center; justify-content: center;">
                 <img src="assets/avatar_venue_partner.jpg" alt="Venues and event partners"
                   style="width: 100%; height: 100%; object-fit: contain; display: block;">
-                <div class="avatar-pill-badge"
-                  style="bottom: 5px; left: 6px; font-size: 8px; padding: 2px 7px; background: rgba(180, 83, 9, 0.9);">
+                <div class="avatar-pill-badge" style="background: rgba(180, 83, 9, 0.9);">
                   <span>🏪</span> Restaurants, Cinemas &amp; Turfs
                 </div>
               </div>
 
               <!-- Title -->
               <h3
-                style="font-size: 17px; font-weight: 800; color: var(--ink); margin: 0 0 10px; letter-spacing: -0.3px;">
+                style="font-size: 24px; font-weight: 900; color: var(--ink); margin: 0 0 12px; letter-spacing: -0.3px;">
                 Venues and event partners
               </h3>
 
               <!-- Who & Needs Lines -->
-              <div style="display: flex; flex-direction: column; gap: 7px;">
-                <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 7px 10px;">
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 10px 14px;">
                   <span
-                    style="font-size: 9.5px; font-weight: 900; color: #B45309; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 2px;">
+                    style="font-size: 14px; font-weight: 900; color: #B45309; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 3px;">
                     Who
                   </span>
-                  <p style="font-size: 11.5px; color: var(--ink); line-height: 1.4; margin: 0; font-weight: 600;">
+                  <p style="font-size: 16.5px; color: var(--ink); line-height: 1.45; margin: 0; font-weight: 600;">
                     restaurants, cinemas, turfs, organisers
                   </p>
                 </div>
 
-                <div style="background: #FEF3C7; border: 1px solid #FCD34D; border-radius: 10px; padding: 7px 10px;">
+                <div style="background: #FEF3C7; border: 1px solid #FCD34D; border-radius: 12px; padding: 10px 14px;">
                   <span
-                    style="font-size: 9.5px; font-weight: 900; color: #92400E; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 2px;">
+                    style="font-size: 14px; font-weight: 900; color: #92400E; text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 3px;">
                     Needs
                   </span>
-                  <p style="font-size: 11.5px; color: var(--ink); line-height: 1.4; margin: 0; font-weight: 600;">
+                  <p style="font-size: 16.5px; color: var(--ink); line-height: 1.45; margin: 0; font-weight: 600;">
                     full tables and seats, fewer no-shows, easy payouts
                   </p>
                 </div>
@@ -1831,7 +1823,7 @@
             </div>
 
             <div
-              style="margin-top: 8px; background: rgba(245, 158, 11, 0.08); border: 1px dashed rgba(245, 158, 11, 0.35); border-radius: 8px; padding: 4px 8px; font-size: 10px; font-weight: 700; color: #B45309;">
+              style="margin-top: 10px; background: rgba(245, 158, 11, 0.08); border: 1.5px dashed rgba(245, 158, 11, 0.35); border-radius: 10px; padding: 7px 12px; font-size: 14px; font-weight: 800; color: #B45309;">
               <span>🛡️</span> Guaranteed prepaid table holds
             </div>
           </div>
@@ -2271,10 +2263,6 @@
           </button>
         </div>
 
-        <div class="footnote-bar">
-          <span>Branding identity designed for young urban Indian social dynamics.</span>
-          <span>district.in/doodle</span>
-        </div>
       </section>
 
       <!-- ========================================================
@@ -2287,7 +2275,7 @@
             OUTINGS</span>
         </div>
 
-        <h2 class="slide-heading">The WhatsApp Graveyard: Where 7 out of 10 Weekend Plans Die</h2>
+        <h2 class="slide-heading">The WhatsApp Graveyard</h2>
 
         <div class="grid-2">
           <!-- Visual: Realistic WhatsApp Group Chat Graveyard -->
@@ -2687,8 +2675,6 @@
         </div>
 
         <div class="footnote-bar" style="margin-top: 10px;">
-          <span>Zero app install friction for invited friends · Browser-first voting on WhatsApp · Direct UPI split
-            settlement</span>
           <a href="index.html#prototype" target="_top"
             onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">Interactive
             Live Sandbox ↗</a>
@@ -2701,7 +2687,6 @@
       <section class="slide-scene" id="slide-10">
         <div class="slide-topbar">
           <span class="slide-eyebrow"><span class="dot"></span>10 · VIRAL GROWTH LOOP · ZERO-CAC ACQUISITION</span>
-          <span class="metric-pill ok">● K-FACTOR &gt; 1.4 VIRAL FLYWHEEL</span>
         </div>
 
         <div style="margin-bottom: 10px;">
@@ -2751,9 +2736,9 @@
                     stroke-dasharray="3,3" />
                   <text x="175" y="153" text-anchor="middle" font-size="16">🔄</text>
                   <text x="175" y="167" text-anchor="middle" font-size="8" font-weight="900" fill="#6830F9"
-                    font-family="'Plus Jakarta Sans', sans-serif">VIRAL LOOP</text>
+                    font-family="Cambria, Georgia, serif">VIRAL LOOP</text>
                   <text x="175" y="176" text-anchor="middle" font-size="7" font-weight="700" fill="#8E85A8"
-                    font-family="'Plus Jakarta Sans', sans-serif">Zero CAC</text>
+                    font-family="Cambria, Georgia, serif">Zero CAC</text>
 
                   <!-- Curved Connecting Flow Arrows -->
                   <!-- 1 -> 2 -->
@@ -2778,11 +2763,11 @@
                       stroke-width="1.5" />
                     <circle cx="111" cy="26" r="9" fill="#EFEAFE" />
                     <text x="111" y="30" text-anchor="middle" font-size="9" font-weight="900" fill="#6830F9"
-                      font-family="'Plus Jakarta Sans', sans-serif">1</text>
+                      font-family="Cambria, Georgia, serif">1</text>
                     <text x="126" y="21" font-size="9.5" font-weight="800" fill="#160F2E"
-                      font-family="'Plus Jakarta Sans', sans-serif">Host shares the link</text>
+                      font-family="Cambria, Georgia, serif">Host shares the link</text>
                     <text x="126" y="33" font-size="8" font-weight="600" fill="#5F567A"
-                      font-family="'Plus Jakarta Sans', sans-serif">In the WhatsApp group</text>
+                      font-family="Cambria, Georgia, serif">In the WhatsApp group</text>
                   </g>
 
                   <!-- Node 2: Friend taps link -->
@@ -2791,11 +2776,11 @@
                       stroke-width="1.5" />
                     <circle cx="216" cy="107" r="9" fill="#FAF5FE" />
                     <text x="216" y="111" text-anchor="middle" font-size="9" font-weight="900" fill="#6830F9"
-                      font-family="'Plus Jakarta Sans', sans-serif">2</text>
+                      font-family="Cambria, Georgia, serif">2</text>
                     <text x="231" y="101" font-size="9.5" font-weight="800" fill="#160F2E"
-                      font-family="'Plus Jakarta Sans', sans-serif">Friend taps link</text>
+                      font-family="Cambria, Georgia, serif">Friend taps link</text>
                     <text x="231" y="114" font-size="8" font-weight="600" fill="#5F567A"
-                      font-family="'Plus Jakarta Sans', sans-serif">Lands on Doodle (no install)</text>
+                      font-family="Cambria, Georgia, serif">Lands on Doodle (no install)</text>
                   </g>
 
                   <!-- Node 3: Friend votes & signs up (COLOUR GREEN - ACQUISITION MOMENT) -->
@@ -2804,14 +2789,14 @@
                       stroke-width="2.2" />
                     <rect x="180" y="234" width="96" height="12" rx="3" fill="#10B981" />
                     <text x="228" y="243" text-anchor="middle" font-size="7" font-weight="900" fill="#FFFFFF"
-                      font-family="'Plus Jakarta Sans', sans-serif">ACQUISITION MOMENT ★</text>
+                      font-family="Cambria, Georgia, serif">ACQUISITION MOMENT ★</text>
                     <circle cx="190" cy="261" r="9" fill="#D1FAE5" />
                     <text x="190" y="265" text-anchor="middle" font-size="9" font-weight="900" fill="#065F46"
-                      font-family="'Plus Jakarta Sans', sans-serif">3</text>
+                      font-family="Cambria, Georgia, serif">3</text>
                     <text x="205" y="258" font-size="9.5" font-weight="900" fill="#065F46"
-                      font-family="'Plus Jakarta Sans', sans-serif">Friend votes &amp; signs up</text>
+                      font-family="Cambria, Georgia, serif">Friend votes &amp; signs up</text>
                     <text x="205" y="271" font-size="8" font-weight="700" fill="#047857"
-                      font-family="'Plus Jakarta Sans', sans-serif">Phone OTP → New District user</text>
+                      font-family="Cambria, Georgia, serif">Phone OTP → New District user</text>
                   </g>
 
                   <!-- Node 4: Friend pays share -->
@@ -2820,11 +2805,11 @@
                       stroke-width="1.5" />
                     <circle cx="24" cy="254" r="9" fill="#FAF5FE" />
                     <text x="24" y="258" text-anchor="middle" font-size="9" font-weight="900" fill="#6830F9"
-                      font-family="'Plus Jakarta Sans', sans-serif">4</text>
+                      font-family="Cambria, Georgia, serif">4</text>
                     <text x="39" y="248" font-size="9.5" font-weight="800" fill="#160F2E"
-                      font-family="'Plus Jakarta Sans', sans-serif">Pays their share</text>
+                      font-family="Cambria, Georgia, serif">Pays their share</text>
                     <text x="39" y="261" font-size="8" font-weight="600" fill="#5F567A"
-                      font-family="'Plus Jakarta Sans', sans-serif">UPI split; booking confirms</text>
+                      font-family="Cambria, Georgia, serif">UPI split; booking confirms</text>
                   </g>
 
                   <!-- Node 5: Friend plans own outing (Loop starts again) -->
@@ -2833,11 +2818,11 @@
                       stroke-width="1.5" />
                     <circle cx="21" cy="107" r="9" fill="#EFEAFE" />
                     <text x="21" y="111" text-anchor="middle" font-size="9" font-weight="900" fill="#6830F9"
-                      font-family="'Plus Jakarta Sans', sans-serif">5</text>
+                      font-family="Cambria, Georgia, serif">5</text>
                     <text x="36" y="101" font-size="9.5" font-weight="800" fill="#6830F9"
-                      font-family="'Plus Jakarta Sans', sans-serif">Plans own outing</text>
+                      font-family="Cambria, Georgia, serif">Plans own outing</text>
                     <text x="36" y="114" font-size="8" font-weight="600" fill="#5F567A"
-                      font-family="'Plus Jakarta Sans', sans-serif">Loop starts again as host ↺</text>
+                      font-family="Cambria, Georgia, serif">Loop starts again as host ↺</text>
                   </g>
                 </svg>
               </div>
@@ -2940,59 +2925,6 @@
           <!-- Right Column: Two Stacked Boxes + Prototype Link -->
           <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 10px;">
 
-            <!-- Box 1: Landing page rules -->
-            <div class="card"
-              style="padding: 13px 15px; border-top: 3.5px solid var(--pri); background: #FFFFFF; box-shadow: 0 4px 12px rgba(104, 48, 249, 0.05); display: flex; flex-direction: column; justify-content: space-between;">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                <h3
-                  style="font-size: 13.5px; font-weight: 800; color: var(--ink); display: flex; align-items: center; gap: 6px; margin: 0;">
-                  <span
-                    style="width: 22px; height: 22px; border-radius: 6px; background: var(--pri-light); color: var(--pri); display: flex; align-items: center; justify-content: center; font-size: 11px;">⚡</span>
-                  Landing page rules
-                </h3>
-                <span class="mini-status-chip pri" style="font-size: 8.5px; font-weight: 800;">Frictionless</span>
-              </div>
-
-              <div style="display: flex; flex-direction: column; gap: 7px;">
-                <!-- Rule 1 -->
-                <div style="display: flex; gap: 8px; align-items: flex-start;">
-                  <div style="font-size: 12px; color: var(--pri); margin-top: 1px;">🚀</div>
-                  <div>
-                    <b style="font-size: 11px; color: var(--ink); display: block; line-height: 1.25;">Loads fast on
-                      mobile</b>
-                    <span style="font-size: 10px; color: var(--ink-sub); line-height: 1.35;">
-                      Sub-second load inside WhatsApp's in-app browser with zero heavy bundle overhead.
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Rule 2 -->
-                <div style="display: flex; gap: 8px; align-items: flex-start;">
-                  <div style="font-size: 12px; color: var(--accent-coral); margin-top: 1px;">🚫</div>
-                  <div>
-                    <b style="font-size: 11px; color: var(--ink); display: block; line-height: 1.25;">No app-install
-                      wall</b>
-                    <span style="font-size: 10px; color: var(--ink-sub); line-height: 1.35;">
-                      Friends vote and explore directly in browser; zero App Store redirect gates.
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Rule 3 -->
-                <div style="display: flex; gap: 8px; align-items: flex-start;">
-                  <div style="font-size: 12px; color: var(--accent-mint); margin-top: 1px;">🔑</div>
-                  <div>
-                    <b style="font-size: 11px; color: var(--ink); display: block; line-height: 1.25;">Ask for OTP only
-                      after friend has voted</b>
-                    <span style="font-size: 10px; color: var(--ink-sub); line-height: 1.35;">
-                      Delivers instant participation value first; requests phone verification only at split
-                      confirmation.
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- Box 2: Why they come back -->
             <div class="card"
               style="padding: 13px 15px; border-top: 3.5px solid var(--accent-mint); background: #FFFFFF; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.05); display: flex; flex-direction: column; justify-content: space-between;">
@@ -3046,13 +2978,6 @@
             </a>
 
           </div>
-        </div>
-
-        <div class="footnote-bar" style="margin-top: 8px;">
-          <span>Viral Growth Mechanics · K-Factor &gt; 1.4 · Integrated with District App Core Ecosystem</span>
-          <a href="index.html#prototype" target="_top"
-            onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">Interactive
-            Live Sandbox ↗</a>
         </div>
       </section>
 
@@ -3424,41 +3349,50 @@
             <span class="corp" style="font-size: 15px;">Phased GTM Rollout</span>
             <span class="sub" style="font-size: 11.5px;">GTM Horizons</span>
           </div>
-          <span class="slide-eyebrow" style="font-size: 11.5px;"><span class="dot"></span>13 · TIER-1 &amp; PRIME EXPANSION</span>
+          <span class="slide-eyebrow" style="font-size: 11.5px;"><span class="dot"></span>13 · TIER-1 &amp; PRIME
+            EXPANSION</span>
         </div>
 
         <!-- High-Impact Lead Banner -->
-        <div style="background: rgba(255, 255, 255, 0.9); border: 1.5px solid #E7DEFA; border-left: 5px solid var(--pri); border-radius: 12px; padding: 12px 20px; box-shadow: 0 4px 16px rgba(104, 48, 249, 0.05); margin-bottom: 12px;">
+        <div
+          style="background: rgba(255, 255, 255, 0.9); border: 1.5px solid #E7DEFA; border-left: 5px solid var(--pri); border-radius: 12px; padding: 12px 20px; box-shadow: 0 4px 16px rgba(104, 48, 249, 0.05); margin-bottom: 12px;">
           <div style="font-size: 17px; font-weight: 700; color: var(--ink); line-height: 1.4;">
-            Targeting high-frequency <span style="color: var(--pri); font-weight: 800;">District Prime &amp; Zomato Gold</span> subscribers first in India’s top nightlife capitals, before expanding across pan-India metros.
+            Targeting high-frequency <span style="color: var(--pri); font-weight: 800;">District Prime &amp; Zomato
+              Gold</span> subscribers first in India’s top nightlife capitals, before expanding across pan-India metros.
           </div>
         </div>
 
         <!-- 3 Horizon Cards: Spanning the entire slide width & height with Large Blocks -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; flex: 1; min-height: 0; margin-bottom: 10px;">
-          
+        <div
+          style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; flex: 1; min-height: 0; margin-bottom: 10px;">
+
           <!-- Phase 1 Card -->
           <div class="card"
             style="padding: 18px 20px; border-top: 4px solid var(--pri); display: flex; flex-direction: column; justify-content: space-between; background: #FFFFFF; box-shadow: 0 4px 18px rgba(104, 48, 249, 0.06); border-radius: 16px;">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span class="metric-pill" style="font-size: 12px; font-weight: 800; padding: 3px 9px;">PHASE 1 · Q1</span>
-                <span class="mini-status-chip pri" style="font-size: 11px; font-weight: 800; padding: 2px 7px;">Closed Beta</span>
+                <span class="metric-pill" style="font-size: 12px; font-weight: 800; padding: 3px 9px;">PHASE 1 ·
+                  Q1</span>
+                <span class="mini-status-chip pri" style="font-size: 11px; font-weight: 800; padding: 2px 7px;">Closed
+                  Beta</span>
               </div>
               <h3 style="font-size: 18px; font-weight: 800; color: var(--ink); margin: 0 0 12px; line-height: 1.3;">
                 Top Tier-1 Metros · Prime Users
               </h3>
 
               <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px;">
-                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
+                <li
+                  style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
                   <span style="color: var(--pri); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
                   <span><b>Cities:</b> Closed beta in <b>Delhi NCR, Mumbai &amp; Bengaluru</b></span>
                 </li>
-                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
+                <li
+                  style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
                   <span style="color: var(--pri); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
                   <span><b>Audience:</b> Squad organizers &amp; <b>District Prime / Zomato Gold</b> subscribers</span>
                 </li>
-                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
+                <li
+                  style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
                   <span style="color: var(--pri); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
                   <span><b>Validation:</b> Validate SplitPay payment velocity &amp; blind voting quorum</span>
                 </li>
@@ -3466,12 +3400,14 @@
             </div>
 
             <!-- Target Milestone Bottom Box -->
-            <div style="margin-top: 14px; background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 10px; padding: 10px 14px;">
+            <div
+              style="margin-top: 14px; background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 10px; padding: 10px 14px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
                 <span style="color: var(--pri); font-weight: 800; font-size: 13.5px;">Target: 25k Prime Squads</span>
                 <span class="mini-status-chip pri" style="font-size: 9.5px; font-weight: 800;">Invite-Only</span>
               </div>
-              <span style="color: var(--ink-sub); font-size: 11.5px; font-weight: 500; display: block;">Zero CAC acquisition via existing subscriber base</span>
+              <span style="color: var(--ink-sub); font-size: 11.5px; font-weight: 500; display: block;">Zero CAC
+                acquisition via existing subscriber base</span>
             </div>
           </div>
 
@@ -3480,23 +3416,29 @@
             style="padding: 18px 20px; border-top: 4px solid var(--accent-mint); display: flex; flex-direction: column; justify-content: space-between; background: #FFFFFF; box-shadow: 0 4px 18px rgba(16, 185, 129, 0.06); border-radius: 16px;">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span class="metric-pill mint" style="font-size: 12px; font-weight: 800; padding: 3px 9px;">PHASE 2 · Q2</span>
-                <span class="mini-status-chip ok" style="font-size: 11px; font-weight: 800; padding: 2px 7px;">Public Rollout</span>
+                <span class="metric-pill mint" style="font-size: 12px; font-weight: 800; padding: 3px 9px;">PHASE 2 ·
+                  Q2</span>
+                <span class="mini-status-chip ok" style="font-size: 11px; font-weight: 800; padding: 2px 7px;">Public
+                  Rollout</span>
               </div>
               <h3 style="font-size: 18px; font-weight: 800; color: var(--ink); margin: 0 0 12px; line-height: 1.3;">
                 Top Tier-1 Scale · All Users
               </h3>
 
               <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px;">
-                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
+                <li
+                  style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
                   <span style="color: var(--accent-mint); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
-                  <span><b>Cities:</b> Unrestricted rollout in <b>Delhi NCR, Mumbai, Bengaluru, Hyderabad &amp; Pune</b></span>
+                  <span><b>Cities:</b> Unrestricted rollout in <b>Delhi NCR, Mumbai, Bengaluru, Hyderabad &amp;
+                      Pune</b></span>
                 </li>
-                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
+                <li
+                  style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
                   <span style="color: var(--accent-mint); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
                   <span><b>Viral Loop:</b> Squad growth flywheel unleashed via WhatsApp micro-links</span>
                 </li>
-                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
+                <li
+                  style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
                   <span style="color: var(--accent-mint); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
                   <span><b>Frictionless:</b> Vote and split bills instantly on mobile web without app wall</span>
                 </li>
@@ -3504,12 +3446,15 @@
             </div>
 
             <!-- Target Milestone Bottom Box -->
-            <div style="margin-top: 14px; background: #F2FBF7; border: 1px solid #C4F3DF; border-radius: 10px; padding: 10px 14px;">
+            <div
+              style="margin-top: 14px; background: #F2FBF7; border: 1px solid #C4F3DF; border-radius: 10px; padding: 10px 14px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-                <span style="color: var(--accent-mint); font-weight: 800; font-size: 13.5px;">Target: K-Factor &gt; 1.40</span>
+                <span style="color: var(--accent-mint); font-weight: 800; font-size: 13.5px;">Target: K-Factor &gt;
+                  1.40</span>
                 <span class="mini-status-chip ok" style="font-size: 9.5px; font-weight: 800;">Public Viral</span>
               </div>
-              <span style="color: var(--ink-sub); font-size: 11.5px; font-weight: 500; display: block;">Every 1 organizer host brings 5 new active attendees</span>
+              <span style="color: var(--ink-sub); font-size: 11.5px; font-weight: 500; display: block;">Every 1
+                organizer host brings 5 new active attendees</span>
             </div>
           </div>
 
@@ -3518,36 +3463,48 @@
             style="padding: 18px 20px; border-top: 4px solid var(--accent-coral); display: flex; flex-direction: column; justify-content: space-between; background: #FFFFFF; box-shadow: 0 4px 18px rgba(255, 51, 102, 0.06); border-radius: 16px;">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span class="metric-pill coral" style="font-size: 12px; font-weight: 800; padding: 3px 9px;">PHASE 3 · Q3</span>
-                <span class="mini-status-chip bad" style="font-size: 11px; font-weight: 800; padding: 2px 7px;">Pan-India</span>
+                <span class="metric-pill coral" style="font-size: 12px; font-weight: 800; padding: 3px 9px;">PHASE 3 ·
+                  Q3</span>
+                <span class="mini-status-chip bad"
+                  style="font-size: 11px; font-weight: 800; padding: 2px 7px;">Pan-India</span>
               </div>
               <h3 style="font-size: 18px; font-weight: 800; color: var(--ink); margin: 0 0 12px; line-height: 1.3;">
                 Other Tier-1 Cities &amp; Merchant B2B
               </h3>
 
               <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px;">
-                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
-                  <span style="color: var(--accent-coral); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
-                  <span><b>Cities:</b> Expansion to <b>Chennai, Kolkata, Ahmedabad, Jaipur, Goa &amp; Chandigarh</b></span>
+                <li
+                  style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
+                  <span
+                    style="color: var(--accent-coral); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
+                  <span><b>Cities:</b> Expansion to <b>Chennai, Kolkata, Ahmedabad, Jaipur, Goa &amp;
+                      Chandigarh</b></span>
                 </li>
-                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
-                  <span style="color: var(--accent-coral); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
+                <li
+                  style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
+                  <span
+                    style="color: var(--accent-coral); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
                   <span><b>Merchant B2B:</b> Live table-auction API, yield pricing &amp; sponsored squad perks</span>
                 </li>
-                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
-                  <span style="color: var(--accent-coral); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
+                <li
+                  style="display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; color: var(--ink); line-height: 1.4;">
+                  <span
+                    style="color: var(--accent-coral); font-weight: 900; font-size: 17px; line-height: 1.1;">•</span>
                   <span><b>Monetisation:</b> Dynamic table yield engine &amp; corporate booking perks</span>
                 </li>
               </ul>
             </div>
 
             <!-- Target Milestone Bottom Box -->
-            <div style="margin-top: 14px; background: #FFF5F7; border: 1px solid #FFD4DE; border-radius: 10px; padding: 10px 14px;">
+            <div
+              style="margin-top: 14px; background: #FFF5F7; border: 1px solid #FFD4DE; border-radius: 10px; padding: 10px 14px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-                <span style="color: var(--accent-coral); font-weight: 800; font-size: 13.5px;">Target: 1.2M Outings / Mo</span>
+                <span style="color: var(--accent-coral); font-weight: 800; font-size: 13.5px;">Target: 1.2M Outings /
+                  Mo</span>
                 <span class="mini-status-chip bad" style="font-size: 9.5px; font-weight: 800;">Pan-India</span>
               </div>
-              <span style="color: var(--ink-sub); font-size: 11.5px; font-weight: 500; display: block;">Dynamic merchant table yield engine across 12+ metro hubs</span>
+              <span style="color: var(--ink-sub); font-size: 11.5px; font-weight: 500; display: block;">Dynamic merchant
+                table yield engine across 12+ metro hubs</span>
             </div>
           </div>
 
@@ -3558,7 +3515,8 @@
           <span>© Eternal · District by Zomato · Phased Go-To-Market Execution Horizons.</span>
           <div style="display: flex; gap: 12px; align-items: center;">
             <a href="index.html#prototype" target="_top"
-              onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">Interactive Live Sandbox ↗</a>
+              onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">Interactive
+              Live Sandbox ↗</a>
             <a href="https://www.eternal.com/culture/" target="_blank" rel="noopener">Eternal Culture</a>
           </div>
         </div>
@@ -3836,6 +3794,21 @@
 
   <script>
     (() => {
+      // Dynamic Auto-Scale to any display using fixed 1920x1080 (16:9) canvas
+      function scaleDeck() {
+        const targetW = 1920;
+        const targetH = 1080;
+        const scale = Math.min(window.innerWidth / targetW, window.innerHeight / targetH);
+        const vp = document.querySelector('.deck-viewport');
+        if (vp) {
+          vp.style.transform = `scale(${scale})`;
+        }
+      }
+      window.addEventListener('resize', scaleDeck);
+      window.addEventListener('orientationchange', scaleDeck);
+      window.addEventListener('DOMContentLoaded', scaleDeck);
+      scaleDeck();
+
       if (window.self !== window.top) {
         document.body.classList.add('is-embedded');
       }
@@ -3853,7 +3826,7 @@
 
       // Automatic celebration config - exclusively for Slide 7 where Doodle is introduced
       const AUTO_CELEBRATE = {
-        6: 'd👀dle: The Eyes That See What Everyone Wants'
+        6: true
       };
 
       // Build drawer dots
@@ -3883,10 +3856,10 @@
         const dots = drawer.querySelectorAll('.drawer-dot');
         dots.forEach((d, i) => d.classList.toggle('active', i === curIndex));
 
-        // Automatic in-slide celebration trigger
+        // Automatic in-slide celebration trigger (Confetti only)
         if (AUTO_CELEBRATE[curIndex]) {
           setTimeout(() => {
-            triggerSlideHurray(slides[curIndex].id, AUTO_CELEBRATE[curIndex]);
+            triggerSlideHurray(slides[curIndex].id);
           }, 300);
         }
 
@@ -3943,8 +3916,8 @@
         }
       });
 
-      // Strict In-Slide Hurray & Confetti
-      window.triggerSlideHurray = function (slideId, messageText) {
+      // Strict In-Slide Hurray & Confetti (Confetti only, no text badge)
+      window.triggerSlideHurray = function (slideId) {
         const sl = document.getElementById(slideId);
         if (!sl) return;
 
@@ -3955,7 +3928,7 @@
         const wrap = document.createElement('div');
         wrap.className = 'slide-hurray-wrapper';
 
-        let html = `<div class="slide-hurray-badge">${messageText}</div>`;
+        let html = '';
         const colors = ['#6830F9', '#FF3366', '#FFB300', '#10B981', '#2D7FF9'];
 
         for (let k = 0; k < 60; k++) {
