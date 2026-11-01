@@ -1023,13 +1023,159 @@
       border-color: var(--pri);
     }
 
-    body.is-embedded .master-header {
-      display: none !important;
+    /* ==========================================================
+       SLIDE 6: 16:9 PM PERFORMANCE DASHBOARD STYLES
+       ========================================================== */
+    .dash-slide-view {
+      padding: 0 !important;
+      overflow: hidden !important;
+      background: #F6F3FD !important;
+      border: 1px solid var(--line) !important;
+      border-radius: 24px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      position: absolute !important;
     }
 
-    body.is-embedded .deck-viewport {
-      height: 100vh;
-      max-height: 100vh;
+    .dash-image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F6F3FD;
+      overflow: hidden;
+      border-radius: 22px;
+    }
+
+    .dash-image-asset {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 22px;
+      user-select: none;
+      -webkit-user-drag: none;
+      cursor: zoom-in;
+      transition: transform 0.2s ease;
+    }
+
+    .dash-fullscreen-trigger {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(22, 15, 46, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      border-radius: 99px;
+      padding: 7px 15px;
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      z-index: 30;
+      box-shadow: 0 6px 20px rgba(22, 15, 46, 0.25);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      letter-spacing: 0.2px;
+    }
+
+    .dash-fullscreen-trigger:hover {
+      background: var(--pri);
+      border-color: rgba(255, 255, 255, 0.45);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 24px rgba(104, 48, 249, 0.4);
+    }
+
+    .dash-fullscreen-trigger i {
+      font-size: 12px;
+    }
+
+    /* High-Resolution Fullscreen Modal Overlay */
+    .dash-fs-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 6, 22, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 999999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      cursor: zoom-out;
+    }
+
+    .dash-fs-overlay.active {
+      display: flex;
+      animation: dashFsFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes dashFsFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .dash-fs-content {
+      position: relative;
+      max-width: 98vw;
+      max-height: 96vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .dash-fs-img {
+      max-width: 98vw;
+      max-height: 96vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      border-radius: 14px;
+    }
+
+    .dash-fs-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(22, 15, 46, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 8px 18px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+
+    .dash-fs-close-btn:hover {
+      background: var(--accent-coral);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -2032,180 +2178,30 @@
 
 
       <!-- ========================================================
-         SLIDE 6: 16:9 INTERACTIVE PM TELEMETRY DASHBOARD
+         SLIDE 6: DISTRICT BUSINESS & PRODUCT TELEMETRY DASHBOARD
          ======================================================== -->
-      <section class="slide-scene" id="slide-6">
-        <div class="slide-topbar">
-          <span class="slide-eyebrow"><span class="dot"></span>06 · PM TELEMETRY DASHBOARD</span>
-          <!-- Granular Filter Bar -->
-          <div style="display: flex; gap: 8px; align-items:center;">
-            <!-- City Filter -->
-            <select id="dashCityFilter" onchange="updateDashData()"
-              style="padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line); font-size: 11px; font-weight: 700; color: var(--pri); background: #FFF; cursor:pointer;">
-              <option value="all">All Metros (Pan-India)</option>
-              <option value="delhi">Delhi NCR</option>
-              <option value="mumbai">Mumbai</option>
-              <option value="bengaluru">Bengaluru</option>
-              <option value="chennai">Chennai</option>
-              <option value="hyderabad">Hyderabad</option>
-            </select>
-
-            <!-- Category Segment Filter -->
-            <select id="dashCatFilter" onchange="updateDashData()"
-              style="padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line); font-size: 11px; font-weight: 700; color: var(--ink-sub); background: #FFF; cursor:pointer;">
-              <option value="all">All Categories</option>
-              <option value="dining">Dining &amp; Bars</option>
-              <option value="movies">Movies &amp; IMAX</option>
-              <option value="turfs">Turfs &amp; Sports</option>
-              <option value="gigs">Live Gigs</option>
-            </select>
-
-            <!-- Time Granularity Filter -->
-            <div style="display: flex; background: var(--line-subtle); padding: 2px; border-radius: 99px;">
-              <button id="btnHourly" onclick="setDashTime('hourly')"
-                style="padding: 3px 9px; border-radius: 99px; border: 0; font-size: 10px; font-weight: 800; background: transparent; color: var(--ink-sub); cursor:pointer;">Hourly</button>
-              <button id="btnDaily" onclick="setDashTime('daily')"
-                style="padding: 3px 9px; border-radius: 99px; border: 0; font-size: 10px; font-weight: 800; background: var(--pri); color: #FFF; cursor:pointer;">Daily</button>
-              <button id="btnWeekly" onclick="setDashTime('weekly')"
-                style="padding: 3px 9px; border-radius: 99px; border: 0; font-size: 10px; font-weight: 800; background: transparent; color: var(--ink-sub); cursor:pointer;">Weekly</button>
-            </div>
-          </div>
-        </div>
-
-        <h2 class="slide-heading" style="margin-bottom: 6px;">Live Telemetry &amp; Squad Outing Velocity</h2>
-
-        <!-- Top Row: 4 Granular KPI Cards -->
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 8px;">
-          <div class="card purple-tint" style="padding: 9px 12px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size: 10px; color: var(--ink-sub); font-weight: 700;">Squad Outing GMV</span>
-              <span id="kpiGmvBadge" class="mini-status-chip ok">▲ +34% MoM</span>
-            </div>
-            <div id="kpiGmv" style="font-size: 19px; font-weight: 900; color: var(--pri); margin: 2px 0;">₹18.4 Cr</div>
-            <span style="font-size: 9.5px; color: var(--ink-muted);">Basket: ₹2,420 / pax</span>
-          </div>
-
-          <div class="card" style="padding: 9px 12px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size: 10px; color: var(--ink-sub); font-weight: 700;">Confirmed Outings (CGO)</span>
-              <span class="mini-status-chip pri">Viral K: 1.48</span>
-            </div>
-            <div id="kpiCgo" style="font-size: 19px; font-weight: 900; color: var(--ink); margin: 2px 0;">46,200</div>
-            <span style="font-size: 9.5px; color: var(--ink-muted);">Avg 5.2 people / squad</span>
-          </div>
-
-          <div class="card" style="padding: 9px 12px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size: 10px; color: var(--ink-sub); font-weight: 700;">SplitPay Settle Rate</span>
-              <span class="mini-status-chip ok">Avg 22 mins</span>
-            </div>
-            <div id="kpiSplit" style="font-size: 19px; font-weight: 900; color: var(--accent-mint); margin: 2px 0;">
-              94.2%</div>
-            <span style="font-size: 9.5px; color: var(--ink-muted);">Zero debt carried by host</span>
-          </div>
-
-          <div class="card" style="padding: 9px 12px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size: 10px; color: var(--ink-sub); font-weight: 700;">Squad NPS &amp; CSAT</span>
-              <span class="mini-status-chip ok">99.2% Vegan Match</span>
-            </div>
-            <div id="kpiNps" style="font-size: 19px; font-weight: 900; color: var(--ink); margin: 2px 0;">4.78 ★</div>
-            <span style="font-size: 9.5px; color: var(--ink-muted);">NPS 76 · Zero Awkwardness</span>
-          </div>
-        </div>
-
-        <!-- Bottom Layout: Chart with Animated Dips/Highs + Auto-Derived Insights & Funnel -->
-        <div style="display:grid; grid-template-columns: 1.25fr 1fr; gap: 12px; flex: 1;">
-          <!-- Left: SVG Chart with Animated Dip and High Callouts -->
-          <div class="card"
-            style="padding: 10px 14px; display:flex; flex-direction:column; justify-content:space-between; position:relative;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <b style="font-size: 12px; color: var(--ink);">Squad Demand Curve &amp; Conversion Telemetry</b>
-              <span id="chartTimeSpanLabel" style="font-size: 10px; color: var(--pri); font-weight:700;">Live Feed:
-                24-Hour Cycle</span>
-            </div>
-
-            <!-- The SVG Container with absolute positioned animated callouts -->
-            <div style="height: 125px; width: 100%; position: relative; margin: 4px 0;">
-              <!-- Dip Callout Badge with Pulsing Red Dot -->
-              <div id="dipBadge" class="metric-callout-marker dip" style="left: 32%; top: 62%;">
-                <span class="pulse-ring-dot red"></span>
-                <span id="dipLabel">📉 Dip: 3:15 PM Hold Timeout (-38%)</span>
-              </div>
-
-              <!-- Peak Callout Badge with Pulsing Green Dot -->
-              <div id="peakBadge" class="metric-callout-marker peak" style="right: 8%; top: 10%;">
-                <span class="pulse-ring-dot green"></span>
-                <span id="peakLabel">🚀 Peak: 8:20 PM Cinema+Dinner (+86%)</span>
-              </div>
-
-              <svg id="dashSvgChart" viewBox="0 0 380 100" style="width: 100%; height: 100%; overflow: visible;">
-                <defs>
-                  <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#6830F9" stop-opacity="0.32" />
-                    <stop offset="100%" stop-color="#6830F9" stop-opacity="0.0" />
-                  </linearGradient>
-                </defs>
-                <path id="dashChartArea" d="M 0 85 Q 70 80, 130 78 T 200 48 T 280 18 T 380 12 L 380 100 L 0 100 Z"
-                  fill="url(#chartGrad)" />
-                <path id="dashChartLine" d="M 0 85 Q 70 80, 130 78 T 200 48 T 280 18 T 380 12" fill="none"
-                  stroke="#6830F9" stroke-width="3" stroke-linecap="round" />
-                <!-- Dip Point -->
-                <circle id="chartDipPt" cx="130" cy="78" r="5" fill="#FF3366" />
-                <!-- Peak Point -->
-                <circle id="chartPeakPt" cx="340" cy="14" r="5" fill="#10B981" />
-              </svg>
-            </div>
-
-            <div style="display:flex; justify-content:space-between; font-size:9px; color:var(--ink-muted);">
-              <span id="lblTime1">11:00 AM</span>
-              <span id="lblTime2">03:00 PM (Lull Window)</span>
-              <span id="lblTime3">06:30 PM (Voting Closes)</span>
-              <span id="lblTime4">09:30 PM (Nightlife Peak)</span>
-            </div>
-
-            <!-- Bottom Funnel Bar -->
-            <div
-              style="background:#FAF8FF; border-radius:10px; padding:6px 10px; margin-top:6px; display:flex; justify-content:space-between; align-items:center; font-size:10px;">
-              <span style="font-weight:700; color:var(--ink-sub);">Outing Funnel:</span>
-              <span>Prompt: <b>100%</b></span>
-              <span style="color:#C3B4E8;">→</span>
-              <span>Link Opened: <b>88%</b></span>
-              <span style="color:#C3B4E8;">→</span>
-              <span>Votes In: <b>78%</b></span>
-              <span style="color:#C3B4E8;">→</span>
-              <span style="color:var(--accent-mint); font-weight:800;">Settled: 71%</span>
-            </div>
-          </div>
-
-          <!-- Right: Auto-Derived AI Insights Box (Changes dynamically with filters) -->
-          <div class="card purple-tint"
-            style="padding: 10px 14px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                <b style="font-size: 12px; color: var(--pri);">Auto-Derived PM Insights</b>
-                <span class="mini-status-chip pri" id="insightsTimestamp">Live ML Engine</span>
-              </div>
-              <div id="derivedInsightsList" style="display:flex; flex-direction:column; gap:6px; margin-top:6px;">
-                <!-- Dynamically populated via JS -->
-              </div>
-            </div>
-
-            <div
-              style="border-top:1px dashed var(--line); padding-top:6px; margin-top:6px; display:flex; justify-content:space-between; align-items:center; font-size:9.5px; color:var(--ink-muted);">
-              <span>Telemetry filter synced across 6 hubs</span>
-              <span style="color:var(--pri); font-weight:800;">Real-time Kafka Stream ✓</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="footnote-bar">
-          <span>Metrics source: District Analytics Internal Warehouse · Aggregated across Tier-1 Beta cohorts.</span>
-          <a href="index.html#prototype" target="_top"
-            onclick="if(window.parent&&window.parent.switchView){window.parent.switchView('prototype');return false;}">Inspect
-            Full Engine ↗</a>
+      <section class="slide-scene dash-slide-view" id="slide-6">
+        <div class="dash-image-container" id="dashImageContainer">
+          <img src="assets/PM_Dashboard.png" alt="District PM Performance Dashboard - 16:9" class="dash-image-asset" id="dashImgElem" onclick="openDashboardFullscreen()" title="Click to expand to full screen" />
+          
+          <!-- Expand to Fullscreen Action Button in Top-Right Corner -->
+          <button type="button" class="dash-fullscreen-trigger" onclick="openDashboardFullscreen()" title="Expand Dashboard to Full Screen (ESC to close)">
+            <i class="fa-solid fa-expand"></i>
+            <span>Full Screen</span>
+          </button>
         </div>
       </section>
+
+      <!-- High-Resolution Fullscreen Dashboard Modal Overlay -->
+      <div id="dashFullscreenOverlay" class="dash-fs-overlay" onclick="closeDashboardModal(event)">
+        <div class="dash-fs-content">
+          <img src="assets/PM_Dashboard.png" alt="District PM Performance Dashboard - Full Screen" class="dash-fs-img" />
+          <button type="button" class="dash-fs-close-btn" onclick="closeDashboardModal()" title="Close Fullscreen (Esc)">
+            <i class="fa-solid fa-xmark"></i>
+            <span>Close (Esc)</span>
+          </button>
+        </div>
+      </div>
 
       <!-- ========================================================
          SLIDE 7: INTRODUCING DOODLE (THE HERO EYE CONCEPT)
@@ -3992,368 +3988,1954 @@
         }
       };
 
-      // Slide 6: Granular Multi-Dimensional Telemetry Simulation Data
-      const DASH_DATA = {
-        all: {
-          hourly: {
-            gmv: '₹1.82 Cr', cgo: '4,640', split: '93.8%', nps: '4.76 ★',
-            pathArea: 'M 0 85 Q 80 82, 130 80 T 200 50 T 280 20 T 380 12 L 380 100 L 0 100 Z',
-            pathLine: 'M 0 85 Q 80 82, 130 80 T 200 50 T 280 20 T 380 12',
-            dipPos: { left: '34%', top: '64%' }, dipLabel: '📉 Dip: 3:15 PM Hold Timeout (-38%)',
-            peakPos: { right: '8%', top: '10%' }, peakLabel: '🚀 Peak: 8:20 PM Cinema+Dinner (+86%)',
-            dipPt: { cx: 130, cy: 80 }, peakPt: { cx: 340, cy: 14 },
-            timeSpan: 'Live Feed: 24-Hour Hourly Cycle',
-            insights: [
-              { tag: 'Anomalous Dip', cls: 'bad', text: '<b>3:15 PM Hold Timeout:</b> 38% drop in squad voting completion during mid-afternoon office hours. Auto-nudge interval reduced from 15m to 8m.' },
-              { tag: 'Prime Multi-Stop', cls: 'ok', text: '<b>8:20 PM Peak Conversion:</b> 72% of evening cinema bookers add late-night dining within 600m when prompted by automated squad suggestions.' },
-              { tag: 'SplitPay Velocity', cls: 'pri', text: '<b>UPI Auto-Collect:</b> 91% of squad debts cleared within 18 minutes of table QR scan.' }
-            ]
-          },
-          daily: {
-            gmv: '₹18.4 Cr', cgo: '46,200', split: '94.2%', nps: '4.78 ★',
-            pathArea: 'M 0 80 Q 70 76, 130 75 T 210 42 T 290 18 T 380 10 L 380 100 L 0 100 Z',
-            pathLine: 'M 0 80 Q 70 76, 130 75 T 210 42 T 290 18 T 380 10',
-            dipPos: { left: '32%', top: '60%' }, dipLabel: '📉 Dip: Tuesday 4 PM Chat Decay (-28%)',
-            peakPos: { right: '7%', top: '8%' }, peakLabel: '🚀 Peak: Saturday 8 PM Weekend Surge (+112%)',
-            dipPt: { cx: 130, cy: 75 }, peakPt: { cx: 330, cy: 12 },
-            timeSpan: 'Aggregated Feed: 7-Day Daily Cycle',
-            insights: [
-              { tag: 'Cross-Category Lift', cls: 'ok', text: '<b>Weekend Bundling:</b> Turf bookings paired with brewery tables generated ₹3.2 Cr in incremental GMV across metros.' },
-              { tag: 'Dietary Shield Win', cls: 'pri', text: '<b>The Vegan Anchor:</b> 41% of group venue selections were decided by 1 squad member’s dietary preference.' },
-              { tag: 'Zero Debt Adoption', cls: 'ok', text: '<b>Zero Ghosting:</b> Organisers using automated squad holds reported zero unpaid balances compared to ₹4,800 historic debt.' }
-            ]
-          },
-          weekly: {
-            gmv: '₹118 Cr', cgo: '312,000', split: '95.6%', nps: '4.81 ★',
-            pathArea: 'M 0 72 Q 75 65, 140 60 T 220 32 T 300 15 T 380 8 L 380 100 L 0 100 Z',
-            pathLine: 'M 0 72 Q 75 65, 140 60 T 220 32 T 300 15 T 380 8',
-            dipPos: { left: '35%', top: '52%' }, dipLabel: '📉 Dip: Week 2 Mid-Month Exam Lull (-18%)',
-            peakPos: { right: '6%', top: '6%' }, peakLabel: '🚀 Peak: Month-End Payday Weekend (+140%)',
-            dipPt: { cx: 140, cy: 60 }, peakPt: { cx: 350, cy: 8 },
-            timeSpan: 'Macro Feed: 30-Day Monthly Trend',
-            insights: [
-              { tag: 'Viral K-Factor', cls: 'pri', text: '<b>Organic Expansion:</b> Every 1 active squad host invites an average of 5.2 new friends, of whom 28% create their own squad outing.' },
-              { tag: 'Merchant Retention', cls: 'ok', text: '<b>Partner Venues:</b> Merchant churn dropped below 1.2% due to guaranteed advance prepayments.' },
-              { tag: 'SplitPay Volume', cls: 'ok', text: '<b>Fintech Velocity:</b> Handled over 1.6M individual UPI micro-settlements without manual intervention.' }
-            ]
-          }
-        },
-        delhi: {
-          hourly: {
-            gmv: '₹0.68 Cr', cgo: '1,720', split: '93.5%', nps: '4.74 ★',
-            pathArea: 'M 0 88 Q 80 85, 130 82 T 200 52 T 280 22 T 380 15 L 380 100 L 0 100 Z',
-            pathLine: 'M 0 88 Q 80 85, 130 82 T 200 52 T 280 22 T 380 15',
-            dipPos: { left: '33%', top: '66%' }, dipLabel: '📉 Dip: Gurugram CyberHub Traffic Stall',
-            peakPos: { right: '8%', top: '12%' }, peakLabel: '🚀 Peak: Hauz Khas + Connaught Pl Surge',
-            dipPt: { cx: 130, cy: 82 }, peakPt: { cx: 340, cy: 15 },
-            timeSpan: 'Delhi NCR · 24-Hour Cycle',
-            insights: [
-              { tag: 'NCR Transit Buffer', cls: 'warn', text: '<b>Traffic Buffer Optimization:</b> Added +20 min default transit buffer between Gurugram & South Delhi venues.' },
-              { tag: 'Late Night Dining', cls: 'ok', text: '<b>Midnight Surge:</b> 54% of dinner bookings in Delhi NCR lock in between 9:30 PM and 11 PM.' },
-              { tag: 'Prime Share', cls: 'pri', text: '<b>Zomato Gold Overlap:</b> 68% of Delhi NCR hosts are active Gold subscribers.' }
-            ]
-          },
-          daily: {
-            gmv: '₹6.8 Cr', cgo: '17,400', split: '93.8%', nps: '4.75 ★',
-            pathArea: 'M 0 82 Q 75 78, 130 76 T 210 44 T 290 20 T 380 12 L 380 100 L 0 100 Z',
-            pathLine: 'M 0 82 Q 75 78, 130 76 T 210 44 T 290 20 T 380 12',
-            dipPos: { left: '32%', top: '62%' }, dipLabel: '📉 Dip: Wednesday Mid-Week Dip (-22%)',
-            peakPos: { right: '7%', top: '10%' }, peakLabel: '🚀 Peak: Friday Evening Hauz Khas (+95%)',
-            dipPt: { cx: 130, cy: 76 }, peakPt: { cx: 330, cy: 14 },
-            timeSpan: 'Delhi NCR · 7-Day Cycle',
-            insights: [
-              { tag: 'Nightlife Density', cls: 'ok', text: '<b>High Basket Size:</b> Delhi NCR basket averages ₹2,850/pax, highest among Tier-1 metros.' },
-              { tag: 'Cinema Holds', cls: 'pri', text: '<b>IMAX Selectivity:</b> Select CITYWALK & Ambience Mall screenings drive 42% of weekend bundles.' },
-              { tag: 'Zero Debt Impact', cls: 'ok', text: '<b>Organiser Relief:</b> ₹1.4 Cr in upfront host debt prevented this week in NCR.' }
-            ]
-          },
-          weekly: {
-            gmv: '₹44 Cr', cgo: '118,000', split: '95.1%', nps: '4.79 ★',
-            pathArea: 'M 0 74 Q 75 66, 140 62 T 220 34 T 300 16 T 380 10 L 380 100 L 0 100 Z',
-            pathLine: 'M 0 74 Q 75 66, 140 62 T 220 34 T 300 16 T 380 10',
-            dipPos: { left: '35%', top: '54%' }, dipLabel: '📉 Dip: NCR Smog Index Advisory (-14%)',
-            peakPos: { right: '6%', top: '8%' }, peakLabel: '🚀 Peak: Weekend Outing Cluster (+125%)',
-            dipPt: { cx: 140, cy: 62 }, peakPt: { cx: 350, cy: 10 },
-            timeSpan: 'Delhi NCR · 30-Day Trend',
-            insights: [
-              { tag: 'Indoor Transition', cls: 'pri', text: '<b>Indoor Venue Shift:</b> Mall and bowling complexes saw +48% demand surge during high AQI periods.' },
-              { tag: 'Host Retention', cls: 'ok', text: '<b>High Repeat:</b> Organizers in NCR execute 3.4 squad outings per month on average.' },
-              { tag: 'Merchant Growth', cls: 'ok', text: '<b>POS Integrations:</b> 340+ premium Delhi NCR restaurants enabled two-way cloud sync.' }
-            ]
-          }
-        },
-        mumbai: {
-          hourly: {
-            gmv: '₹0.62 Cr', cgo: '1,590', split: '94.6%', nps: '4.80 ★',
-            pathArea: 'M 0 84 Q 80 80, 130 78 T 200 48 T 280 18 T 380 12 L 380 100 L 0 100 Z',
-            pathLine: 'M 0 84 Q 80 80, 130 78 T 200 48 T 280 18 T 380 12',
-            dipPos: { left: '33%', top: '62%' }, dipLabel: '📉 Dip: 4 PM Local Train Commute Gap',
-            peakPos: { right: '8%', top: '10%' }, peakLabel: '🚀 Peak: Bandra & BKC Sundowner Rush (+92%)',
-            dipPt: { cx: 130, cy: 78 }, peakPt: { cx: 340, cy: 12 },
-            timeSpan: 'Mumbai · 24-Hour Cycle',
-            insights: [
-              { tag: 'Bandra Cluster', cls: 'ok', text: '<b>High Turnaround:</b> Bandra West rooftop venues see 92% table occupancy via Doodle auto-holds.' },
-              { tag: 'Fast Settlements', cls: 'pri', text: '<b>SplitPay Speed:</b> Mumbai leads all metros in payment speed (average 16 mins to complete 100%).' },
-              { tag: 'Coastal Transit', cls: 'ok', text: '<b>Sea Link Routes:</b> Added South Mumbai to BKC dynamic geo-fencing for seamless itinerary flow.' }
-            ]
-          },
-          daily: {
-            gmv: '₹6.2 Cr', cgo: '15,800', split: '94.9%', nps: '4.82 ★',
-            pathArea: 'M 0 78 Q 80 70, 140 48 T 260 16 T 340 12 L 340 100 L 0 100 Z',
-            pathLine: 'M 0 78 Q 80 70, 140 48 T 260 16 T 340 12',
-            dipPos: { left: '31%', top: '58%' }, dipLabel: '📉 Dip: Mon/Tue Monsoon Rain Caution',
-            peakPos: { right: '7%', top: '8%' }, peakLabel: '🚀 Peak: Saturday BKC Rooftop Peak (+118%)',
-            dipPt: { cx: 140, cy: 48 }, peakPt: { cx: 320, cy: 12 },
-            timeSpan: 'Mumbai · 7-Day Cycle',
-            insights: [
-              { tag: 'Cocktail Culture', cls: 'ok', text: '<b>Craft Dining:</b> High cocktail and small-plate cross-sell at BKC and Lower Parel.' },
-              { tag: 'Anonymous Shield', cls: 'pri', text: '<b>Budget Balancing:</b> Anonymous sweet-spot calculation prevented 62% of potential cancellations.' },
-              { tag: 'Customer CSAT', cls: 'ok', text: '<b>Zero Awkwardness:</b> 4.82 NPS score driven by automatic bill splitting at venue.' }
-            ]
-          },
-          weekly: {
-            gmv: '₹39 Cr', cgo: '104,000', split: '96.2%', nps: '4.84 ★',
-            pathArea: 'M 0 68 Q 70 55, 130 32 T 250 12 T 340 8 L 340 100 L 0 100 Z',
-            pathLine: 'M 0 68 Q 70 55, 130 32 T 250 12 T 340 8',
-            dipPos: { left: '34%', top: '48%' }, dipLabel: '📉 Dip: Coastal Tide Weather Shift',
-            peakPos: { right: '6%', top: '6%' }, peakLabel: '🚀 Peak: Payday Weekend (+135%)',
-            dipPt: { cx: 130, cy: 32 }, peakPt: { cx: 330, cy: 8 },
-            timeSpan: 'Mumbai · 30-Day Trend',
-            insights: [
-              { tag: 'Live Events Growth', cls: 'pri', text: '<b>Insider Synergy:</b> Paytm Insider concert tickets integrated with after-party table holds generated +45% GMV.' },
-              { tag: 'Merchant Loyalty', cls: 'ok', text: '<b>Direct Settlement:</b> 99.4% merchant satisfaction on same-day escrow settlements.' },
-              { tag: 'Squad Expansion', cls: 'ok', text: '<b>Viral Loop:</b> K-factor in Mumbai reached 1.54, highest across India.' }
-            ]
-          }
-        },
-        bengaluru: {
-          hourly: {
-            gmv: '₹0.56 Cr', cgo: '1,340', split: '95.4%', nps: '4.78 ★',
-            pathArea: 'M 0 86 Q 85 82, 135 80 T 205 50 T 285 20 T 380 14 L 380 100 L 0 100 Z',
-            pathLine: 'M 0 86 Q 85 82, 135 80 T 205 50 T 285 20 T 380 14',
-            dipPos: { left: '33%', top: '65%' }, dipLabel: '📉 Dip: Silk Board & ORR Traffic Bottleneck',
-            peakPos: { right: '8%', top: '10%' }, peakLabel: '🚀 Peak: Indiranagar & Koramangala Brews (+98%)',
-            dipPt: { cx: 135, cy: 80 }, peakPt: { cx: 340, cy: 14 },
-            timeSpan: 'Bengaluru · 24-Hour Cycle',
-            insights: [
-              { tag: 'Brewery Clustering', cls: 'ok', text: '<b>Microbrewery Dominance:</b> 74% of weekend Doodles in Bengaluru include craft brewery holds.' },
-              { tag: 'Traffic Heuristics', cls: 'warn', text: '<b>Auto-Heal Trigger:</b> Traffic sensor updates automatically adjust reservation times by +25 mins.' },
-              { tag: 'Tech Cohort', cls: 'pri', text: '<b>Instant UPI:</b> 98% of payments executed via GPay / PhonePe within 12 minutes.' }
-            ]
-          },
-          daily: {
-            gmv: '₹5.4 Cr', cgo: '13,000', split: '95.8%', nps: '4.79 ★',
-            pathArea: 'M 0 82 Q 85 72, 145 42 T 265 18 T 340 14 L 340 100 L 0 100 Z',
-            pathLine: 'M 0 82 Q 85 72, 145 42 T 265 18 T 340 14',
-            dipPos: { left: '32%', top: '60%' }, dipLabel: '📉 Dip: Thursday Tech Sprint Deadline (-24%)',
-            peakPos: { right: '7%', top: '9%' }, peakLabel: '🚀 Peak: Friday Tech Squad Outing Surge (+110%)',
-            dipPt: { cx: 145, cy: 42 }, peakPt: { cx: 320, cy: 14 },
-            timeSpan: 'Bengaluru · 7-Day Cycle',
-            insights: [
-              { tag: 'Team Outing Engine', cls: 'ok', text: '<b>B2B Squads:</b> Thursday-Friday tech team outings represent 48% of total Bengaluru GMV.' },
-              { tag: 'Dietary Variety', cls: 'pri', text: '<b>Vegan & Gluten-Free:</b> Highest proportion of customized dietary tags among all metros (32%).' },
-              { tag: 'Turf Bookings', cls: 'ok', text: '<b>Box Cricket & Football:</b> Evening turf bookings frequently paired with post-match dinners.' }
-            ]
-          },
-          weekly: {
-            gmv: '₹35 Cr', cgo: '90,000', split: '96.5%', nps: '4.83 ★',
-            pathArea: 'M 0 72 Q 75 58, 135 30 T 255 14 T 340 10 L 340 100 L 0 100 Z',
-            pathLine: 'M 0 72 Q 75 58, 135 30 T 255 14 T 340 10',
-            dipPos: { left: '35%', top: '50%' }, dipLabel: '📉 Dip: Long Weekend Outstation Migration (-16%)',
-            peakPos: { right: '6%', top: '6%' }, peakLabel: '🚀 Peak: End-of-Quarter Tech Outings (+128%)',
-            dipPt: { cx: 135, cy: 30 }, peakPt: { cx: 330, cy: 10 },
-            timeSpan: 'Bengaluru · 30-Day Trend',
-            insights: [
-              { tag: 'High Net Promoter', cls: 'ok', text: '<b>NPS Benchmark:</b> Bengaluru reached highest customer satisfaction score at 4.83 ★.' },
-              { tag: 'Merchant Adoption', cls: 'pri', text: '<b>Brewery Table Yield:</b> Microbreweries reported +28% table turnover efficiency.' },
-              { tag: 'Self-Healing Efficacy', cls: 'ok', text: '<b>Weather Shifts:</b> 1,240 evening outdoor reservations successfully auto-routed to indoor seating.' }
-            ]
-          }
-        },
-        chennai: {
-          hourly: {
-            gmv: '₹0.42 Cr', cgo: '1,120', split: '93.2%', nps: '4.75 ★',
-            pathArea: 'M 0 88 Q 85 84, 135 81 T 205 52 T 285 22 T 380 16 L 380 100 L 0 100 Z',
-            pathLine: 'M 0 88 Q 85 84, 135 81 T 205 52 T 285 22 T 380 16',
-            dipPos: { left: '33%', top: '65%' }, dipLabel: '📉 Dip: Afternoon Heat Window (1 PM - 4 PM)',
-            peakPos: { right: '8%', top: '12%' }, peakLabel: '🚀 Peak: Besant Nagar Beach & T Nagar Dining (+90%)',
-            dipPt: { cx: 135, cy: 81 }, peakPt: { cx: 340, cy: 16 },
-            timeSpan: 'Chennai · 24-Hour Cycle',
-            insights: [
-              { tag: 'Coastal Evenings', cls: 'ok', text: '<b>Evening Shift:</b> 82% of Chennai outdoor activities occur post 5:15 PM at Elliot’s Beach & ECR.' },
-              { tag: 'Vegetarian Options', cls: 'pri', text: '<b>High Veg Demand:</b> 64% of group dining requests prioritize verified plant-based menus.' },
-              { tag: 'Cinema Dominance', cls: 'ok', text: '<b>Nova Usman Road:</b> Blockbuster movie tickets driving 52% of initial squad prompts.' }
-            ]
-          },
-          daily: {
-            gmv: '₹4.1 Cr', cgo: '10,800', split: '94.1%', nps: '4.76 ★',
-            pathArea: 'M 0 84 Q 80 75, 140 46 T 260 20 T 340 16 L 340 100 L 0 100 Z',
-            pathLine: 'M 0 84 Q 80 75, 140 46 T 260 20 T 340 16',
-            dipPos: { left: '32%', top: '61%' }, dipLabel: '📉 Dip: Tuesday Cultural Fasting Day (-19%)',
-            peakPos: { right: '7%', top: '10%' }, peakLabel: '🚀 Peak: Sunday Family & Squad Outings (+104%)',
-            dipPt: { cx: 140, cy: 46 }, peakPt: { cx: 320, cy: 16 },
-            timeSpan: 'Chennai · 7-Day Cycle',
-            insights: [
-              { tag: 'Sunday Peak', cls: 'ok', text: '<b>Sunday Hangouts:</b> Cousins’ Sunday and beach hangouts generate highest single-day CGO.' },
-              { tag: 'SplitPay Adoption', cls: 'pri', text: '<b>UPI Compliance:</b> 94.1% of dining shares settled within 25 minutes of table bill.' },
-              { tag: 'Low Host Debt', cls: 'ok', text: '<b>Host Debt Zero:</b> Eliminates upfront ticket financing for group cinema visits.' }
-            ]
-          },
-          weekly: {
-            gmv: '₹27 Cr', cgo: '72,000', split: '95.2%', nps: '4.80 ★',
-            pathArea: 'M 0 74 Q 75 62, 135 34 T 255 16 T 340 12 L 340 100 L 0 100 Z',
-            pathLine: 'M 0 74 Q 75 62, 135 34 T 255 16 T 340 12',
-            dipPos: { left: '35%', top: '52%' }, dipLabel: '📉 Dip: Mid-Month Lull',
-            peakPos: { right: '6%', top: '8%' }, peakLabel: '🚀 Peak: Festival & Weekend Outing Surge (+120%)',
-            dipPt: { cx: 135, cy: 34 }, peakPt: { cx: 330, cy: 12 },
-            timeSpan: 'Chennai · 30-Day Trend',
-            insights: [
-              { tag: 'Cinema & Food Synergy', cls: 'ok', text: '<b>T Nagar Corridor:</b> Nova Cinema bookings drive +62% dining footfall to Pondy Bazaar partners.' },
-              { tag: 'Merchant Satisfaction', cls: 'pri', text: '<b>Zero Walk-in Clash:</b> POS tablet sync reduced group booking disputes to zero.' },
-              { tag: 'Repeat Squads', cls: 'ok', text: '<b>High Organic Virality:</b> Over 68% of new users joined via a friend’s squad WhatsApp link.' }
-            ]
-          }
-        },
-        hyderabad: {
-          hourly: {
-            gmv: '₹0.48 Cr', cgo: '1,280', split: '94.0%', nps: '4.77 ★',
-            pathArea: 'M 0 86 Q 85 82, 135 80 T 205 50 T 285 20 T 380 14 L 380 100 L 0 100 Z',
-            pathLine: 'M 0 86 Q 85 82, 135 80 T 205 50 T 285 20 T 380 14',
-            dipPos: { left: '33%', top: '64%' }, dipLabel: '📉 Dip: 3 PM HITEC City Work Lull',
-            peakPos: { right: '8%', top: '10%' }, peakLabel: '🚀 Peak: Jubilee Hills & Gachibowli Nightlife (+94%)',
-            dipPt: { cx: 135, cy: 80 }, peakPt: { cx: 340, cy: 14 },
-            timeSpan: 'Hyderabad · 24-Hour Cycle',
-            insights: [
-              { tag: 'Midnight Dining', cls: 'ok', text: '<b>Late-Night Biryani & Clubs:</b> 46% of Jubilee Hills reservations extend past 11:30 PM.' },
-              { tag: 'HITEC Corridor', cls: 'pri', text: '<b>Corporate Squads:</b> Group sizes in Hyderabad average 6.4 people, highest in South India.' },
-              { tag: 'Prepaid Bookings', cls: 'ok', text: '<b>Escrow Holds:</b> 94% of reservations confirmed with zero vendor disputes.' }
-            ]
-          },
-          daily: {
-            gmv: '₹4.8 Cr', cgo: '12,400', split: '94.5%', nps: '4.78 ★',
-            pathArea: 'M 0 80 Q 80 72, 140 44 T 260 18 T 340 14 L 340 100 L 0 100 Z',
-            pathLine: 'M 0 80 Q 80 72, 140 44 T 260 18 T 340 14',
-            dipPos: { left: '32%', top: '60%' }, dipLabel: '📉 Dip: Wednesday Mid-Week Lull (-20%)',
-            peakPos: { right: '7%', top: '9%' }, peakLabel: '🚀 Peak: Friday Tech Squad Outings (+106%)',
-            dipPt: { cx: 140, cy: 44 }, peakPt: { cx: 320, cy: 14 },
-            timeSpan: 'Hyderabad · 7-Day Cycle',
-            insights: [
-              { tag: 'Large Squads', cls: 'ok', text: '<b>Big Table Yield:</b> 8-top and 10-top tables book out 3x faster using collaborative voting links.' },
-              { tag: 'Anonymous Budgeting', cls: 'pri', text: '<b>Wallet Harmony:</b> Reconciled spend sweet spot eliminated awkward group conversations.' },
-              { tag: 'Speedy Splits', cls: 'ok', text: '<b>SplitPay UPI:</b> Settles full bill within 20 mins across all party members.' }
-            ]
-          },
-          weekly: {
-            gmv: '₹31 Cr', cgo: '82,000', split: '95.6%', nps: '4.82 ★',
-            pathArea: 'M 0 70 Q 75 58, 135 32 T 255 14 T 340 10 L 340 100 L 0 100 Z',
-            pathLine: 'M 0 70 Q 75 58, 135 32 T 255 14 T 340 10',
-            dipPos: { left: '35%', top: '50%' }, dipLabel: '📉 Dip: Mid-Month Lull',
-            peakPos: { right: '6%', top: '6%' }, peakLabel: '🚀 Peak: Weekend Outing Cluster (+124%)',
-            dipPt: { cx: 135, cy: 32 }, peakPt: { cx: 330, cy: 10 },
-            timeSpan: 'Hyderabad · 30-Day Trend',
-            insights: [
-              { tag: 'High Retention', cls: 'ok', text: '<b>Organic Growth:</b> 72% of users in Gachibowli were introduced by another organizer.' },
-              { tag: 'Cross-Sell Velocity', cls: 'pri', text: '<b>Movies & Dinner:</b> Inox GVK One + Banjara Hills dinner pairings represent 38% of GMV.' },
-              { tag: 'Merchant Satisfaction', cls: 'ok', text: '<b>Zero No-Shows:</b> Advance table holds reduced no-shows from 24% to 1.6%.' }
-            ]
+      // ========================================================
+      // SLIDE 6: DISTRICT PM DASHBOARD FULLSCREEN VIEWER
+      // ========================================================
+      window.openDashboardFullscreen = function () {
+        const overlay = document.getElementById('dashFullscreenOverlay');
+        if (overlay) {
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+        const container = document.getElementById('dashImageContainer');
+        if (container) {
+          if (container.requestFullscreen) {
+            container.requestFullscreen().catch(() => {});
+          } else if (container.webkitRequestFullscreen) {
+            container.webkitRequestFullscreen();
           }
         }
       };
 
-      let activeCity = 'all';
-      let activeTime = 'daily';
-
-      window.setDashTime = function (t) {
-        activeTime = t;
-        const btnHourly = document.getElementById('btnHourly');
-        const btnDaily = document.getElementById('btnDaily');
-        const btnWeekly = document.getElementById('btnWeekly');
-
-        [btnHourly, btnDaily, btnWeekly].forEach(b => {
-          if (b) {
-            b.style.background = 'transparent';
-            b.style.color = 'var(--ink-sub)';
-          }
-        });
-
-        if (t === 'hourly' && btnHourly) {
-          btnHourly.style.background = 'var(--pri)';
-          btnHourly.style.color = '#FFF';
-        } else if (t === 'daily' && btnDaily) {
-          btnDaily.style.background = 'var(--pri)';
-          btnDaily.style.color = '#FFF';
-        } else if (t === 'weekly' && btnWeekly) {
-          btnWeekly.style.background = 'var(--pri)';
-          btnWeekly.style.color = '#FFF';
+      window.closeDashboardModal = function (e) {
+        if (e && e.target && e.target.classList && e.target.classList.contains('dash-fs-img')) {
+          return;
         }
-
-        updateDashData();
+        const overlay = document.getElementById('dashFullscreenOverlay');
+        if (overlay) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+        }
       };
+
+      // Keyboard Esc handler for full screen
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeDashboardModal();
+        }
+      });
+
+      function getDashFilterState() {
+        return {
+          dateRange: document.getElementById('fltDateRange')?.value || '7d',
+          compare: document.getElementById('fltCompare')?.value || 'prev_period',
+          granularity: document.getElementById('fltGranularity')?.value || 'day',
+          city: document.getElementById('fltCity')?.value || 'all',
+          category: document.getElementById('fltCategory')?.value || 'all',
+          platform: document.getElementById('fltPlatform')?.value || 'all',
+          userType: document.getElementById('fltUserType')?.value || 'all',
+          bookingSize: document.getElementById('fltBookingSize')?.value || 'all',
+          source: document.getElementById('fltSource')?.value || 'all',
+        };
+      }
+
+      function getFilterMultipliers(f) {
+        let timeMult = 1.0;
+        let timeLabel = 'Last 7 days';
+        if (f.dateRange === 'today') { timeMult = 0.143; timeLabel = 'Today'; }
+        else if (f.dateRange === 'yesterday') { timeMult = 0.143; timeLabel = 'Yesterday'; }
+        else if (f.dateRange === '7d') { timeMult = 1.0; timeLabel = 'Last 7 days'; }
+        else if (f.dateRange === '30d') { timeMult = 4.2; timeLabel = 'Last 30 days'; }
+        else if (f.dateRange === 'month') { timeMult = 3.8; timeLabel = 'This month (MTD)'; }
+        else if (f.dateRange === 'custom') { timeMult = 2.0; timeLabel = 'Custom (14d)'; }
+
+        let cityMult = 1.0;
+        let cityName = 'All India';
+        if (f.city === 'delhi') { cityMult = 0.35; cityName = 'Delhi NCR'; }
+        else if (f.city === 'mumbai') { cityMult = 0.30; cityName = 'Mumbai'; }
+        else if (f.city === 'bengaluru') { cityMult = 0.20; cityName = 'Bengaluru'; }
+        else if (f.city === 'chennai') { cityMult = 0.12; cityName = 'Chennai'; }
+        else if (f.city === 'hyderabad') { cityMult = 0.14; cityName = 'Hyderabad'; }
+        else if (f.city === 'pune') { cityMult = 0.09; cityName = 'Pune'; }
+        else if (f.city === 'kolkata') { cityMult = 0.08; cityName = 'Kolkata'; }
+        else if (f.city === 'others') { cityMult = 0.06; cityName = 'Other Cities'; }
+
+        let catMult = 1.0;
+        let catName = 'All Categories';
+        if (f.category === 'dining') { catMult = 0.45; catName = 'Dining'; }
+        else if (f.category === 'movies') { catMult = 0.32; catName = 'Movies'; }
+        else if (f.category === 'events') { catMult = 0.12; catName = 'Live events'; }
+        else if (f.category === 'turfs') { catMult = 0.07; catName = 'Sports and turfs'; }
+        else if (f.category === 'activities') { catMult = 0.04; catName = 'Activities'; }
+
+        let platMult = 1.0;
+        if (f.platform === 'android') platMult = 0.58;
+        else if (f.platform === 'ios') platMult = 0.36;
+        else if (f.platform === 'web') platMult = 0.06;
+
+        let userMult = 1.0;
+        if (f.userType === 'new') userMult = 0.38;
+        else if (f.userType === 'returning') userMult = 0.62;
+        else if (f.userType === 'members') userMult = 0.44;
+        else if (f.userType === 'non_members') userMult = 0.56;
+
+        let sizeMult = 1.0;
+        if (f.bookingSize === 'solo') sizeMult = 0.24;
+        else if (f.bookingSize === 'duo') sizeMult = 0.42;
+        else if (f.bookingSize === 'small_group') sizeMult = 0.26;
+        else if (f.bookingSize === 'large_group') sizeMult = 0.08;
+
+        let srcMult = 1.0;
+        if (f.source === 'organic') srcMult = 0.26;
+        else if (f.source === 'zomato') srcMult = 0.34;
+        else if (f.source === 'blinkit') srcMult = 0.18;
+        else if (f.source === 'paid') srcMult = 0.12;
+        else if (f.source === 'crm') srcMult = 0.06;
+        else if (f.source === 'partner') srcMult = 0.04;
+
+        const totalScale = timeMult * cityMult * catMult * platMult * userMult * sizeMult * srcMult;
+        return { totalScale, timeMult, cityMult, catMult, platMult, userMult, sizeMult, srcMult, timeLabel, cityName, catName };
+      }
+
+      function formatNum(num) {
+        if (num >= 10000000) return (num / 10000000).toFixed(2) + ' Cr';
+        if (num >= 100000) return (num / 100000).toFixed(2) + ' L';
+        if (num >= 1000) return num.toLocaleString('en-IN');
+        return Math.round(num).toString();
+      }
+
+      function renderSparklineSvg(pts, color = '#6830F9', height = 26, width = 80) {
+        if (!pts || pts.length < 2) return '';
+        const min = Math.min(...pts);
+        const max = Math.max(...pts);
+        const range = (max - min) || 1;
+        const step = width / (pts.length - 1);
+        const pathD = pts.map((val, idx) => {
+          const x = idx * step;
+          const y = height - ((val - min) / range) * (height - 6) - 3;
+          return (idx === 0 ? 'M' : 'L') + ` ${x.toFixed(1)} ${y.toFixed(1)}`;
+        }).join(' ');
+        return `
+          <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="overflow:visible; flex-shrink:0;">
+            <path d="${pathD}" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        `;
+      }
+
+      window.switchDashTab = function (tabId) {
+        activeDashTab = tabId;
+        for (let i = 1; i <= 8; i++) {
+          const btn = document.getElementById(`tabBtn${i}`);
+          if (btn) btn.classList.toggle('active', i === tabId);
+        }
+        renderCurrentDashTab();
+      };
+
+      window.onFilterChange = function () {
+        renderCurrentDashTab();
+      };
+
+      window.resetFilters = function () {
+        const defaults = {
+          fltDateRange: '7d',
+          fltCompare: 'prev_period',
+          fltGranularity: 'day',
+          fltCity: 'all',
+          fltCategory: 'all',
+          fltPlatform: 'all',
+          fltUserType: 'all',
+          fltBookingSize: 'all',
+          fltSource: 'all'
+        };
+        for (const [id, val] of Object.entries(defaults)) {
+          const el = document.getElementById(id);
+          if (el) el.value = val;
+        }
+        renderCurrentDashTab();
+      };
+
+      window.saveCurrentView = function () {
+        const f = getDashFilterState();
+        const m = getFilterMultipliers(f);
+        const viewName = `${m.cityName} · ${m.catName} (${m.timeLabel})`;
+        const btn = document.getElementById('saveViewBtnLabel');
+        if (btn) {
+          btn.textContent = `✓ Saved: ${viewName.substring(0, 18)}...`;
+          setTimeout(() => {
+            btn.textContent = 'Save View';
+          }, 2400);
+        }
+      };
+
+      window.exportDashData = function () {
+        const f = getDashFilterState();
+        const m = getFilterMultipliers(f);
+        const rows = [
+          ['District Telemetry Export', new Date().toISOString()],
+          ['Filter: Date Range', m.timeLabel],
+          ['Filter: City', m.cityName],
+          ['Filter: Category', m.catName],
+          ['Metric', 'Value', 'Change vs Previous'],
+          ['Confirmed Bookings', Math.round(48250 * m.totalScale), '+14.2%'],
+          ['Gross Order Value (GOV)', '₹' + (19.4 * m.totalScale).toFixed(2) + ' Cr', '+12.6%'],
+          ['Net Revenue', '₹' + (2.91 * m.totalScale).toFixed(2) + ' Cr', '+11.8%'],
+          ['Search to Booking Conversion', '4.8%', '+0.4%'],
+          ['Repeat Booking Rate (30d)', '38.6%', '+2.1%'],
+          ['Cancellation Rate', '4.1%', '-0.3%'],
+          ['Average Rating', '4.68', '+0.05']
+        ];
+        const csvContent = 'data:text/csv;charset=utf-8,' + rows.map(e => e.join(',')).join('\\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', `district_telemetry_${f.city}_${f.category}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+
+      window.openMetricDefs = function () {
+        const d = document.getElementById('dashMetricDefsDrawer');
+        if (d) d.classList.add('open');
+      };
+
+      window.closeMetricDefs = function () {
+        const d = document.getElementById('dashMetricDefsDrawer');
+        if (d) d.classList.remove('open');
+      };
+
+      window.openWeeklySummary = function () {
+        const m = document.getElementById('dashWeeklySummaryModal');
+        const container = document.getElementById('weeklySummaryContent');
+        const f = getDashFilterState();
+        const mult = getFilterMultipliers(f);
+
+        const bookings = formatNum(Math.round(48250 * mult.totalScale));
+        const gov = (19.4 * mult.totalScale).toFixed(2);
+        const rev = (2.91 * mult.totalScale).toFixed(2);
+
+        if (container) {
+          container.innerHTML = `
+            <div style="background: #F6F3FD; border: 1px solid #E7DEFA; border-radius: 12px; padding: 14px 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+              <div>
+                <span style="font-size: 12px; font-weight: 700; color: #5F567A; text-transform: uppercase;">Confirmed Bookings</span>
+                <div style="font-size: 26px; font-weight: 900; color: #6830F9;">${bookings}</div>
+                <span style="font-size: 13px; font-weight: 700; color: #0E9F6E;">▲ +14.2% vs prev</span>
+              </div>
+              <div>
+                <span style="font-size: 12px; font-weight: 700; color: #5F567A; text-transform: uppercase;">Gross Order Value</span>
+                <div style="font-size: 26px; font-weight: 900; color: #1B1530;">₹${gov} Cr</div>
+                <span style="font-size: 13px; font-weight: 700; color: #0E9F6E;">▲ +12.6% vs prev</span>
+              </div>
+              <div>
+                <span style="font-size: 12px; font-weight: 700; color: #5F567A; text-transform: uppercase;">Net Revenue (Take 15%)</span>
+                <div style="font-size: 26px; font-weight: 900; color: #1B1530;">₹${rev} Cr</div>
+                <span style="font-size: 13px; font-weight: 700; color: #0E9F6E;">▲ +11.8% vs prev</span>
+              </div>
+              <div>
+                <span style="font-size: 12px; font-weight: 700; color: #5F567A; text-transform: uppercase;">30-Day Repeat Rate</span>
+                <div style="font-size: 26px; font-weight: 900; color: #1B1530;">38.6%</div>
+                <span style="font-size: 13px; font-weight: 700; color: #0E9F6E;">▲ +2.1 pts vs prev</span>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">
+              <div style="background: #FFFFFF; border: 1px solid #E7DEFA; border-radius: 10px; padding: 14px 16px;">
+                <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #6830F9;">1. Leadership &amp; Growth Brief</h4>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #1B1530;">
+                  District is currently pacing at <b>82.3% of the monthly GOV target</b> with 6 days remaining, tracking +4.8% ahead of run rate.
+                  Tier-1 metro expansion in Delhi NCR and Mumbai remains the primary growth driver, contributing 65% of net transactions.
+                  Cross-app synergy accounts for 52% of new customer acquisition (34% via Zomato, 18% via Blinkit quick banners).
+                </p>
+              </div>
+
+              <div style="background: #FFFFFF; border: 1px solid #E7DEFA; border-radius: 10px; padding: 14px 16px;">
+                <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #D97706;">2. PM Health &amp; Funnel Leaks</h4>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #1B1530;">
+                  Search-to-booking conversion reached <b>4.8%</b>. The primary funnel bottleneck remains <b>Slot Selection</b> (50% drop-off),
+                  where prime 8:00 PM – 9:30 PM weekend slots showed an 8.7% sold-out rate across high-intent restaurants.
+                  Android conversion lagged iOS by 1.6 points following client release v4.12; UPI checkout drop rate stabilized after PhonePe retry patch.
+                </p>
+              </div>
+
+              <div style="background: #FFFFFF; border: 1px solid #E7DEFA; border-radius: 10px; padding: 14px 16px;">
+                <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #0E9F6E;">3. Ops &amp; Venue Reliability</h4>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #1B1530;">
+                  Active venue network expanded to <b>3,420 merchants</b> with partner churn at a low 1.3%. Overall cancellation rate held healthy at <b>4.1%</b>.
+                  Partner settlement disputes remained well below guardrail limits at 0.18%, with 99.4% of merchant payouts completed within T+1 day.
+                </p>
+              </div>
+            </div>
+          `;
+        }
+        if (m) m.classList.add('open');
+      };
+
+      window.closeWeeklySummary = function () {
+        const m = document.getElementById('dashWeeklySummaryModal');
+        if (m) m.classList.remove('open');
+      };
+
+      window.openDrilldown = function (key, title) {
+        const drawer = document.getElementById('dashDrilldownDrawer');
+        const titleEl = document.getElementById('drilldownTitle');
+        const bodyEl = document.getElementById('drilldownBody');
+        if (titleEl) titleEl.textContent = title || 'Metric Drilldown';
+
+        if (bodyEl) {
+          bodyEl.innerHTML = `
+            <div style="background: #F6F3FD; border-radius: 10px; padding: 12px 14px; border: 1px solid #E7DEFA;">
+              <span style="font-size: 11px; font-weight: 800; color: #5F567A; text-transform: uppercase;">Selected Dimension</span>
+              <div style="font-size: 18px; font-weight: 900; color: #6830F9;">${title}</div>
+              <p style="margin: 4px 0 0; font-size: 13.5px; color: #1B1530;">Click on any segment below to quickly apply it as a global filter.</p>
+            </div>
+
+            <!-- Breakdown by City -->
+            <div class="td-card" style="padding: 12px 14px;">
+              <span style="font-size: 12px; font-weight: 800; color: #5F567A; text-transform: uppercase; margin-bottom: 8px;">Breakdown by City</span>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Delhi NCR (35%)</span>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <div style="width: 100px; height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                      <div style="width: 35%; height: 100%; background: #6830F9;"></div>
+                    </div>
+                    <b>₹6.8 Cr</b>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Mumbai (30%)</span>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <div style="width: 100px; height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                      <div style="width: 30%; height: 100%; background: #6830F9;"></div>
+                    </div>
+                    <b>₹5.8 Cr</b>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Bengaluru (20%)</span>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <div style="width: 100px; height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                      <div style="width: 20%; height: 100%; background: #6830F9;"></div>
+                    </div>
+                    <b>₹3.9 Cr</b>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Other Metros (15%)</span>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <div style="width: 100px; height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                      <div style="width: 15%; height: 100%; background: #6830F9;"></div>
+                    </div>
+                    <b>₹2.9 Cr</b>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Breakdown by Category -->
+            <div class="td-card" style="padding: 12px 14px;">
+              <span style="font-size: 12px; font-weight: 800; color: #5F567A; text-transform: uppercase; margin-bottom: 8px;">Breakdown by Category</span>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Dining (45%)</span>
+                  <b>₹8.73 Cr</b>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Movies (32%)</span>
+                  <b>₹6.21 Cr</b>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Live Events (12%)</span>
+                  <b>₹2.33 Cr</b>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Sports &amp; Turfs (7%)</span>
+                  <b>₹1.36 Cr</b>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span>Activities (4%)</span>
+                  <b>₹0.77 Cr</b>
+                </div>
+              </div>
+            </div>
+
+            <!-- Breakdown by Platform & User -->
+            <div class="td-card" style="padding: 12px 14px;">
+              <span style="font-size: 12px; font-weight: 800; color: #5F567A; text-transform: uppercase; margin-bottom: 8px;">Platform &amp; User Split</span>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Android vs iOS</span>
+                  <b>58% Android / 36% iOS / 6% Web</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Returning vs New Users</span>
+                  <b>62% Returning / 38% New</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Gold / Prime Share</span>
+                  <b>44% Members (2.8x spend)</b>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+        if (drawer) drawer.classList.add('open');
+      };
+
+      window.closeDrilldown = function () {
+        const drawer = document.getElementById('dashDrilldownDrawer');
+        if (drawer) drawer.classList.remove('open');
+      };
+
+      window.setChartCompareMode = function (mode) {
+        chartCompareMode = mode;
+        renderCurrentDashTab();
+      };
+
+      window.sortCategoryTable = function (col) {
+        if (dashSortCol === col) {
+          dashSortAsc = !dashSortAsc;
+        } else {
+          dashSortCol = col;
+          dashSortAsc = false;
+        }
+        renderCurrentDashTab();
+      };
+
+      window.toggleVenueView = function (view) {
+        dashVenueView = view;
+        renderCurrentDashTab();
+      };
+
+      function renderCurrentDashTab() {
+        const area = document.getElementById('dashContentArea');
+        if (!area) return;
+
+        const f = getDashFilterState();
+        const m = getFilterMultipliers(f);
+
+        switch (activeDashTab) {
+          case 1:
+            area.innerHTML = renderTab1Overview(f, m);
+            break;
+          case 2:
+            area.innerHTML = renderTab2Growth(f, m);
+            break;
+          case 3:
+            area.innerHTML = renderTab3Funnel(f, m);
+            break;
+          case 4:
+            area.innerHTML = renderTab4Categories(f, m);
+            break;
+          case 5:
+            area.innerHTML = renderTab5Retention(f, m);
+            break;
+          case 6:
+            area.innerHTML = renderTab6Supply(f, m);
+            break;
+          case 7:
+            area.innerHTML = renderTab7Quality(f, m);
+            break;
+          case 8:
+            area.innerHTML = renderTab8Money(f, m);
+            break;
+          default:
+            area.innerHTML = renderTab1Overview(f, m);
+        }
+      }
+
+      // ========================================================
+      // TAB 1: OVERVIEW (Default)
+      // ========================================================
+      function renderTab1Overview(f, m) {
+        const scale = m.totalScale;
+        const bookingsVal = formatNum(Math.round(48250 * scale));
+        const govVal = '₹' + (19.4 * scale).toFixed(scale < 0.2 ? 2 : 1) + ' Cr';
+        const revVal = '₹' + (2.91 * scale).toFixed(scale < 0.2 ? 2 : 1) + ' Cr';
+        const dauVal = formatNum(Math.round(310000 * scale));
+        const mauVal = (4.2 * Math.max(scale, 0.4)).toFixed(1) + 'M';
+
+        return `
+          <!-- Alert Strip -->
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 280px; background: #FFEBEF; border: 1px solid #FFC2CE; border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 8px; font-size: 14px;">
+              <span class="td-badge-down">🔴 Alert</span>
+              <span style="color: #9E1236; font-weight: 600;">Dining conversion down 11.2% in Koramangala following Android v4.12 checkout error.</span>
+            </div>
+            <div style="flex: 1; min-width: 280px; background: #FEF3C7; border: 1px solid #FDE68A; border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 8px; font-size: 14px;">
+              <span class="td-badge-warn">🟡 Payment</span>
+              <span style="color: #92400E; font-weight: 600;">UPI checkout failure reached 3.4% during Friday 8 PM surge (HDFC gateway latency).</span>
+            </div>
+            <div style="flex: 1; min-width: 280px; background: #FEF3C7; border: 1px solid #FDE68A; border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 8px; font-size: 14px;">
+              <span class="td-badge-warn">🟡 Partner</span>
+              <span style="color: #92400E; font-weight: 600;">Cancellations at 6 partner live music venues above 8% due to rain advisory.</span>
+            </div>
+          </div>
+
+          <!-- Row 1: 8 KPI Tiles -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+            <!-- Tile 1: North Star (Confirmed Bookings) -->
+            <div class="td-card td-card-interactive" style="border: 2px solid #6830F9; background: #FAF8FF;" onclick="openDrilldown('confirmed_bookings', 'Confirmed Bookings (North Star)')">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <span class="mini-status-chip pri" style="font-size: 10.5px; margin-bottom: 4px;">★ NORTH STAR METRIC</span>
+                  <div style="font-size: 14px; font-weight: 700; color: #5F567A;">Confirmed Bookings</div>
+                </div>
+                ${renderSparklineSvg([28, 32, 30, 36, 40, 38, 48], '#6830F9')}
+              </div>
+              <div class="td-kpi-val" style="color: #6830F9; margin: 4px 0 2px;">${bookingsVal}</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up">▲ +14.2%</span>
+                <span style="font-size: 12.5px; color: #5F567A;">vs comparison period</span>
+              </div>
+            </div>
+
+            <!-- Tile 2: Gross Order Value (GOV) -->
+            <div class="td-card td-card-interactive" onclick="openDrilldown('gov', 'Gross Order Value (GOV)')">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="font-size: 14px; font-weight: 700; color: #5F567A;">Gross Order Value (GOV)</div>
+                ${renderSparklineSvg([12, 14, 13, 16, 17, 18, 19.4], '#0E9F6E')}
+              </div>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">${govVal}</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up">▲ +12.6%</span>
+                <span style="font-size: 12.5px; color: #5F567A;">Customer paid spend</span>
+              </div>
+            </div>
+
+            <!-- Tile 3: Net Revenue -->
+            <div class="td-card td-card-interactive" onclick="openDrilldown('net_revenue', 'Net Revenue (Take Rate)')">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="font-size: 14px; font-weight: 700; color: #5F567A;">Net Revenue</div>
+                ${renderSparklineSvg([1.8, 2.0, 2.1, 2.3, 2.5, 2.7, 2.91], '#6830F9')}
+              </div>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">${revVal}</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up">▲ +11.8%</span>
+                <span style="font-size: 12.5px; color: #5F567A;">Take rate 15.0%</span>
+              </div>
+            </div>
+
+            <!-- Tile 4: Active Users -->
+            <div class="td-card td-card-interactive" onclick="openDrilldown('active_users', 'Active Users (DAU / MAU)')">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="font-size: 14px; font-weight: 700; color: #5F567A;">Active Users (DAU / MAU)</div>
+                ${renderSparklineSvg([210, 230, 240, 270, 290, 295, 310], '#3B82F6')}
+              </div>
+              <div class="td-kpi-val" style="margin: 4px 0 2px; font-size: 30px;">${dauVal} <span style="font-size: 17px; font-weight: 600; color: #5F567A;">/ ${mauVal}</span></div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up">▲ +8.4%</span>
+                <span style="font-size: 12.5px; color: #5F567A;">Engagement index 7.4%</span>
+              </div>
+            </div>
+
+            <!-- Tile 5: Search to Booking Conversion -->
+            <div class="td-card td-card-interactive" onclick="openDrilldown('conversion', 'Search to Booking Conversion')">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="font-size: 14px; font-weight: 700; color: #5F567A;">Search to Booking Conv.</div>
+                ${renderSparklineSvg([4.1, 4.3, 4.2, 4.5, 4.6, 4.7, 4.8], '#0E9F6E')}
+              </div>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">4.8%</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up">▲ +0.4 pts</span>
+                <span style="font-size: 12.5px; color: #5F567A;">Target: 5.0%</span>
+              </div>
+            </div>
+
+            <!-- Tile 6: Repeat Booking Rate (30d) -->
+            <div class="td-card td-card-interactive" onclick="openDrilldown('repeat_rate', 'Repeat Booking Rate (within 30 days)')">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="font-size: 14px; font-weight: 700; color: #5F567A;">Repeat Booking Rate (30d)</div>
+                ${renderSparklineSvg([32, 33, 34, 35, 36, 37, 38.6], '#6830F9')}
+              </div>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">38.6%</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up">▲ +2.1 pts</span>
+                <span style="font-size: 12.5px; color: #5F567A;">Books within 30 days</span>
+              </div>
+            </div>
+
+            <!-- Tile 7: Cancellation & Refund Rate -->
+            <div class="td-card td-card-interactive" onclick="openDrilldown('cancellation', 'Cancellation & Refund Rate')">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="font-size: 14px; font-weight: 700; color: #5F567A;">Cancellation &amp; Refund Rate</div>
+                ${renderSparklineSvg([4.9, 4.7, 4.6, 4.5, 4.4, 4.3, 4.1], '#0E9F6E')}
+              </div>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">4.1%</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up" style="color: #0E9F6E; background: #E6FBF2;">▼ -0.3 pts (Good)</span>
+                <span style="font-size: 12.5px; color: #5F567A;">Guardrail: &lt;5.0%</span>
+              </div>
+            </div>
+
+            <!-- Tile 8: Average Rating -->
+            <div class="td-card td-card-interactive" onclick="openDrilldown('rating', 'Average Experience Rating')">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="font-size: 14px; font-weight: 700; color: #5F567A;">Average Experience Rating</div>
+                ${renderSparklineSvg([4.55, 4.58, 4.60, 4.62, 4.64, 4.66, 4.68], '#D97706')}
+              </div>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">4.68 ★</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up">▲ +0.05 ★</span>
+                <span style="font-size: 12.5px; color: #5F567A;">Across 24.2K reviews</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Charts (Line Chart + Stacked Category) -->
+          <div style="display: grid; grid-template-columns: 1.55fr 1fr; gap: 14px;">
+            <!-- Line Chart: Bookings & GOV Over Time -->
+            <div class="td-card" style="padding: 18px 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                <div>
+                  <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #1B1530;">Confirmed Bookings &amp; GOV Trend</h3>
+                  <span style="font-size: 13px; color: #5F567A;">Shaded weekend surges, dashed target line &amp; live operational annotations</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <label style="font-size: 13px; font-weight: 700; color: #5F567A;">Compare:</label>
+                  <select class="td-filter-select" onchange="setChartCompareMode(this.value)" style="padding: 3px 8px; font-size: 13px;">
+                    <option value="prev_period" ${chartCompareMode === 'prev_period' ? 'selected' : ''}>Previous period</option>
+                    <option value="prev_year" ${chartCompareMode === 'prev_year' ? 'selected' : ''}>Same period last year</option>
+                    <option value="target" ${chartCompareMode === 'target' ? 'selected' : ''}>Actual vs Target</option>
+                    <option value="weekend" ${chartCompareMode === 'weekend' ? 'selected' : ''}>Weekday vs Weekend</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Interactive SVG Trend Chart -->
+              <div style="position: relative; width: 100%; height: 210px; background: #FAF8FF; border-radius: 10px; border: 1px solid #ECE6F8; padding: 10px;">
+                <svg width="100%" height="100%" viewBox="0 0 540 180" preserveAspectRatio="none">
+                  <!-- Shaded Weekend Areas (Fri night, Sat, Sun) -->
+                  <rect x="340" y="0" width="160" height="180" fill="rgba(104, 48, 249, 0.05)" />
+                  <text x="345" y="18" fill="#8E85A8" font-size="11" font-weight="700">WEEKEND SURGE</text>
+
+                  <!-- Target Dashed Line -->
+                  <line x1="20" y1="50" x2="520" y2="40" stroke="#D97706" stroke-width="1.8" stroke-dasharray="6,4" />
+                  <text x="440" y="36" fill="#D97706" font-size="11.5" font-weight="800">Target Pace</text>
+
+                  <!-- Comparison Path (dotted grey) -->
+                  <path d="M 30 140 Q 110 135, 180 125 T 320 110 T 420 80 T 510 65" fill="none" stroke="#C5BFE3" stroke-width="2" stroke-dasharray="4,4" />
+
+                  <!-- Main Actual Booking Area & Line -->
+                  <path d="M 30 130 Q 110 120, 180 108 T 320 85 T 420 42 T 510 24 L 510 170 L 30 170 Z" fill="rgba(104, 48, 249, 0.12)" />
+                  <path d="M 30 130 Q 110 120, 180 108 T 320 85 T 420 42 T 510 24" fill="none" stroke="#6830F9" stroke-width="3" stroke-linecap="round" />
+
+                  <!-- Annotation Markers -->
+                  <!-- Marker 1: Release v4.12 -->
+                  <circle cx="180" cy="108" r="5" fill="#E11D48" />
+                  <line x1="180" y1="108" x2="180" y2="70" stroke="#E11D48" stroke-width="1.2" stroke-dasharray="2,2" />
+                  <rect x="125" y="52" width="110" height="18" rx="4" fill="#FFEBEF" stroke="#FFC2CE" stroke-width="1" />
+                  <text x="130" y="65" fill="#E11D48" font-size="10" font-weight="700">Rel: Android v4.12</text>
+
+                  <!-- Marker 2: Campaign -->
+                  <circle cx="340" cy="80" r="5" fill="#0E9F6E" />
+                  <rect x="290" y="94" width="105" height="18" rx="4" fill="#E6FBF2" stroke="#A7F3D0" stroke-width="1" />
+                  <text x="295" y="107" fill="#065F46" font-size="10" font-weight="700">Campaign: Weekend</text>
+
+                  <!-- Peak Data Point -->
+                  <circle cx="510" cy="24" r="6" fill="#6830F9" stroke="#FFF" stroke-width="2" />
+                  <text x="440" y="20" fill="#6830F9" font-size="12" font-weight="800">Peak: 7.8K Bookings</text>
+
+                  <!-- X-Axis Labels -->
+                  <text x="30" y="176" fill="#8E85A8" font-size="12">Mon</text>
+                  <text x="110" y="176" fill="#8E85A8" font-size="12">Tue</text>
+                  <text x="180" y="176" fill="#8E85A8" font-size="12">Wed</text>
+                  <text x="260" y="176" fill="#8E85A8" font-size="12">Thu</text>
+                  <text x="340" y="176" fill="#8E85A8" font-size="12">Fri</text>
+                  <text x="420" y="176" fill="#6830F9" font-weight="700" font-size="12">Sat</text>
+                  <text x="495" y="176" fill="#6830F9" font-weight="700" font-size="12">Sun</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Stacked Chart: Bookings by Category -->
+            <div class="td-card" style="padding: 18px 20px;">
+              <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: #1B1530;">Bookings by Category</h3>
+              <span style="font-size: 13px; color: #5F567A; margin-bottom: 14px;">Distribution across verticals (${m.catName})</span>
+
+              <div style="display: flex; flex-direction: column; gap: 11px;">
+                <!-- Dining -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 3px;">
+                    <span style="color: #6830F9;"><i class="fa-solid fa-utensils" style="margin-right: 5px;"></i> Dining</span>
+                    <span>45% (${formatNum(Math.round(21800 * scale))})</span>
+                  </div>
+                  <div style="height: 10px; background: #ECE6F8; border-radius: 5px; overflow: hidden;">
+                    <div style="width: 45%; height: 100%; background: #6830F9;"></div>
+                  </div>
+                </div>
+
+                <!-- Movies -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 3px;">
+                    <span style="color: #3B82F6;"><i class="fa-solid fa-film" style="margin-right: 5px;"></i> Movies</span>
+                    <span>32% (${formatNum(Math.round(15200 * scale))})</span>
+                  </div>
+                  <div style="height: 10px; background: #ECE6F8; border-radius: 5px; overflow: hidden;">
+                    <div style="width: 32%; height: 100%; background: #3B82F6;"></div>
+                  </div>
+                </div>
+
+                <!-- Live Events -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 3px;">
+                    <span style="color: #EC4899;"><i class="fa-solid fa-ticket" style="margin-right: 5px;"></i> Live Events</span>
+                    <span>12% (${formatNum(Math.round(5400 * scale))})</span>
+                  </div>
+                  <div style="height: 10px; background: #ECE6F8; border-radius: 5px; overflow: hidden;">
+                    <div style="width: 12%; height: 100%; background: #EC4899;"></div>
+                  </div>
+                </div>
+
+                <!-- Sports and Turfs -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 3px;">
+                    <span style="color: #10B981;"><i class="fa-solid fa-baseball-bat-ball" style="margin-right: 5px;"></i> Sports &amp; Turfs</span>
+                    <span>7% (${formatNum(Math.round(3900 * scale))})</span>
+                  </div>
+                  <div style="height: 10px; background: #ECE6F8; border-radius: 5px; overflow: hidden;">
+                    <div style="width: 7%; height: 100%; background: #10B981;"></div>
+                  </div>
+                </div>
+
+                <!-- Activities -->
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 3px;">
+                    <span style="color: #F59E0B;"><i class="fa-solid fa-bowling-ball" style="margin-right: 5px;"></i> Activities</span>
+                    <span>4% (${formatNum(Math.round(1950 * scale))})</span>
+                  </div>
+                  <div style="height: 10px; background: #ECE6F8; border-radius: 5px; overflow: hidden;">
+                    <div style="width: 4%; height: 100%; background: #F59E0B;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3: Heatmap + Target Progress -->
+          <div style="display: grid; grid-template-columns: 1.55fr 1fr; gap: 14px;">
+            <!-- Heatmap of Bookings by Day and Hour -->
+            <div class="td-card" style="padding: 16px 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <div>
+                  <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #1B1530;">Booking Intensity Heatmap</h3>
+                  <span style="font-size: 13px; color: #5F567A;">Concentration by Day of Week vs Hour of Day (12 AM - 11 PM)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; color: #5F567A;">
+                  <span>Low</span>
+                  <span style="width: 12px; height: 12px; background: #F3E8FF; border-radius: 2px;"></span>
+                  <span style="width: 12px; height: 12px; background: #C084FC; border-radius: 2px;"></span>
+                  <span style="width: 12px; height: 12px; background: #6830F9; border-radius: 2px;"></span>
+                  <span>Peak</span>
+                </div>
+              </div>
+
+              <!-- Heatmap Grid -->
+              <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12.5px;">
+                ${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, dIdx) => {
+                  return `
+                    <div style="display: flex; align-items: center; gap: 3px;">
+                      <span style="width: 32px; font-weight: 700; color: #5F567A;">${day}</span>
+                      <div style="display: flex; gap: 2px; flex: 1;">
+                        ${Array.from({ length: 24 }).map((_, h) => {
+                          const isWeekendEve = (dIdx >= 4 && h >= 18 && h <= 22);
+                          const isLunchPeak = (h >= 12 && h <= 14);
+                          let opacity = 0.12;
+                          if (isWeekendEve) opacity = 0.95;
+                          else if (isLunchPeak) opacity = 0.55;
+                          else if (h >= 9 && h <= 23) opacity = 0.32;
+                          return `
+                            <div title="${day} ${h}:00 - Intensity: ${Math.round(opacity * 100)}%" 
+                                 style="flex: 1; height: 14px; border-radius: 2px; background: rgba(104, 48, 249, ${opacity}); cursor: pointer;">
+                            </div>
+                          `;
+                        }).join('')}
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+                <div style="display: flex; justify-content: space-between; padding-left: 35px; color: #8E85A8; font-size: 11.5px; margin-top: 4px;">
+                  <span>12 AM</span>
+                  <span>6 AM</span>
+                  <span>12 PM (Lunch)</span>
+                  <span>6 PM</span>
+                  <span>9 PM (Peak Surge)</span>
+                  <span>11 PM</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Target vs Actual Progress Bar -->
+            <div class="td-card" style="padding: 18px 20px;">
+              <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: #1B1530;">Monthly Target Progress</h3>
+              <span style="font-size: 13px; color: #5F567A; margin-bottom: 14px;">Tracking pace against current month quota</span>
+
+              <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px;">
+                  <div>
+                    <span style="font-size: 12.5px; font-weight: 700; color: #5F567A;">ACTUAL MTD</span>
+                    <div style="font-size: 26px; font-weight: 900; color: #6830F9;">₹78.2 Cr</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-size: 12.5px; font-weight: 700; color: #5F567A;">TARGET QUOTA</span>
+                    <div style="font-size: 20px; font-weight: 800; color: #1B1530;">₹95.0 Cr</div>
+                  </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div style="position: relative; height: 14px; background: #ECE6F8; border-radius: 7px; overflow: hidden; margin-bottom: 8px;">
+                  <div style="width: 82.3%; height: 100%; background: linear-gradient(90deg, #6830F9, #8B5CF6); border-radius: 7px;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 700;">
+                  <span style="color: #0E9F6E;">82.3% achieved (Pacing ahead)</span>
+                  <span style="color: #5F567A;">6 days remaining</span>
+                </div>
+              </div>
+
+              <div style="font-size: 14px; line-height: 1.45; color: #1B1530;">
+                💡 <b>Pacing analysis:</b> Current run rate is <b>₹3.1 Cr/day</b> vs required <b>₹2.8 Cr/day</b>.
+                On course to surpass monthly target by approximately <b>+₹4.6 Cr (+4.8%)</b>.
+              </div>
+            </div>
+          </div>
+
+          <!-- What Stands Out Panel -->
+          <div class="td-card" style="padding: 16px 20px; background: #FFFFFF; border-left: 4px solid #6830F9;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <h3 style="margin: 0; font-size: 16.5px; font-weight: 800; color: #6830F9;">
+                <i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 6px;"></i> What Stands Out (Live Automated Insights)
+              </h3>
+              <span class="mini-status-chip ok" style="font-size: 11px;">Updated 2 mins ago</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.45; color: #1B1530;">
+              <div>• <b>Dining in Bengaluru:</b> Bookings down 12% versus last week, concentrated on Android devices post-v4.12 release.</div>
+              <div>• <b>Movie Conversion:</b> Rose 3.2 points following Friday's major theatrical releases across Delhi NCR and Mumbai IMAX screens.</div>
+              <div>• <b>Venue Cancellations:</b> 6 partner venues show cancellation rates exceeding 8% due to manual double-booking friction.</div>
+              <div>• <b>Blinkit Cross-Link Lift:</b> Quick banner referrals convert at 6.4%, 1.6 points higher than the organic baseline.</div>
+            </div>
+          </div>
+        `;
+      }
+
+      // ========================================================
+      // TAB 2: GROWTH AND ACQUISITION
+      // ========================================================
+      function renderTab2Growth(f, m) {
+        const scale = m.totalScale;
+        const newUsers = formatNum(Math.round(18400 * scale));
+
+        return `
+          <!-- KPI Tiles -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+            <div class="td-card td-card-interactive" onclick="openDrilldown('new_users', 'New Users Acquired')">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">New Users Acquired</span>
+              <div class="td-kpi-val" style="color: #6830F9; margin: 4px 0 2px;">${newUsers}</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up">▲ +16.2%</span>
+                <span style="font-size: 12.5px; color: #5F567A;">vs comparison</span>
+              </div>
+            </div>
+
+            <div class="td-card td-card-interactive" onclick="openDrilldown('ecosystem_share', 'Ecosystem Cross-Links')">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Zomato &amp; Blinkit Share</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">52.0%</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up">▲ +6.5 pts</span>
+                <span style="font-size: 12.5px; color: #5F567A;">34% Zomato, 18% Blinkit</span>
+              </div>
+            </div>
+
+            <div class="td-card td-card-interactive" onclick="openDrilldown('activation_rate', '7-Day Activation Rate')">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">7-Day Activation Rate</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">41.2%</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up">▲ +4.8 pts</span>
+                <span style="font-size: 12.5px; color: #5F567A;">Books within 7 days</span>
+              </div>
+            </div>
+
+            <div class="td-card td-card-interactive" onclick="openDrilldown('time_to_book', 'Time to First Booking')">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Time to First Booking</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">42 mins</div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="td-badge-up" style="color: #0E9F6E; background: #E6FBF2;">▼ -8 mins (Faster)</span>
+                <span style="font-size: 12.5px; color: #5F567A;">Median install to paid</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row: Channel Matrix & City Ranking -->
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px;">
+            <!-- Acquisition by Channel Table -->
+            <div class="td-card" style="padding: 16px 20px;">
+              <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: #1B1530;">Channel Cost vs Quality Matrix</h3>
+              <span style="font-size: 13px; color: #5F567A; margin-bottom: 12px;">Cost per new user against downstream conversion &amp; 30-day retention</span>
+
+              <table style="width: 100%; border-collapse: collapse; font-size: 14.5px; text-align: left;">
+                <thead>
+                  <tr style="border-bottom: 1.5px solid #E7DEFA; color: #5F567A; font-size: 13px;">
+                    <th style="padding: 8px 4px;">Channel</th>
+                    <th style="padding: 8px 4px;">New Users</th>
+                    <th style="padding: 8px 4px;">CAC</th>
+                    <th style="padding: 8px 4px;">1st Booking %</th>
+                    <th style="padding: 8px 4px;">30d Return</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #F0EBFC;">
+                    <td style="padding: 8px 4px; font-weight: 700; color: #6830F9;">Zomato App Link</td>
+                    <td style="padding: 8px 4px;">6,250 (34%)</td>
+                    <td style="padding: 8px 4px; color: #0E9F6E; font-weight: 700;">₹12</td>
+                    <td style="padding: 8px 4px;">34.2%</td>
+                    <td style="padding: 8px 4px; font-weight: 700; color: #0E9F6E;">46.8%</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #F0EBFC;">
+                    <td style="padding: 8px 4px; font-weight: 700;">Organic &amp; Direct</td>
+                    <td style="padding: 8px 4px;">4,780 (26%)</td>
+                    <td style="padding: 8px 4px; color: #0E9F6E; font-weight: 700;">₹0</td>
+                    <td style="padding: 8px 4px;">29.5%</td>
+                    <td style="padding: 8px 4px; font-weight: 700;">41.2%</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #F0EBFC;">
+                    <td style="padding: 8px 4px; font-weight: 700; color: #0E9F6E;">Blinkit Link</td>
+                    <td style="padding: 8px 4px;">3,310 (18%)</td>
+                    <td style="padding: 8px 4px; color: #0E9F6E; font-weight: 700;">₹16</td>
+                    <td style="padding: 8px 4px;">31.0%</td>
+                    <td style="padding: 8px 4px; font-weight: 700; color: #0E9F6E;">43.5%</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #F0EBFC;">
+                    <td style="padding: 8px 4px; font-weight: 700; color: #E11D48;">Paid Ads (Meta/Google)</td>
+                    <td style="padding: 8px 4px;">2,210 (12%)</td>
+                    <td style="padding: 8px 4px; color: #E11D48; font-weight: 700;">₹142</td>
+                    <td style="padding: 8px 4px;">19.8%</td>
+                    <td style="padding: 8px 4px; color: #E11D48;">21.4%</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 8px 4px; font-weight: 700;">Partner &amp; Venue QR</td>
+                    <td style="padding: 8px 4px;">1,850 (10%)</td>
+                    <td style="padding: 8px 4px;">₹38</td>
+                    <td style="padding: 8px 4px;">24.6%</td>
+                    <td style="padding: 8px 4px;">36.8%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- City Ranking Table -->
+            <div class="td-card" style="padding: 16px 20px;">
+              <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: #1B1530;">City Expansion Ranking</h3>
+              <span style="font-size: 13px; color: #5F567A; margin-bottom: 12px;">New user distribution, CAC &amp; conversion rate</span>
+
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14.5px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #F0EBFC;">
+                  <div><b>1. Delhi NCR</b> <span style="color: #5F567A; font-size: 13px;">(35% share)</span></div>
+                  <div style="text-align: right;"><b>6,440 users</b> · <span style="color: #0E9F6E;">5.2% conv</span></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #F0EBFC;">
+                  <div><b>2. Mumbai</b> <span style="color: #5F567A; font-size: 13px;">(30% share)</span></div>
+                  <div style="text-align: right;"><b>5,520 users</b> · <span style="color: #0E9F6E;">5.0% conv</span></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #F0EBFC;">
+                  <div><b>3. Bengaluru</b> <span style="color: #5F567A; font-size: 13px;">(20% share)</span></div>
+                  <div style="text-align: right;"><b>3,680 users</b> · <span style="color: #0E9F6E;">4.6% conv</span></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px solid #F0EBFC;">
+                  <div><b>4. Hyderabad</b> <span style="color: #5F567A; font-size: 13px;">(14% share)</span></div>
+                  <div style="text-align: right;"><b>2,570 users</b> · <span style="color: #0E9F6E;">4.4% conv</span></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div><b>5. Chennai</b> <span style="color: #5F567A; font-size: 13px;">(12% share)</span></div>
+                  <div style="text-align: right;"><b>2,210 users</b> · <span style="color: #0E9F6E;">4.3% conv</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Insight Cards -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="td-card" style="border-left: 4px solid #0E9F6E;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #0E9F6E;">Which channel brings users who come back?</h4>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #1B1530;">
+                Users acquired through Blinkit and Zomato ecosystem links exhibit <b>44% 30-day retention</b> compared to <b>21% for paid social ads</b>.
+                Ecosystem users also book their second outing 9 days earlier and spend 1.8x higher annual basket size.
+              </p>
+            </div>
+            <div class="td-card" style="border-left: 4px solid #6830F9;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #6830F9;">Do discounted users stay after the offer ends?</h4>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #1B1530;">
+                Discount-led first bookings have a <b>29% repeat rate</b>. However, users whose first transaction was in Dining retain at <b>42% even without promo codes</b>,
+                whereas movie discount seekers exhibit higher churn without repeat subsidized coupons.
+              </p>
+            </div>
+          </div>
+        `;
+      }
+
+      // ========================================================
+      // TAB 3: FUNNEL AND CONVERSION
+      // ========================================================
+      function renderTab3Funnel(f, m) {
+        return `
+          <!-- 7-Step Conversion Funnel Visual -->
+          <div class="td-card" style="padding: 18px 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <div>
+                <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #1B1530;">End-to-End Booking Funnel (7 Steps)</h3>
+                <span style="font-size: 13px; color: #5F567A;">Session progression from app open to paid booking confirmation</span>
+              </div>
+              <span class="mini-status-chip bad" style="font-size: 12px; font-weight: 800;">🔴 Biggest Bottleneck: Pick Date &amp; Slot (-50.0%)</span>
+            </div>
+
+            <!-- Funnel Flow Steps -->
+            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;">
+              <!-- Step 1 -->
+              <div style="background: #F6F3FD; border: 1px solid #E7DEFA; border-radius: 10px; padding: 12px 10px; text-align: center;">
+                <span style="font-size: 11.5px; font-weight: 700; color: #5F567A;">1. Open App</span>
+                <div style="font-size: 22px; font-weight: 900; color: #1B1530; margin: 4px 0;">310K</div>
+                <span style="font-size: 12.5px; font-weight: 800; color: #6830F9;">100%</span>
+              </div>
+
+              <!-- Step 2 -->
+              <div style="background: #F6F3FD; border: 1px solid #E7DEFA; border-radius: 10px; padding: 12px 10px; text-align: center;">
+                <span style="font-size: 11.5px; font-weight: 700; color: #5F567A;">2. Browse / Search</span>
+                <div style="font-size: 22px; font-weight: 900; color: #1B1530; margin: 4px 0;">235K</div>
+                <span style="font-size: 12px; color: #E11D48; font-weight: 700;">Drop: 24.0%</span>
+              </div>
+
+              <!-- Step 3 -->
+              <div style="background: #F6F3FD; border: 1px solid #E7DEFA; border-radius: 10px; padding: 12px 10px; text-align: center;">
+                <span style="font-size: 11.5px; font-weight: 700; color: #5F567A;">3. Venue / Event</span>
+                <div style="font-size: 22px; font-weight: 900; color: #1B1530; margin: 4px 0;">148K</div>
+                <span style="font-size: 12px; color: #E11D48; font-weight: 700;">Drop: 36.8%</span>
+              </div>
+
+              <!-- Step 4 (BIGGEST DROP) -->
+              <div style="background: #FFEBEF; border: 2px solid #E11D48; border-radius: 10px; padding: 12px 10px; text-align: center; position: relative;">
+                <span style="font-size: 11.5px; font-weight: 800; color: #E11D48;">4. Date &amp; Slot</span>
+                <div style="font-size: 22px; font-weight: 900; color: #E11D48; margin: 4px 0;">74.4K</div>
+                <span class="td-badge-down" style="font-size: 11.5px;">Drop: 50.0% 🔴</span>
+              </div>
+
+              <!-- Step 5 -->
+              <div style="background: #F6F3FD; border: 1px solid #E7DEFA; border-radius: 10px; padding: 12px 10px; text-align: center;">
+                <span style="font-size: 11.5px; font-weight: 700; color: #5F567A;">5. Checkout</span>
+                <div style="font-size: 22px; font-weight: 900; color: #1B1530; margin: 4px 0;">37.8K</div>
+                <span style="font-size: 12px; color: #E11D48; font-weight: 700;">Drop: 49.2%</span>
+              </div>
+
+              <!-- Step 6 -->
+              <div style="background: #F6F3FD; border: 1px solid #E7DEFA; border-radius: 10px; padding: 12px 10px; text-align: center;">
+                <span style="font-size: 11.5px; font-weight: 700; color: #5F567A;">6. Pay Session</span>
+                <div style="font-size: 22px; font-weight: 900; color: #1B1530; margin: 4px 0;">19.8K</div>
+                <span style="font-size: 12px; color: #E11D48; font-weight: 700;">Drop: 47.6%</span>
+              </div>
+
+              <!-- Step 7 -->
+              <div style="background: #E6FBF2; border: 2px solid #0E9F6E; border-radius: 10px; padding: 12px 10px; text-align: center;">
+                <span style="font-size: 11.5px; font-weight: 800; color: #0E9F6E;">7. Confirmed</span>
+                <div style="font-size: 22px; font-weight: 900; color: #0E9F6E; margin: 4px 0;">14.88K</div>
+                <span style="font-size: 12px; color: #0E9F6E; font-weight: 800;">Conv: 4.8% ★</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Side-by-Side Funnel Comparisons -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+            <!-- Comparison 1: Android vs iOS -->
+            <div class="td-card" style="padding: 16px;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #1B1530;">Platform: Android vs iOS</h4>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; margin-top: 6px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Android Conversion:</span>
+                  <b style="color: #D97706;">4.2%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>iOS Conversion:</span>
+                  <b style="color: #0E9F6E;">5.8% (+1.6 pts)</b>
+                </div>
+                <div style="font-size: 13px; color: #5F567A; line-height: 1.4; border-top: 1px solid #F0EBFC; padding-top: 6px;">
+                  Android gap driven by v4.12 UPI intent crash and lower average screen resolution on mid-tier hardware.
+                </div>
+              </div>
+            </div>
+
+            <!-- Comparison 2: New vs Returning -->
+            <div class="td-card" style="padding: 16px;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #1B1530;">User: New vs Returning</h4>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; margin-top: 6px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>New User Conversion:</span>
+                  <b>3.1%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Returning Conversion:</span>
+                  <b style="color: #6830F9;">7.4% (2.4x higher)</b>
+                </div>
+                <div style="font-size: 13px; color: #5F567A; line-height: 1.4; border-top: 1px solid #F0EBFC; padding-top: 6px;">
+                  Returning bookers bypass search ambiguity and re-book previously saved restaurants and cinema halls.
+                </div>
+              </div>
+            </div>
+
+            <!-- Comparison 3: Solo vs Group (3+) -->
+            <div class="td-card" style="padding: 16px;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #1B1530;">Booking Size: Solo vs Group (3+)</h4>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; margin-top: 6px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Solo / Duo Conversion:</span>
+                  <b style="color: #0E9F6E;">6.2%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Group (3 or more):</span>
+                  <b style="color: #E11D48;">3.9% (-37% drop)</b>
+                </div>
+                <div style="font-size: 13px; color: #5F567A; line-height: 1.4; border-top: 1px solid #F0EBFC; padding-top: 6px;">
+                  Group bookings encounter prime-time table constraints and take 4x longer on the slot selection screen.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Diagnostics: Search Quality, Checkout Health, Slot Availability, App Health -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+            <!-- Search Quality -->
+            <div class="td-card" style="padding: 14px;">
+              <span style="font-size: 12px; font-weight: 800; color: #5F567A; text-transform: uppercase;">Search Quality</span>
+              <div style="margin: 8px 0; font-size: 14px; display: flex; flex-direction: column; gap: 4px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Zero results:</span>
+                  <b style="color: #0E9F6E;">3.4% (Low)</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Zero clicks:</span>
+                  <b>14.2%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Avg booked rank:</span>
+                  <b style="color: #6830F9;">#2.3</b>
+                </div>
+              </div>
+            </div>
+
+            <!-- Checkout Health -->
+            <div class="td-card" style="padding: 14px;">
+              <span style="font-size: 12px; font-weight: 800; color: #5F567A; text-transform: uppercase;">Checkout Health</span>
+              <div style="margin: 8px 0; font-size: 14px; display: flex; flex-direction: column; gap: 4px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>UPI Failures:</span>
+                  <b style="color: #D97706;">2.1%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Card Failures:</span>
+                  <b>3.8%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Payment Retry:</span>
+                  <b style="color: #0E9F6E;">68% retry</b>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slot Availability -->
+            <div class="td-card" style="padding: 14px;">
+              <span style="font-size: 12px; font-weight: 800; color: #5F567A; text-transform: uppercase;">Slot Availability</span>
+              <div style="margin: 8px 0; font-size: 14px; display: flex; flex-direction: column; gap: 4px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>"Sold Out" views:</span>
+                  <b style="color: #E11D48;">8.7%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Weekend Prime:</span>
+                  <b style="color: #E11D48;">14.2%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Waitlist fills:</span>
+                  <b style="color: #0E9F6E;">22%</b>
+                </div>
+              </div>
+            </div>
+
+            <!-- App Health -->
+            <div class="td-card" style="padding: 14px;">
+              <span style="font-size: 12px; font-weight: 800; color: #5F567A; text-transform: uppercase;">App Health</span>
+              <div style="margin: 8px 0; font-size: 14px; display: flex; flex-direction: column; gap: 4px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Crash-Free:</span>
+                  <b style="color: #0E9F6E;">99.82%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>P90 Load Time:</span>
+                  <b>1.4s</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>v4.12 Crash Rate:</span>
+                  <b style="color: #E11D48;">0.34%</b>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // ========================================================
+      // TAB 4: CATEGORIES
+      // ========================================================
+      function renderTab4Categories(f, m) {
+        const catData = [
+          { name: 'Dining', bookings: 21800, gov: '₹9.8 Cr', conv: '5.4%', canc: '3.8%', rating: 4.72, change: '+16%' },
+          { name: 'Movies', bookings: 15200, gov: '₹4.2 Cr', conv: '6.8%', canc: '2.1%', rating: 4.65, change: '+12%' },
+          { name: 'Live events', bookings: 5400, gov: '₹3.8 Cr', conv: '3.2%', canc: '6.4%', rating: 4.78, change: '+24%' },
+          { name: 'Sports and turfs', bookings: 3900, gov: '₹1.1 Cr', conv: '4.6%', canc: '5.2%', rating: 4.60, change: '+8%' },
+          { name: 'Activities', bookings: 1950, gov: '₹0.5 Cr', conv: '3.9%', canc: '4.5%', rating: 4.58, change: '+5%' },
+        ];
+
+        return `
+          <!-- Category Scorecard Table -->
+          <div class="td-card" style="padding: 16px 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <div>
+                <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #1B1530;">Category Scorecard</h3>
+                <span style="font-size: 13px; color: #5F567A;">Click table headers to sort performance metrics</span>
+              </div>
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; font-size: 14.5px; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 1.5px solid #E7DEFA; color: #5F567A; font-size: 13px;">
+                  <th style="padding: 8px 4px; cursor: pointer;" onclick="sortCategoryTable('name')">Category ↕</th>
+                  <th style="padding: 8px 4px; cursor: pointer;" onclick="sortCategoryTable('bookings')">Bookings ↕</th>
+                  <th style="padding: 8px 4px; cursor: pointer;" onclick="sortCategoryTable('gov')">Gross Order Value (GOV) ↕</th>
+                  <th style="padding: 8px 4px; cursor: pointer;" onclick="sortCategoryTable('conv')">Conversion ↕</th>
+                  <th style="padding: 8px 4px; cursor: pointer;" onclick="sortCategoryTable('canc')">Cancellation ↕</th>
+                  <th style="padding: 8px 4px; cursor: pointer;" onclick="sortCategoryTable('rating')">Rating ↕</th>
+                  <th style="padding: 8px 4px;">Change vs Prev</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${catData.map(c => `
+                  <tr style="border-bottom: 1px solid #F0EBFC;">
+                    <td style="padding: 10px 4px; font-weight: 700; color: #6830F9;">${c.name}</td>
+                    <td style="padding: 10px 4px; font-weight: 700;">${c.bookings.toLocaleString('en-IN')}</td>
+                    <td style="padding: 10px 4px;">${c.gov}</td>
+                    <td style="padding: 10px 4px; color: #0E9F6E; font-weight: 700;">${c.conv}</td>
+                    <td style="padding: 10px 4px; color: ${parseFloat(c.canc) > 5 ? '#E11D48' : '#1B1530'};">${c.canc}</td>
+                    <td style="padding: 10px 4px; font-weight: 700; color: #D97706;">${c.rating} ★</td>
+                    <td style="padding: 10px 4px;"><span class="td-badge-up">▲ ${c.change}</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Identical Section per Category -->
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+            <!-- Dining -->
+            <div class="td-card" style="padding: 14px;">
+              <span style="font-size: 15px; font-weight: 800; color: #6830F9;">🍽️ Dining</span>
+              <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 13.5px;">
+                <div>Table bookings: <b>18.4K</b></div>
+                <div>Covers / booking: <b>2.9 pax</b></div>
+                <div>No-show rate: <b style="color: #0E9F6E;">2.8%</b></div>
+                <div>Offer usage: <b>42%</b></div>
+                <div>Pay-at-restaurant: <b>38%</b></div>
+              </div>
+            </div>
+
+            <!-- Movies -->
+            <div class="td-card" style="padding: 14px;">
+              <span style="font-size: 15px; font-weight: 800; color: #3B82F6;">🎬 Movies</span>
+              <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 13.5px;">
+                <div>Tickets sold: <b>48.6K</b></div>
+                <div>Seats / booking: <b>2.4</b></div>
+                <div>Listed occupancy: <b>68%</b></div>
+                <div>F&amp;B add-on rate: <b>31%</b></div>
+                <div>Booked &lt;2h to show: <b style="color: #6830F9;">44%</b></div>
+              </div>
+            </div>
+
+            <!-- Live Events -->
+            <div class="td-card" style="padding: 14px;">
+              <span style="font-size: 15px; font-weight: 800; color: #EC4899;">🎤 Live Events</span>
+              <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 13.5px;">
+                <div>Tickets / event: <b>410</b></div>
+                <div>Sell-out speed: <b>14h avg</b></div>
+                <div>Early bird share: <b>35%</b></div>
+                <div>Last 48h rush: <b style="color: #D97706;">48%</b></div>
+                <div>Repeat attendees: <b>28%</b></div>
+              </div>
+            </div>
+
+            <!-- Sports & Turfs -->
+            <div class="td-card" style="padding: 14px;">
+              <span style="font-size: 15px; font-weight: 800; color: #10B981;">⚽ Sports &amp; Turfs</span>
+              <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 13.5px;">
+                <div>Slot utilisation: <b>62%</b></div>
+                <div>Peak fill (7-10 PM): <b style="color: #0E9F6E;">88%</b></div>
+                <div>Off-peak fill: <b>34%</b></div>
+                <div>Repeat team cadence: <b style="color: #6830F9;">54%</b></div>
+                <div>Weekend share: <b>72%</b></div>
+              </div>
+            </div>
+
+            <!-- Activities -->
+            <div class="td-card" style="padding: 14px;">
+              <span style="font-size: 15px; font-weight: 800; color: #F59E0B;">🎯 Activities</span>
+              <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 13.5px;">
+                <div>Bookings: <b>1.95K</b></div>
+                <div>Avg rating: <b>4.58 ★</b></div>
+                <div>Cancellation rate: <b>4.5%</b></div>
+                <div>Weekend share: <b>78%</b></div>
+                <div>Lead time: <b>1.8 days</b></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cross-Category Bundle & Seasonality Strip -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <!-- Cross-Category Synergy -->
+            <div class="td-card" style="padding: 16px;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #1B1530;">Cross-Category Behaviour</h4>
+              <p style="margin: 0 0 8px; font-size: 14px; color: #5F567A;"><b>24.8% of active bookers</b> book 2 or more verticals every month.</p>
+              <div style="display: flex; flex-direction: column; gap: 6px; font-size: 14px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>🎬 Movie + 🍽️ Dinner:</span>
+                  <b style="color: #6830F9;">58% of cross-bookers</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>⚽ Turf Match + 🍽️ Dinner / Drinks:</span>
+                  <b>22%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>🎤 Live Event + 🍽️ Late Night Dinner:</span>
+                  <b>14%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>🎯 Activity + ☕ Cafe:</span>
+                  <b>6%</b>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seasonality Strip -->
+            <div class="td-card" style="padding: 16px;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #1B1530;">Seasonality &amp; External Drivers</h4>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span class="td-badge-up" style="font-size: 12px;">🏏 IPL Matchdays</span>
+                  <span>+38% surge in sports bars &amp; late-night dining slots</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span class="td-badge-up" style="font-size: 12px;">🎉 Long Weekends</span>
+                  <span>+45% surge in live concerts &amp; experiential dining</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span class="td-badge-down" style="font-size: 12px;">📚 Exam Periods</span>
+                  <span>-18% dip in cinema ticket velocity among 18–24 cohort</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span class="td-badge-warn" style="font-size: 12px;">🌧️ Monsoons</span>
+                  <span>-22% dip in outdoor turfs; mall activities surge +34%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // ========================================================
+      // TAB 5: RETENTION AND LOYALTY
+      // ========================================================
+      function renderTab5Retention(f, m) {
+        return `
+          <!-- Top Retention Metrics -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">30-Day Retention</span>
+              <div class="td-kpi-val" style="color: #6830F9; margin: 4px 0 2px;">38.6%</div>
+              <span class="td-badge-up">▲ +2.1 pts vs prev</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">90-Day Retention</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">51.2%</div>
+              <span class="td-badge-up">▲ +3.4 pts vs prev</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Bookings / User / Month</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">1.84</div>
+              <span style="font-size: 13px; color: #5F567A;">Cadence: 16.4 days apart</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Repeat Share of GOV</span>
+              <div class="td-kpi-val" style="color: #0E9F6E; margin: 4px 0 2px;">64.2%</div>
+              <span style="font-size: 13px; color: #5F567A;">Core repeat engine</span>
+            </div>
+          </div>
+
+          <!-- Cohort Retention Triangle Table -->
+          <div class="td-card" style="padding: 16px 20px;">
+            <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: #1B1530;">Cohort Retention Triangle (First Booking Month)</h3>
+            <span style="font-size: 13px; color: #5F567A; margin-bottom: 12px;">Percentage of users returning to book again in subsequent months</span>
+
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: center;">
+              <thead>
+                <tr style="border-bottom: 1.5px solid #E7DEFA; color: #5F567A; font-size: 13px;">
+                  <th style="padding: 8px 6px; text-align: left;">Cohort</th>
+                  <th style="padding: 8px 6px;">New Users</th>
+                  <th style="padding: 8px 6px;">Month 0</th>
+                  <th style="padding: 8px 6px;">Month 1</th>
+                  <th style="padding: 8px 6px;">Month 2</th>
+                  <th style="padding: 8px 6px;">Month 3</th>
+                  <th style="padding: 8px 6px;">Month 4</th>
+                  <th style="padding: 8px 6px;">Month 5</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #F0EBFC;">
+                  <td style="padding: 8px 6px; text-align: left; font-weight: 700;">May 2026</td>
+                  <td style="padding: 8px 6px;">14,200</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.45); font-weight: 700;">100%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.32);">42%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.26);">36%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.22);">32%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.18);">29%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.16);">28%</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #F0EBFC;">
+                  <td style="padding: 8px 6px; text-align: left; font-weight: 700;">Jun 2026</td>
+                  <td style="padding: 8px 6px;">15,800</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.45); font-weight: 700;">100%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.34);">44%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.28);">38%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.24);">34%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.20);">31%</td>
+                  <td style="padding: 8px 6px; color: #8E85A8;">—</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #F0EBFC;">
+                  <td style="padding: 8px 6px; text-align: left; font-weight: 700;">Jul 2026</td>
+                  <td style="padding: 8px 6px;">17,400</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.45); font-weight: 700;">100%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.35);">45%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.30);">39%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.25);">35%</td>
+                  <td style="padding: 8px 6px; color: #8E85A8;">—</td>
+                  <td style="padding: 8px 6px; color: #8E85A8;">—</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #F0EBFC;">
+                  <td style="padding: 8px 6px; text-align: left; font-weight: 700;">Aug 2026</td>
+                  <td style="padding: 8px 6px;">18,900</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.45); font-weight: 700;">100%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.37);">47%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.32);">41%</td>
+                  <td style="padding: 8px 6px; color: #8E85A8;">—</td>
+                  <td style="padding: 8px 6px; color: #8E85A8;">—</td>
+                  <td style="padding: 8px 6px; color: #8E85A8;">—</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 6px; text-align: left; font-weight: 700;">Sep 2026</td>
+                  <td style="padding: 8px 6px;">20,600</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.45); font-weight: 700;">100%</td>
+                  <td style="padding: 8px 6px; background: rgba(14, 159, 110, 0.38);">48%</td>
+                  <td style="padding: 8px 6px; color: #8E85A8;">—</td>
+                  <td style="padding: 8px 6px; color: #8E85A8;">—</td>
+                  <td style="padding: 8px 6px; color: #8E85A8;">—</td>
+                  <td style="padding: 8px 6px; color: #8E85A8;">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Bottom Row: First Category Retention & Single Booking Churn -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="td-card" style="padding: 16px;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #1B1530;">90-Day Retention by First Category Booked</h4>
+              <div style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; margin-top: 6px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>⚽ Sports &amp; Turfs first:</span>
+                  <b style="color: #0E9F6E;">49% (Strongest recurring cadence)</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>🍽️ Dining first:</span>
+                  <b style="color: #6830F9;">46%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>🎬 Movies first:</span>
+                  <b>38%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>🎤 Live Events first:</span>
+                  <b>34%</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>🎯 Activities first:</span>
+                  <b style="color: #E11D48;">26%</b>
+                </div>
+              </div>
+            </div>
+
+            <div class="td-card" style="padding: 16px;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #1B1530;">Single-Booking Churn &amp; Membership Lift</h4>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Users who book only once:</span>
+                  <b style="color: #E11D48;">42.8% (Down from 49.1%)</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Gold / Prime Member Multiplier:</span>
+                  <b style="color: #6830F9;">2.8x higher bookings / month</b>
+                </div>
+                <div style="font-size: 13.5px; color: #5F567A; line-height: 1.45; border-top: 1px solid #F0EBFC; padding-top: 6px;">
+                  💡 Members generate <b>₹4,820 monthly GOV</b> vs ₹1,640 for non-members. 3x higher likelihood to try multiple verticals.
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // ========================================================
+      // TAB 6: SUPPLY AND VENUE HEALTH
+      // ========================================================
+      function renderTab6Supply(f, m) {
+        return `
+          <!-- Supply KPI Tiles -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Active Partner Venues</span>
+              <div class="td-kpi-val" style="color: #6830F9; margin: 4px 0 2px;">3,420</div>
+              <span class="td-badge-up">▲ +140 onboarded</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Slot Fill Rate (Peak)</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">86.8%</div>
+              <span style="font-size: 13px; color: #5F567A;">Overall: 64.2%</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Venue Auto-Confirm Time</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">42 secs</div>
+              <span class="td-badge-up" style="color: #0E9F6E; background: #E6FBF2;">88% Instant Confirm</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Merchant Payout SLA</span>
+              <div class="td-kpi-val" style="color: #0E9F6E; margin: 4px 0 2px;">99.4%</div>
+              <span style="font-size: 13px; color: #5F567A;">T+1 Business Day</span>
+            </div>
+          </div>
+
+          <!-- Neighbourhood Density Map & Top/Bottom League Table -->
+          <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 14px;">
+            <!-- Tile Grid Map of Neighbourhoods -->
+            <div class="td-card" style="padding: 16px 20px;">
+              <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: #1B1530;">Micro-Market Demand vs Supply Grid</h3>
+              <span style="font-size: 13px; color: #5F567A; margin-bottom: 12px;">Booking velocity relative to venue inventory density</span>
+
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 8px; padding: 10px;">
+                  <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 14px;">
+                    <span>Koramangala</span>
+                    <span style="color: #E11D48;">🔥 Supply Desert</span>
+                  </div>
+                  <div style="font-size: 12.5px; color: #5F567A; margin-top: 3px;">Demand: 3.2x over partner tables</div>
+                </div>
+                <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 8px; padding: 10px;">
+                  <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 14px;">
+                    <span>Indiranagar</span>
+                    <span style="color: #0E9F6E;">Balanced</span>
+                  </div>
+                  <div style="font-size: 12.5px; color: #5F567A; margin-top: 3px;">140 active venues · 88% fill</div>
+                </div>
+                <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 8px; padding: 10px;">
+                  <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 14px;">
+                    <span>Bandra West</span>
+                    <span style="color: #0E9F6E;">Balanced</span>
+                  </div>
+                  <div style="font-size: 12.5px; color: #5F567A; margin-top: 3px;">118 active venues · 92% fill</div>
+                </div>
+                <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 8px; padding: 10px;">
+                  <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 14px;">
+                    <span>BKC Mumbai</span>
+                    <span style="color: #E11D48;">🔥 High Demand</span>
+                  </div>
+                  <div style="font-size: 12.5px; color: #5F567A; margin-top: 3px;">Demand: 2.8x over tables</div>
+                </div>
+                <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 8px; padding: 10px;">
+                  <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 14px;">
+                    <span>Gurugram CyberHub</span>
+                    <span style="color: #0E9F6E;">Balanced</span>
+                  </div>
+                  <div style="font-size: 12.5px; color: #5F567A; margin-top: 3px;">95 venues · High evening spend</div>
+                </div>
+                <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 8px; padding: 10px;">
+                  <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 14px;">
+                    <span>Connaught Place</span>
+                    <span style="color: #6830F9;">Ample Slots</span>
+                  </div>
+                  <div style="font-size: 12.5px; color: #5F567A; margin-top: 3px;">78 active venues · 64% fill</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- League Table: Top vs Bottom Venues -->
+            <div class="td-card" style="padding: 16px 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #1B1530;">Venue League Table</h3>
+                <div style="display: flex; gap: 4px;">
+                  <button class="td-btn ${dashVenueView === 'top' ? 'primary' : ''}" style="padding: 3px 8px; font-size: 12px;" onclick="toggleVenueView('top')">Top 20</button>
+                  <button class="td-btn ${dashVenueView === 'bottom' ? 'primary' : ''}" style="padding: 3px 8px; font-size: 12px;" onclick="toggleVenueView('bottom')">Bottom 20 (At Risk)</button>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13.5px;">
+                ${dashVenueView === 'top' ? `
+                  <div style="display: flex; justify-content: space-between; padding-bottom: 5px; border-bottom: 1px solid #F0EBFC;">
+                    <div><b>1. Toit Brewpub, Indiranagar</b> <span style="font-size: 12px; color: #5F567A;">(Dining)</span></div>
+                    <div><b style="color: #0E9F6E;">94% fill</b> · 0.8% canc · 4.88 ★</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding-bottom: 5px; border-bottom: 1px solid #F0EBFC;">
+                    <div><b>2. PVR Director's Cut, Ambience</b> <span style="font-size: 12px; color: #5F567A;">(Movies)</span></div>
+                    <div><b style="color: #0E9F6E;">91% fill</b> · 0.6% canc · 4.85 ★</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding-bottom: 5px; border-bottom: 1px solid #F0EBFC;">
+                    <div><b>3. Doolally Taproom, Bandra</b> <span style="font-size: 12px; color: #5F567A;">(Dining)</span></div>
+                    <div><b style="color: #0E9F6E;">89% fill</b> · 1.1% canc · 4.81 ★</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between;">
+                    <div><b>4. Play Arena, Sarjapur</b> <span style="font-size: 12px; color: #5F567A;">(Sports)</span></div>
+                    <div><b style="color: #0E9F6E;">88% fill</b> · 1.4% canc · 4.79 ★</div>
+                  </div>
+                ` : `
+                  <div style="display: flex; justify-content: space-between; padding-bottom: 5px; border-bottom: 1px solid #F0EBFC;">
+                    <div><b>Cafe Soho, CyberHub</b> <span style="font-size: 12px; color: #E11D48;">(Phone double-booking)</span></div>
+                    <div><b style="color: #E11D48;">9.4% canc</b> · 38% fill · 3.82 ★</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding-bottom: 5px; border-bottom: 1px solid #F0EBFC;">
+                    <div><b>The Pitch Arena, Whitefield</b> <span style="font-size: 12px; color: #E11D48;">(Lighting disputes)</span></div>
+                    <div><b style="color: #E11D48;">8.8% canc</b> · 42% fill · 3.90 ★</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding-bottom: 5px; border-bottom: 1px solid #F0EBFC;">
+                    <div><b>Sky Rooftop Bar, Jubilee Hills</b> <span style="font-size: 12px; color: #D97706;">(Walk-in clash)</span></div>
+                    <div><b style="color: #E11D48;">8.2% canc</b> · 56% fill · 4.02 ★</div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between;">
+                    <div><b>Bistro Boulevard, Pune</b> <span style="font-size: 12px; color: #D97706;">(Manual delay)</span></div>
+                    <div><b style="color: #E11D48;">7.9% canc</b> · 48% fill · 4.10 ★</div>
+                  </div>
+                `}
+              </div>
+            </div>
+          </div>
+
+          <!-- Insight Cards -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="td-card" style="border-left: 4px solid #E11D48;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #E11D48;">High-Intent Supply Deserts</h4>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #1B1530;">
+                Whitefield (Bengaluru) and Gachibowli (Hyderabad) experience <b>3.2x more evening dining searches</b> than available bookable partner tables.
+                Ops team has initiated priority onboarding for 30 new restaurant partners in these clusters.
+              </p>
+            </div>
+            <div class="td-card" style="border-left: 4px solid #D97706;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #D97706;">Venues Causing Excessive Cancellations</h4>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #1B1530;">
+                8 partner venues in Gurugram and Whitefield accounted for <b>34% of all supply cancellations</b> due to manual staff accepting walk-ins while app slots were held.
+                Enforcing automated POS sync eliminated walk-in clashes for pilot restaurants.
+              </p>
+            </div>
+          </div>
+        `;
+      }
+
+      // ========================================================
+      // TAB 7: QUALITY, SUPPORT AND TRUST
+      // ========================================================
+      function renderTab7Quality(f, m) {
+        return `
+          <!-- Quality KPI Tiles -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Support Tickets / 1K Bookings</span>
+              <div class="td-kpi-val" style="color: #0E9F6E; margin: 4px 0 2px;">12.4</div>
+              <span class="td-badge-up" style="color: #0E9F6E; background: #E6FBF2;">▼ -2.1 tickets (Better)</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Time to First Reply</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">4.2 mins</div>
+              <span style="font-size: 13px; color: #5F567A;">Resolve: 28 mins avg</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Refund Rate (% of GOV)</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">3.8%</div>
+              <span style="font-size: 13px; color: #5F567A;">₹73.7 Lakh processed</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Fraud &amp; Abuse Flags</span>
+              <div class="td-kpi-val" style="color: #0E9F6E; margin: 4px 0 2px;">0.08%</div>
+              <span style="font-size: 13px; color: #5F567A;">Below 0.15% threshold</span>
+            </div>
+          </div>
+
+          <!-- Charts: Reason Breakdown & Rating Spread -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <!-- Ticket Volume by Reason -->
+            <div class="td-card" style="padding: 16px 20px;">
+              <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: #1B1530;">Support Volume by Reason</h3>
+              <span style="font-size: 13px; color: #5F567A; margin-bottom: 12px;">Categorisation across 598 incoming tickets this week</span>
+
+              <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 3px;">
+                    <span>Refund &amp; Payment Status</span>
+                    <span>42% (251 tickets)</span>
+                  </div>
+                  <div style="height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 42%; height: 100%; background: #6830F9;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 3px;">
+                    <span>Venue Walk-in / Table Allocation</span>
+                    <span>28% (167 tickets)</span>
+                  </div>
+                  <div style="height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 28%; height: 100%; background: #D97706;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 3px;">
+                    <span>Customer Cancellation Request</span>
+                    <span>18% (107 tickets)</span>
+                  </div>
+                  <div style="height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 18%; height: 100%; background: #3B82F6;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 3px;">
+                    <span>Wrong Details / Timing Clarification</span>
+                    <span>12% (73 tickets)</span>
+                  </div>
+                  <div style="height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 12%; height: 100%; background: #8E85A8;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rating Distribution -->
+            <div class="td-card" style="padding: 16px 20px;">
+              <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: #1B1530;">Experience Rating Spread (24.2K Reviews)</h3>
+              <span style="font-size: 13px; color: #5F567A; margin-bottom: 12px;">Customer post-visit satisfaction breakdown</span>
+
+              <div style="display: flex; flex-direction: column; gap: 7px; font-size: 14px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="width: 32px; font-weight: 700;">5 ★</span>
+                  <div style="flex: 1; height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 74%; height: 100%; background: #0E9F6E;"></div>
+                  </div>
+                  <span style="width: 48px; text-align: right; font-weight: 700;">74%</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="width: 32px; font-weight: 700;">4 ★</span>
+                  <div style="flex: 1; height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 16%; height: 100%; background: #10B981;"></div>
+                  </div>
+                  <span style="width: 48px; text-align: right; font-weight: 700;">16%</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="width: 32px; font-weight: 700;">3 ★</span>
+                  <div style="flex: 1; height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 5%; height: 100%; background: #F59E0B;"></div>
+                  </div>
+                  <span style="width: 48px; text-align: right; font-weight: 700;">5%</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="width: 32px; font-weight: 700;">2 ★</span>
+                  <div style="flex: 1; height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 3%; height: 100%; background: #EF4444;"></div>
+                  </div>
+                  <span style="width: 48px; text-align: right; font-weight: 700;">3%</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="width: 32px; font-weight: 700;">1 ★</span>
+                  <div style="flex: 1; height: 8px; background: #ECE6F8; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 2%; height: 100%; background: #B91C1C;"></div>
+                  </div>
+                  <span style="width: 48px; text-align: right; font-weight: 700;">2%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Complaint Themes -->
+          <div class="td-card" style="padding: 16px 20px;">
+            <h4 style="margin: 0 0 8px; font-size: 16px; font-weight: 800; color: #1B1530;">Top Complaint Themes This Week vs Last Week</h4>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; font-size: 13.5px;">
+              <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 8px; padding: 10px;">
+                <b style="color: #E11D48;">1. Table not ready on arrival</b>
+                <div style="margin-top: 3px; color: #5F567A;">34% of venue tickets · <span style="color: #E11D48;">▲ +4%</span></div>
+              </div>
+              <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 8px; padding: 10px;">
+                <b style="color: #0E9F6E;">2. Refund delay on card</b>
+                <div style="margin-top: 3px; color: #5F567A;">26% of tickets · <span style="color: #0E9F6E;">▼ -8% (UPI fast refund active)</span></div>
+              </div>
+              <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 8px; padding: 10px;">
+                <b style="color: #6830F9;">3. Cinema split seating</b>
+                <div style="margin-top: 3px; color: #5F567A;">18% of tickets · <span style="color: #0E9F6E;">▼ -2%</span></div>
+              </div>
+              <div style="background: #FAF8FF; border: 1px solid #E7DEFA; border-radius: 8px; padding: 10px;">
+                <b style="color: #5F567A;">4. Turf floodlight outage</b>
+                <div style="margin-top: 3px; color: #5F567A;">8% of tickets · Flat</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // ========================================================
+      // TAB 8: MONEY
+      // ========================================================
+      function renderTab8Money(f, m) {
+        const scale = m.totalScale;
+        const govVal = '₹' + (19.4 * scale).toFixed(scale < 0.2 ? 2 : 1) + ' Cr';
+        const revVal = '₹' + (2.91 * scale).toFixed(scale < 0.2 ? 2 : 1) + ' Cr';
+
+        return `
+          <!-- Financial KPI Tiles -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Gross Order Value (GOV)</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">${govVal}</div>
+              <span class="td-badge-up">▲ +12.6% vs prev</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Net Revenue</span>
+              <div class="td-kpi-val" style="color: #6830F9; margin: 4px 0 2px;">${revVal}</div>
+              <span class="td-badge-up">▲ +11.8% (15% take)</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Average Booking Value (ABV)</span>
+              <div class="td-kpi-val" style="margin: 4px 0 2px;">₹1,420</div>
+              <span style="font-size: 13px; color: #5F567A;">Dining: ₹2,150 · Movies: ₹820</span>
+            </div>
+            <div class="td-card">
+              <span style="font-size: 13.5px; font-weight: 700; color: #5F567A;">Contribution / Booking</span>
+              <div class="td-kpi-val" style="color: #0E9F6E; margin: 4px 0 2px;">₹128</div>
+              <span style="font-size: 13px; color: #5F567A;">Post-PG, discounts &amp; support</span>
+            </div>
+          </div>
+
+          <!-- Unit Economics & Category Margin Breakdown -->
+          <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px;">
+            <!-- Category Margin Breakdown -->
+            <div class="td-card" style="padding: 16px 20px;">
+              <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: #1B1530;">Vertical Profitability &amp; Take Rate</h3>
+              <span style="font-size: 13px; color: #5F567A; margin-bottom: 12px;">Net revenue contribution by category</span>
+
+              <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+                <thead>
+                  <tr style="border-bottom: 1.5px solid #E7DEFA; color: #5F567A; font-size: 13px;">
+                    <th style="padding: 8px 4px;">Vertical</th>
+                    <th style="padding: 8px 4px;">GOV</th>
+                    <th style="padding: 8px 4px;">Take Rate</th>
+                    <th style="padding: 8px 4px;">Net Revenue</th>
+                    <th style="padding: 8px 4px;">Unit Profit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #F0EBFC;">
+                    <td style="padding: 8px 4px; font-weight: 700; color: #EC4899;">Live Events</td>
+                    <td style="padding: 8px 4px;">₹3.8 Cr</td>
+                    <td style="padding: 8px 4px; font-weight: 700; color: #0E9F6E;">18.0%</td>
+                    <td style="padding: 8px 4px; font-weight: 700;">₹68.4 L</td>
+                    <td style="padding: 8px 4px; color: #0E9F6E; font-weight: 800;">₹380</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #F0EBFC;">
+                    <td style="padding: 8px 4px; font-weight: 700; color: #6830F9;">Dining</td>
+                    <td style="padding: 8px 4px;">₹9.8 Cr</td>
+                    <td style="padding: 8px 4px; font-weight: 700;">16.5%</td>
+                    <td style="padding: 8px 4px; font-weight: 700;">₹1.62 Cr</td>
+                    <td style="padding: 8px 4px; color: #0E9F6E; font-weight: 800;">₹245</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #F0EBFC;">
+                    <td style="padding: 8px 4px; font-weight: 700; color: #10B981;">Sports &amp; Turfs</td>
+                    <td style="padding: 8px 4px;">₹1.1 Cr</td>
+                    <td style="padding: 8px 4px;">14.5%</td>
+                    <td style="padding: 8px 4px;">₹16.0 L</td>
+                    <td style="padding: 8px 4px;">₹142</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #F0EBFC;">
+                    <td style="padding: 8px 4px; font-weight: 700; color: #F59E0B;">Activities</td>
+                    <td style="padding: 8px 4px;">₹0.5 Cr</td>
+                    <td style="padding: 8px 4px;">16.0%</td>
+                    <td style="padding: 8px 4px;">₹8.0 L</td>
+                    <td style="padding: 8px 4px;">₹110</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 8px 4px; font-weight: 700; color: #3B82F6;">Movies</td>
+                    <td style="padding: 8px 4px;">₹4.2 Cr</td>
+                    <td style="padding: 8px 4px; color: #D97706;">10.2%</td>
+                    <td style="padding: 8px 4px;">₹42.8 L</td>
+                    <td style="padding: 8px 4px; color: #5F567A;">₹48</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Cost Leakage & Discount Health -->
+            <div class="td-card" style="padding: 16px 20px;">
+              <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: #1B1530;">Cost Leakages &amp; Discounting</h3>
+              <span style="font-size: 13px; color: #5F567A; margin-bottom: 12px;">Operational fees as percentage of GOV</span>
+
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14.5px;">
+                <div style="display: flex; justify-content: space-between; padding-bottom: 5px; border-bottom: 1px solid #F0EBFC;">
+                  <span>Discount &amp; promo cost:</span>
+                  <b style="color: #0E9F6E;">4.8% (Healthy &lt;6%)</b>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-bottom: 5px; border-bottom: 1px solid #F0EBFC;">
+                  <span>Payment gateway cost (PG):</span>
+                  <b>1.2% (₹23.2 Lakh)</b>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-bottom: 5px; border-bottom: 1px solid #F0EBFC;">
+                  <span>Refunds &amp; chargebacks:</span>
+                  <b>3.8% (₹73.7 Lakh)</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Payment failure rate:</span>
+                  <b style="color: #0E9F6E;">2.4% blended</b>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Insight Cards -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="td-card" style="border-left: 4px solid #0E9F6E;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #0E9F6E;">Which categories and cities make money?</h4>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #1B1530;">
+                <b>Live Events (₹380 unit contribution)</b> and <b>Dining in Mumbai/Delhi (₹245 unit contribution)</b> generate the highest margins.
+                Movies operate at high volume with lower take rate (10.2%) but serve as an efficient customer acquisition driver for dining cross-sell.
+              </p>
+            </div>
+            <div class="td-card" style="border-left: 4px solid #D97706;">
+              <h4 style="margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #D97706;">Discount Dependence Check</h4>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #1B1530;">
+                Chennai and Kolkata rely heavily on promotion codes (7.2% of GOV), whereas Delhi NCR and Mumbai maintain <b>&lt;3.8% discount share</b>
+                with superior organic re-booking frequency.
+              </p>
+            </div>
+          </div>
+        `;
+      }
 
       window.updateDashData = function () {
-        const selCity = document.getElementById('dashCityFilter');
-        if (selCity) activeCity = selCity.value;
-
-        const cityMap = DASH_DATA[activeCity] || DASH_DATA['all'];
-        const data = cityMap[activeTime] || cityMap['daily'];
-
-        document.getElementById('kpiGmv').textContent = data.gmv;
-        document.getElementById('kpiCgo').textContent = data.cgo;
-        document.getElementById('kpiSplit').textContent = data.split;
-        document.getElementById('kpiNps').textContent = data.nps;
-        document.getElementById('chartTimeSpanLabel').textContent = data.timeSpan;
-
-        // SVG Line & Area
-        const area = document.getElementById('dashChartArea');
-        const line = document.getElementById('dashChartLine');
-        if (area && line) {
-          area.setAttribute('d', data.pathArea);
-          line.setAttribute('d', data.pathLine);
-        }
-
-        // Callout Badges
-        const dipBadge = document.getElementById('dipBadge');
-        const peakBadge = document.getElementById('peakBadge');
-        const dipLabel = document.getElementById('dipLabel');
-        const peakLabel = document.getElementById('peakLabel');
-
-        if (dipBadge && peakBadge && dipLabel && peakLabel) {
-          dipBadge.style.left = data.dipPos.left;
-          dipBadge.style.top = data.dipPos.top;
-          dipLabel.textContent = data.dipLabel;
-
-          peakBadge.style.right = data.peakPos.right;
-          peakBadge.style.top = data.peakPos.top;
-          peakLabel.textContent = data.peakLabel;
-        }
-
-        // SVG Points
-        const dipPt = document.getElementById('chartDipPt');
-        const peakPt = document.getElementById('chartPeakPt');
-        if (dipPt && peakPt && data.dipPt && data.peakPt) {
-          dipPt.setAttribute('cx', data.dipPt.cx);
-          dipPt.setAttribute('cy', data.dipPt.cy);
-          peakPt.setAttribute('cx', data.peakPt.cx);
-          peakPt.setAttribute('cy', data.peakPt.cy);
-        }
-
-        // Render Auto-Derived Insights
-        const list = document.getElementById('derivedInsightsList');
-        if (list && data.insights) {
-          list.innerHTML = data.insights.map(item => `
-        <div style="display:flex; align-items:flex-start; gap:6px; font-size:10.5px; line-height:1.35;">
-          <span class="mini-status-chip ${item.cls}" style="flex-shrink:0; margin-top:1px;">${item.tag}</span>
-          <span style="color:var(--ink);">${item.text}</span>
-        </div>
-      `).join('');
-        }
-
-        // Update timestamp
-        const ts = document.getElementById('insightsTimestamp');
-        if (ts) {
-          const now = new Date();
-          ts.textContent = `Auto-Updated ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
-        }
+        // No-op for image-based PM Dashboard
       };
 
       // Cursor Parallax for Doodle Eyes
